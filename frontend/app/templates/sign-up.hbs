@@ -1,0 +1,66 @@
+<div class="backgroundColor">
+  <div class="loginContainer container">
+    <div class="row login">
+      <div class="col-md-5 ">
+        <div class="labelLogin">Create account</div>
+      </div>
+      <div class="createAccountLabel col-md-7">
+        <div class="createAccountLabel">{{#link-to 'login' id="createAccountLink"}}Login{{/link-to}}</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="row login ">
+        <div class="col-md-12">
+          {{input class="form-control loginInput" placeholder='First Name' value=model.user.firstName}}
+        </div>
+      </div>
+      <div class="row login ">
+        <div class="col-md-12">
+          {{input class="form-control loginInput" placeholder='Last Name' value=model.user.lastName}}
+        </div>
+      </div>
+      <div class="row login ">
+        <div class="col-md-12">
+          {{input class="form-control loginInput" placeholder='Email' value=model.user.email}}
+        </div>
+      </div>
+      <div class="row login ">
+        <div class="col-md-12">
+          {{input class="form-control loginInput" placeholder='Phone Number' value=model.user.phoneNumber}}
+        </div>
+      </div>
+      <div class="row login">
+        <div class="col-md-6" id='selectColumnRight'>
+          <select class="form-control loginInput" onchange={{action "listCitiesForCountry" value="target.value" }}>
+            {{#each model.locations as |location|}}
+            <option value="{{location.country}}">{{location.country}}</option>
+            {{/each}}
+          </select>
+        </div>
+        <div class="col-md-6" id='selectColumnLeft'>
+          <select class="form-control loginInput" onchange={{action "setLocationId" value="target.value" }}>
+            {{#each model.cities as |location|}}
+            <option value="{{location.id}}">{{location.city}}</option>
+            {{/each}}
+          </select>
+        </div>
+
+      </div>
+      <div class="row login ">
+        <div class="col-md-12">
+          {{input type="password" class="form-control loginInput" placeholder='Password' value=model.user.password}}
+        </div>
+      </div>
+      <div class="row login ">
+        <div class="col-md-12">
+          {{input type="password" class="form-control loginInput" placeholder='Confirm password' value=model.user.confirmedPassword}}
+        </div>
+      </div>
+      <div class="row login ">
+        <div class="col-md-12">
+          <button type="submit" class="form-control loginButton btn" {{action 'createAccount'}}>Create Account</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import javax.swing.text.html.Option;
 import javax.validation.Valid;
+import java.util.Optional;
 
 @Service
 public class UserService extends BaseService<User, UserRepository> {
@@ -31,8 +33,8 @@ public class UserService extends BaseService<User, UserRepository> {
     public User register(@Valid @RequestBody UserRegistrationDTO user) {
         String passwordHash = hashPassword(user.getPassword());
         // Registration of new users is only possible for normal users
-        Location location = locationService.findLocationByCountryAndCity(user.getCountry(),user.getCity());
-        User registeredUser = new User(user.getFirstName(), user.getLastName(), user.getEmail(), user.getPhoneNumber(), passwordHash, User.RoleName.USER, location);
+        Optional<Location> location = locationService.getById(user.getLocationId());
+        User registeredUser = new User(user.getFirstName(), user.getLastName(), user.getEmail(), user.getPhoneNumber(), passwordHash, User.RoleName.USER, location.get());
         repo.save(registeredUser);
         return registeredUser;
     }

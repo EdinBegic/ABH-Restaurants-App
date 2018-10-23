@@ -31,6 +31,7 @@ public class DbLoader implements CommandLineRunner {
 
     private void addLocations() {
         locationService.save(new Location("Bosnia", "Sarajevo"));
+        locationService.save(new Location("Bosnia", "Tuzla"));
         locationService.save(new Location("Serbia", "Belgrade"));
         locationService.save(new Location("Croatia", "Zagreb"));
         locationService.save(new Location("Germany", "Berlin"));

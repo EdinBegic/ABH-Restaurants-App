@@ -12,8 +12,7 @@ public class UserRegistrationDTO {
     private String phoneNumber;
     private String password;
     private String confirmedPassword;
-    private String country;
-    private String city;
+    private Long locationId;
 
     @NotBlank(message = "First name cannot be null or whitespace")
     @Size(max = 50, message = "First name cannot be longer than 50 characters")
@@ -77,13 +76,12 @@ public class UserRegistrationDTO {
         this.confirmedPassword = confirmedPassword;
     }
 
-    public String getCountry() { return country; }
 
-    public void setCountry(String country) { this.country = country; }
+    public Long getLocationId() {
+        return locationId;
+    }
 
-    public String getCity() { return city; }
-
-    public void setCity(String city) { this.city = city; }
-
-
+    public void setLocationId(Long locationId) {
+        this.locationId = locationId;
+    }
 }
