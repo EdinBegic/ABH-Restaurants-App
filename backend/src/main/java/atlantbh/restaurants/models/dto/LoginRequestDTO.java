@@ -1,8 +1,8 @@
-package atlantbh.restaurants.controllers.dto;
+package atlantbh.restaurants.models.dto;
 
 public class LoginRequestDTO {
-    String email;
-    String password;
+    private String email;
+    private String password;
 
     public String getEmail() {
         return email;

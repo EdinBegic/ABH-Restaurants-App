@@ -1,4 +1,4 @@
-package atlantbh.restaurants.controllers.dto;
+package atlantbh.restaurants.models.dto;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;

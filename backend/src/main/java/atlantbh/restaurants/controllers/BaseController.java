@@ -35,8 +35,9 @@ public abstract class BaseController<M extends BaseModel, S extends BaseService<
 
     public ResponseEntity get(@PathVariable("id") Long id) {
         Optional<M> modelInstance = service.getById(id);
-        if (!modelInstance.isPresent())
+        if (!modelInstance.isPresent()) {
             return ResponseEntity.notFound().build();
+        }
         return ResponseEntity.ok(modelInstance);
     }
 

@@ -10,35 +10,35 @@ import java.util.Optional;
 public class BaseService<M extends BaseModel, R extends JpaRepository<M,Long>> {
 
     @Autowired
-    protected R repo;
+    protected R repository;
 
     public Optional<M> getById(Long id) {
-        return repo.findById(id);
+        return repository.findById(id);
     }
 
     public void save(M m) {
-        repo.save(m);
+        repository.save(m);
     }
 
     public Collection<M> all() {
-        return repo.findAll();
+        return repository.findAll();
     }
 
     public Long count() {
-        return repo.count();
+        return repository.count();
     }
 
     public void delete(M m) {
-        repo.delete(m);
+        repository.delete(m);
     }
 
-    public void deleteById(Long id) { repo.deleteById(id) ;}
+    public void deleteById(Long id) { repository.deleteById(id) ;}
 
     public void deleteAll() {
-        repo.deleteAll();
+        repository.deleteAll();
     }
 
     public boolean exists(Long id) {
-        return repo.existsById(id);
+        return repository.existsById(id);
     }
 }

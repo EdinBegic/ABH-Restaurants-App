@@ -6,6 +6,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+
 @Entity
 @Table(name = "`user`") // user is a reserved keyword in PostgreSQL. Hibernate specific solution is to use backticks
 public class User extends BaseModel {
@@ -15,10 +16,10 @@ public class User extends BaseModel {
     private String email;
     private String phoneNumber;
     private String passwordHash;
-    private RoleName roleName;
+    private Role roleName;
     private Location location;
 
-    public User(String firstName, String lastName, String email, String phoneNumber, String passwordHash, RoleName roleName, Location location) {
+    public User(String firstName, String lastName, String email, String phoneNumber, String passwordHash, Role roleName, Location location) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -88,11 +89,11 @@ public class User extends BaseModel {
     }
 
     @Column(name = "role_name")
-    public RoleName getRoleName() {
+    public Role getRoleName() {
         return roleName;
     }
 
-    public void setRoleName(RoleName roleName) {
+    public void setRoleName(Role roleName) {
         this.roleName = roleName;
     }
 
@@ -105,7 +106,5 @@ public class User extends BaseModel {
     public void setLocation(Location location) {
         this.location = location;
     }
-
-    public enum RoleName {USER, ADMIN}
 
 }

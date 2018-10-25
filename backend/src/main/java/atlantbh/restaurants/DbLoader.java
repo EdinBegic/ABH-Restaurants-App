@@ -24,9 +24,9 @@ public class DbLoader implements CommandLineRunner {
 
     private void addUsers() {
         Location loc = locationService.getById((long) 2).get();
-        userService.save(new User("Admin", "Admin", "admin@abh.com", "123-456-789", "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918", User.RoleName.ADMIN, loc));
+        userService.save(new User("Admin", "Admin", "admin@abh.com", "123-456-789", "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918", Role.ADMIN, loc));
         loc = locationService.getById((long) 3).get();
-        userService.save(new User("Edin", "Begic", "edinbegic@abh.com", "061-225-883", "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918", User.RoleName.USER, loc));
+        userService.save(new User("Edin", "Begic", "edinbegic@abh.com", "061-225-883", "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918", Role.USER, loc));
     }
 
     private void addLocations() {

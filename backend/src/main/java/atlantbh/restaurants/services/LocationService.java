@@ -10,14 +10,14 @@ import java.util.List;
 public class LocationService extends BaseService<Location, LocationRepository> {
 
     public Location findLocationByCountryAndCity(String country, String city) {
-        return repo.findByCountryAndCity(country,city);
+        return repository.findByCountryAndCity(country,city);
     }
     public List<Location> findAllCitiesForCountry(String country) {
-        List<Location> list = repo.findAllCitiesByCountry(country);
+        List<Location> list = repository.findAllCitiesByCountry(country);
         return list;
     }
     public List<Location> findAllCountires() {
-        List<Location> list = repo.findAllCountires();
+        List<Location> list = repository.findAllCountires();
         return list;
     }
 

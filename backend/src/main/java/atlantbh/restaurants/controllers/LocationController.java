@@ -16,8 +16,5 @@ public class LocationController extends BaseController<Location, LocationService
     public ResponseEntity allCountries() {
         return ResponseEntity.ok(service.findAllCountires());
     }
-  //  public ResponseEntity allCities() {
-  //      return ResponseEntity.ok(service.findAllCities());
-  //  }
 
 }

@@ -1,8 +1,6 @@
 package atlantbh.restaurants.controllers;
 
-import atlantbh.restaurants.controllers.dto.UserRegistrationDTO;
-import atlantbh.restaurants.models.DefaultError;
-import atlantbh.restaurants.models.ErrorResponseWrapper;
+import atlantbh.restaurants.models.dto.UserRegistrationDTO;
 import atlantbh.restaurants.models.User;
 import atlantbh.restaurants.services.UserService;
 import org.springframework.http.HttpStatus;
@@ -16,22 +14,13 @@ import javax.validation.Valid;
 @RestController
 public class UserController extends BaseController<User, UserService> {
 
-    public ResponseEntity registerUser(@Valid @RequestBody UserRegistrationDTO user, BindingResult bindingResult) {
-        if(service.isEmailTaken(user.getEmail()) == true) {
-            DefaultError error = new DefaultError("email", "Email is already in use");
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponseWrapper(error));
+    public ResponseEntity registerUser(@Valid @RequestBody UserRegistrationDTO user, BindingResult bindingResult) throws Exception {
+        try {
+            User registeredUser = service.get(user, bindingResult);
+            return ResponseEntity.ok(registeredUser);
         }
-        if(!user.getPassword().equals(user.getConfirmedPassword())) {
-            DefaultError error = new DefaultError("password", "Passwords don't match");
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponseWrapper(error));
+        catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
-        if (bindingResult.hasErrors()) {
-            DefaultError error = new DefaultError();
-            error.setField(bindingResult.getFieldError().getField());
-            error.setMessage(bindingResult.getFieldError().getDefaultMessage());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponseWrapper(error));
-        }
-        User registeredUser = service.register(user);
-        return ResponseEntity.ok(registeredUser);
     }
 }

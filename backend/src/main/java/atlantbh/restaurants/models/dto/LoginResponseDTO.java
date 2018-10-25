@@ -1,4 +1,4 @@
-package atlantbh.restaurants.controllers.dto;
+package atlantbh.restaurants.models.dto;
 
 import atlantbh.restaurants.models.User;
 
