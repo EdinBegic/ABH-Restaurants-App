@@ -19,6 +19,7 @@ public class Location extends BaseModel {
     private BigDecimal longitude;
     private BigDecimal latitude;
     private Collection<User> users;
+    private Collection<Restaurant> restaurants;
 
     public Location(String country, String city, BigDecimal longitude, BigDecimal latitude) {
         this.country = country;
@@ -83,5 +84,15 @@ public class Location extends BaseModel {
 
     public void setUsers(Collection<User> users) {
         this.users = users;
+    }
+
+    @OneToMany(mappedBy = "location")
+    @JsonIgnore
+    public Collection<Restaurant> getRestaurants() {
+        return restaurants;
+    }
+
+    public void setRestaurants(Collection<Restaurant> restaurants) {
+        this.restaurants = restaurants;
     }
 }

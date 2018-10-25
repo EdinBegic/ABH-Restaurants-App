@@ -1,1 +1,206 @@
-{{outlet}}
+<div class="restaurant-background">
+    {{main-navigation}}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="reservation-label">Make a free reservation</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <!-- TODO display real number of restaurants -->
+                <div class="table-label">Choose your table from 757 restaurants near you</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="search-bar">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text search-field search-text">{{material-icon "search"}}</span>
+                            <input class="form-control search-field" id="search" placeholder='Location, Restaurant or Cousine'>
+                        </div>
+                        <select class="list-field form-control ">
+                            <option value=1>2 people</option>
+                            <option value=2>Test2</option>
+                        </select>
+                        <select class="form-control list-field">
+                            <option value=1>Apr 29, 2018.</option>
+                            <option value=2>Test2</option>
+                        </select>
+                        <select class="form-control list-field">
+                            <option value=1>7:00 PM</option>
+                            <option value=2>Test2</option>
+                        </select>
+                        <button type="submit" class="form-control table-button btn">Find a table</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="top-restaurants">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="popular-today-label">Popular for lunch today</div>
+            </div>
+        </div>
+        <div class="row restaurant-row">
+        {{#each model.restaurants as |restaurant|}}
+        <div class="col-md-4">
+            <div class="row ">
+                <div class="col-md-12">
+                    <img src={{restaurant.logoPath}} class="restaurant-picture">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="restaurant-name-label">{{restaurant.name}}</div>
+                </div>
+            </div>
+        <div class="row stats-row">
+            <div class="star-rating" style="padding-left: 15px">
+                {{star-rating 4 numStars=5 baseColor="#E5E5E5" fillColor="#fd6f60" width=20 height=15 }}
+            </div>
+            <div class="restaurant-review-label" style="padding-left: 10px">(1745)</div>
+            <div class="price-range-label" style="padding-left: 10px">$ $ $ $</div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="restaurant-type-label">Italian | International | Mediterranean </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <button type="submit" class="form-control reserve-button btn">Reserve now</button>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+    </div>
+</div>
+</div>
+
+<!-- Specials stays  hard-coded for now-->
+<div class="specials">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="specials-label">Specials</div>
+            </div>
+        </div>
+        <div class="row specials-row">
+            <div class="col-md-4">
+                <div class="row">
+                    <div class="col-md-12" style="padding-bottom:20px;">
+                        <img src="/assets/images/pizza.jpg" class="special-picture">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="special-name-label">Best Pizza of 2018</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="loc-num-label">New York | 43 restaurants</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="row">
+                    <div class="col-md-12" style="padding-bottom:20px;">
+                        <img src="/assets/images/spicy.jpg" class="special-picture">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="special-name-label">Fresh &amp; Spicy</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="loc-num-label">Philladelphia | 16 restaurants</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="row">
+                    <div class="col-md-12" style="padding-bottom:20px;">
+                        <img src="/assets/images/cupcakes.png" class="special-picture">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="special-name-label">Cupcakes Flavor</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="loc-num-label">Chicago | 11 restaurants</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="more-specials-label">
+                    <a href="#" >See all specials</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- TODO List real locations with restaurants -->
+<div class="popular-locations">
+    <div class="container">
+        <div class="row" style="padding-bottom:50px;">
+            <div class="col-md-12">
+                <div class="popular-locations-label">Popular locations</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="location-label">West Willieville</div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="num-of-restaurants">3126 restaurants</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="location-label">West Willieville</div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="num-of-restaurants">3126 restaurants</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="location-label">West Willieville</div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="num-of-restaurants">3126 restaurants</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="location-label">West Willieville</div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="num-of-restaurants">3126 restaurants</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

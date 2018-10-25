@@ -1,0 +1,196 @@
+.reservation-label {
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 48px;
+  color: #ffffff;
+  text-align: center;
+  padding-top: 100px;
+}
+
+.table-label {
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 20px;
+  color: #ffffff;
+  text-align: center;
+}
+.restaurant-background {
+  background-image: url("/assets/images/background-restaurant.jpg");
+  background-size: cover;
+}
+
+%box {
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 18px;
+  height: 56px;
+}
+%field-box {
+  @extend %box;
+  margin-bottom: 10px;
+  border: 0px;
+  color: #131d24;
+}
+.table-button {
+  @extend %box;
+  background: #fd6f60;
+  color: #ffffff;
+  border-radius: 0 3px 3px 0;
+}
+.search-field {
+  @extend %field-box;
+  padding-left: 10px;
+  border-radius: 0px;
+}
+.list-field {
+  @extend %field-box;
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-right: 10px;
+}
+.search-text {
+  background: #ffffff;
+  color: #6d747a;
+  border-radius: 2px;
+}
+#search {
+  width: 375px;
+}
+.search-bar {
+  margin-top: 130px;
+  margin-bottom: 130px;
+}
+
+.popular-today-label {
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 30px;
+  color: #131d24;
+  padding-top: 70px;
+  padding-bottom: 35px;
+  text-align: center;
+}
+.restaurant-picture {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  width: 100%;
+  height: auto;
+}
+
+.reserve-button {
+  background: #f9f9f9;
+  border: 1px solid #e5e5e5;
+  border-radius: 2px;
+  font-family: sans-serif;
+  font-size: 18px;
+  color: #131d24;
+  margin-bottom: 50px;
+}
+.restaurant-name-label {
+  font-size: 24px;
+  color: #131d24;
+}
+.restaurant-review-label {
+  opacity: 0.4;
+  font-family: sans-serif;
+  font-size: 16px;
+  color: #131d24;
+  text-align: left;
+}
+.restaurant-type-label {
+  opacity: 0.4;
+  font-size: 16px;
+  color: #131d24;
+  border-top: 2px solid #e5e5e5;
+  padding-top: 5px;
+  padding-bottom: 10px;
+}
+.stats-row {
+  padding-bottom: 5px;
+}
+.top-restaurants {
+  background: #f9f9f9;
+  padding-top: 50px;
+  padding-bottom: 100px;
+}
+.specials-label {
+  font-size: 30px;
+  color: #ffffff;
+  text-align: center;
+  padding: 30px;
+}
+.special-name-label {
+  font-size: 24px;
+  color: #ffffff;
+}
+.loc-num-label {
+  font-size: 18px;
+  color: #ffffff;
+  line-height: 28px;
+}
+.more-specials-label {
+  opacity: 0.4;
+  text-align: center;
+  
+  a{
+    font-family: sans-serif;
+    font-size: 18px;
+    color: #ffffff;  
+  }
+}
+.specials {
+  background-image: url("/assets/images/pasta.jpg");
+  background-size: cover;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+.specials-row {
+  padding-top: 30px;
+  padding-bottom: 60px;
+}
+.special-picture {
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.popular-locations-label {
+  font-size: 30px;
+  font-family: sans-serif;
+  color: #131d24;
+  text-align: center;
+  padding: 50px;
+}
+.location-label {
+  font-family: sans-serif;
+  font-size: 20px;
+  color: #131d24;
+}
+.num-of-restaurants {
+  opacity: 0.4;
+  font-family: sans-serif;
+  font-size: 18px;
+  color: #131d24;
+}
+.popular-locations {
+  background: #f9f9f9;
+  padding-top: 50px;
+  padding-bottom: 100px;
+}
+.restaurant-background .navButton {
+  color: #ffff;
+}
+
+.restaurant-background .app-name{
+    color: #ffffff;
+}
+.restaurant-background .app-name:hover{
+    color: #ffffff;
+}
+
+.restaurant-background .navigation-link {
+  color: #ffffff;
+}
+.restaurant-background .navigation-link:hover {
+  color: #ffffff;
+}
+
+.restaurant-background #login-link {
+  color: #ffffff;
+}
+.restaurant-background #logout-link {
+  color: #ffffff;
+}

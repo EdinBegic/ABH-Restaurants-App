@@ -1,9 +1,7 @@
 package atlantbh.restaurants;
 
-import atlantbh.restaurants.models.Location;
-import atlantbh.restaurants.models.User;
-import atlantbh.restaurants.services.LocationService;
-import atlantbh.restaurants.services.UserService;
+import atlantbh.restaurants.models.*;
+import atlantbh.restaurants.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -16,10 +14,22 @@ public class DbLoader implements CommandLineRunner {
     @Autowired
     UserService userService;
 
+    @Autowired
+    RestaurantService restaurantService;
+
+    @Autowired
+    CategoryService categoryService;
+
+    @Autowired
+    CousineService cousineService;
+
     @Override
     public void run(String... args) throws Exception {
         addLocations();
         addUsers();
+        addCategories();
+        addCousines();
+        addRestaurants();
     }
 
     private void addUsers() {
@@ -41,5 +51,79 @@ public class DbLoader implements CommandLineRunner {
         locationService.save(new Location("Russia", "Moscow"));
         locationService.save(new Location("USA", "New York"));
         locationService.save(new Location("USA", "Chicago"));
+    }
+    private void addCategories() {
+        categoryService.save(new Category("Fast Food"));
+        categoryService.save(new Category("Barbecue"));
+        categoryService.save(new Category("Ethnic"));
+        categoryService.save(new Category("Bistro"));
+    }
+    private void addCousines() {
+        cousineService.save(new Cousine("Bosnian"));
+        cousineService.save(new Cousine("Italian"));
+        cousineService.save(new Cousine("Mexican"));
+        cousineService.save(new Cousine("Chinese"));
+    }
+    private void addRestaurants() {
+        Location location = locationService.getById((long) 1).get();
+        Category category = categoryService.getById((long) 14).get();
+        Cousine cousine = cousineService.getById((long) 18).get();
+        restaurantService.save(new Restaurant("U2", "Restaurant description", "/assets/images/rest1.jpg","placeholder",1,location,category,cousine));
+
+        location = locationService.getById((long) 2).get();
+        category = categoryService.getById((long) 15).get();
+        cousine = cousineService.getById((long) 19).get();
+        restaurantService.save(new Restaurant("Metropolis", "Restaurant description", "/assets/images/rest2.jpg","placeholder",2,location,category,cousine));
+
+        location = locationService.getById((long) 3).get();
+        category = categoryService.getById((long) 16).get();
+        cousine = cousineService.getById((long) 20).get();
+        restaurantService.save(new Restaurant("McDonalds", "Restaurant description", "/assets/images/rest3.jpg","placeholder",3,location,category,cousine));
+
+        location = locationService.getById((long) 4).get();
+        category = categoryService.getById((long) 17).get();
+        cousine = cousineService.getById((long) 21).get();
+        restaurantService.save(new Restaurant("Burger King", "Restaurant description", "/assets/images/rest4.jpg","placeholder",4,location,category,cousine));
+
+        location = locationService.getById((long) 1).get();
+        category = categoryService.getById((long) 14).get();
+        cousine = cousineService.getById((long) 18).get();
+        restaurantService.save(new Restaurant("Montana", "Restaurant description", "/assets/images/rest1.jpg","placeholder",1,location,category,cousine));
+
+        location = locationService.getById((long) 2).get();
+        category = categoryService.getById((long) 15).get();
+        cousine = cousineService.getById((long) 19).get();
+        restaurantService.save(new Restaurant("In-N-Out", "Restaurant description", "/assets/images/rest2.jpg","placeholder",2,location,category,cousine));
+
+        location = locationService.getById((long) 3).get();
+        category = categoryService.getById((long) 16).get();
+        cousine = cousineService.getById((long) 20).get();
+        restaurantService.save(new Restaurant("Starbucks", "Restaurant description", "/assets/images/rest3.jpg","placeholder",3,location,category,cousine));
+
+        location = locationService.getById((long) 4).get();
+        category = categoryService.getById((long) 17).get();
+        cousine = cousineService.getById((long) 21).get();
+        restaurantService.save(new Restaurant("Olive Garden", "Restaurant description", "/assets/images/rest4.jpg","placeholder",4,location,category,cousine));
+
+        location = locationService.getById((long) 1).get();
+        category = categoryService.getById((long) 14).get();
+        cousine = cousineService.getById((long) 18).get();
+        restaurantService.save(new Restaurant("Taco Bell", "Restaurant description", "/assets/images/rest1.jpg","placeholder",1,location,category,cousine));
+
+        location = locationService.getById((long) 2).get();
+        category = categoryService.getById((long) 15).get();
+        cousine = cousineService.getById((long) 19).get();
+        restaurantService.save(new Restaurant("Arby's", "Restaurant description", "/assets/images/rest2.jpg","placeholder",2,location,category,cousine));
+
+        location = locationService.getById((long) 3).get();
+        category = categoryService.getById((long) 16).get();
+        cousine = cousineService.getById((long) 20).get();
+        restaurantService.save(new Restaurant("KFC", "Restaurant description", "/assets/images/rest3.jpg","placeholder",3,location,category,cousine));
+
+        location = locationService.getById((long) 4).get();
+        category = categoryService.getById((long) 17).get();
+        cousine = cousineService.getById((long) 21).get();
+        restaurantService.save(new Restaurant("Pizza Hut", "Restaurant description", "/assets/images/rest4.jpg","placeholder",4,location,category,cousine));
+
     }
 }
