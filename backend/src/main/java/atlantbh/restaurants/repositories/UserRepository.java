@@ -1,12 +1,11 @@
 package atlantbh.restaurants.repositories;
 
 import atlantbh.restaurants.models.User;
-import org.springframework.data.jpa.repository.JpaRepository;
+import atlantbh.restaurants.models.filters.UserFilterBuilder;
+import atlantbh.restaurants.models.sortkeys.UserSortKeys;
+import org.springframework.stereotype.Repository;
 
-public interface UserRepository extends JpaRepository<User, Long> {
-    User findByEmail(String email);
+@Repository
+public class UserRepository extends BaseRepositoryImpl<User, UserSortKeys, UserFilterBuilder> {
 
-    User findByEmailAndPasswordHash(String email, String password);
-
-    Boolean existsUserByEmail(String email);
 }

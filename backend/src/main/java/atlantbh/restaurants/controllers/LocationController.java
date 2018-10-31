@@ -16,5 +16,13 @@ public class LocationController extends BaseController<Location, LocationService
     public ResponseEntity allCountries() {
         return ResponseEntity.ok(service.findAllCountires());
     }
+    public ResponseEntity topLocations(@RequestParam Integer size) {
+        try{
+            return ResponseEntity.ok(service.getTopLocations(size));
+        }
+        catch (Exception e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 
 }

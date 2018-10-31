@@ -1,8 +1,8 @@
 package atlantbh.restaurants.controllers;
 
+import atlantbh.restaurants.models.User;
 import atlantbh.restaurants.models.dto.LoginRequestDTO;
 import atlantbh.restaurants.models.dto.LoginResponseDTO;
-import atlantbh.restaurants.models.User;
 import atlantbh.restaurants.services.UserService;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.http.HttpStatus;
@@ -20,8 +20,7 @@ public class LoginController extends BaseController<User, UserService> {
             return ResponseEntity.status(HttpStatus.OK).body(service.checkLoginData(request));
 
         } catch (ServiceException e) {
-            return ResponseEntity
-                    .status(HttpStatus.BAD_REQUEST)
+            return ResponseEntity.badRequest()
                     .body(new LoginResponseDTO("Incorrect email or password!"));
         }
     }

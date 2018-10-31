@@ -5,13 +5,14 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.Collection;
 
 @Entity
-public class Location extends BaseModel {
+public class Location extends BaseModel<Location> {
 
 
     private String country;
@@ -19,6 +20,7 @@ public class Location extends BaseModel {
     private BigDecimal longitude;
     private BigDecimal latitude;
     private Collection<User> users;
+    private Collection<Restaurant> restaurants;
 
     public Location(String country, String city, BigDecimal longitude, BigDecimal latitude) {
         this.country = country;
@@ -83,5 +85,37 @@ public class Location extends BaseModel {
 
     public void setUsers(Collection<User> users) {
         this.users = users;
+    }
+
+    @OneToMany(mappedBy = "location")
+    @JsonIgnore
+    public Collection<Restaurant> getRestaurants() {
+        return restaurants;
+    }
+
+    public void setRestaurants(Collection<Restaurant> restaurants) {
+        this.restaurants = restaurants;
+    }
+
+    @Override
+    public Location duplicate(Location model) {
+        Location location = new Location();
+        location.setCity(model.getCity());
+        location.setCountry(model.getCountry());
+        location.setLatitude(model.getLatitude());
+        location.setLongitude(model.getLongitude());
+        location.setRestaurants(model.getRestaurants());
+        location.setUsers(model.getUsers());
+        return location;
+    }
+
+    @Override
+    public void update(Location data) {
+        if (data.getRestaurants() != null) setRestaurants(data.getRestaurants());
+        if (data.getCity() != null) setCity(data.getCity());
+        if (data.getCountry() != null) setCountry(data.getCountry());
+        if (data.getLatitude() != null) setLatitude(data.getLatitude());
+        if (data.getLongitude() != null) setLongitude(data.getLongitude());
+        if (data.getUsers() != null) setUsers(data.getUsers());
     }
 }
