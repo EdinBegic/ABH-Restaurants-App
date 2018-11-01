@@ -18,6 +18,7 @@ export default Controller.extend({
           this.get("_swalService").success("Successful login", confirm => {
             this.transitionToRoute("home");
           });
+          this.transitionToRoute("home");
         })
         .catch(reason => {
           this.get("_swalService").error(reason.responseJSON.errorMessage);

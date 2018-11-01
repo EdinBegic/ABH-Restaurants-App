@@ -15,6 +15,30 @@
 .restaurant-background {
   background-image: url("/assets/images/background-restaurant.jpg");
   background-size: cover;
+  .navButton {
+    color: #ffff;
+  }
+
+  .app-name {
+    color: #ffffff;
+  }
+  .app-name:hover {
+    color: #ffffff;
+  }
+
+  .navigation-link {
+    color: #ffffff;
+  }
+  .navigation-link:hover {
+    color: #ffffff;
+  }
+
+  #login-link {
+    color: #ffffff;
+  }
+  #logout-link {
+    color: #ffffff;
+  }
 }
 
 %box {
@@ -34,10 +58,20 @@
   color: #ffffff;
   border-radius: 0 3px 3px 0;
 }
+.table-button:active {
+  background: #d83f2e;
+  color: #ffffff;
+}
+.table-button:focus {
+  background: #d83f2e;
+  color: #ffffff;
+}
+
 .search-field {
   @extend %field-box;
   padding-left: 10px;
   border-radius: 0px;
+  outline: none;
 }
 .list-field {
   @extend %field-box;
@@ -67,10 +101,9 @@
   text-align: center;
 }
 .restaurant-picture {
-  padding-top: 5px;
-  padding-bottom: 5px;
   width: 100%;
   height: auto;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .reserve-button {
@@ -80,10 +113,18 @@
   font-family: sans-serif;
   font-size: 18px;
   color: #131d24;
-  margin-bottom: 50px;
 }
+.reserve-button:active {
+  background: #a9adb1;
+  color: #ffff;
+}
+.restaurant-row {
+  padding-bottom: 50px;
+}
+
 .restaurant-name-label {
   font-size: 24px;
+  padding-top: 5px;
   color: #131d24;
 }
 .restaurant-review-label {
@@ -92,6 +133,8 @@
   font-size: 16px;
   color: #131d24;
   text-align: left;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 .restaurant-type-label {
   opacity: 0.4;
@@ -103,9 +146,13 @@
 }
 .stats-row {
   padding-bottom: 5px;
+  // stars in rating
+  svg {
+    vertical-align: unset;
+  }
 }
 .top-restaurants {
-  background: #f9f9f9;
+  background: #ffffff;
   padding-top: 50px;
   padding-bottom: 100px;
 }
@@ -127,11 +174,11 @@
 .more-specials-label {
   opacity: 0.4;
   text-align: center;
-  
-  a{
+
+  a {
     font-family: sans-serif;
     font-size: 18px;
-    color: #ffffff;  
+    color: #ffffff;
   }
 }
 .specials {
@@ -145,6 +192,8 @@
   padding-bottom: 60px;
 }
 .special-picture {
+  width: 100%;
+  height: auto;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 .popular-locations-label {
@@ -170,27 +219,19 @@
   padding-top: 50px;
   padding-bottom: 100px;
 }
-.restaurant-background .navButton {
-  color: #ffff;
-}
 
-.restaurant-background .app-name{
-    color: #ffffff;
+.active-sign {
+  font-family: sans-serif;
+  font-size: 16px;
+  color: #131d24;
+  letter-spacing: 2.25px;
 }
-.restaurant-background .app-name:hover{
-    color: #ffffff;
+.not-active-sign {
+  font-family: sans-serif;
+  font-size: 16px;
+  color: rgba(-2147483648, -2147483648, 18, 0.4);
+  letter-spacing: 2.25px;
 }
-
-.restaurant-background .navigation-link {
-  color: #ffffff;
-}
-.restaurant-background .navigation-link:hover {
-  color: #ffffff;
-}
-
-.restaurant-background #login-link {
-  color: #ffffff;
-}
-.restaurant-background #logout-link {
-  color: #ffffff;
+.price-range-label {
+  padding-left: 10px;
 }
