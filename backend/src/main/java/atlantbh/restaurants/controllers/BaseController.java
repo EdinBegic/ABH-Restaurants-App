@@ -2,17 +2,17 @@ package atlantbh.restaurants.controllers;
 
 import atlantbh.restaurants.models.BaseModel;
 import atlantbh.restaurants.services.BaseService;
+import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.transaction.Transactional;
-import java.util.Collection;
-import java.util.Optional;
 
-public abstract class BaseController<M extends BaseModel, S extends BaseService<M, ?>> {
+public abstract class BaseController<M extends BaseModel<M>, S extends BaseService<M, ?, ?, ?>> {
+
     protected S service;
 
     @Autowired
@@ -20,22 +20,29 @@ public abstract class BaseController<M extends BaseModel, S extends BaseService<
         this.service = service;
     }
 
-    @ResponseBody
-    public ResponseEntity<Object> all() {
-        Collection<M> modelInstances = service.all();
-        return ResponseEntity.ok(modelInstances);
+    @Transactional
+    public ResponseEntity create(@RequestBody M model) {
+        try {
+            M modelInstance = service.create(model);
+            return ResponseEntity.ok(modelInstance);
+        } catch (ServiceException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     @Transactional
-    public ResponseEntity create(@RequestBody M model) {
-        service.save(model);
-
-        return ResponseEntity.ok().build();
+    public ResponseEntity update(@RequestParam Long id, @RequestParam M model) {
+        try {
+            M modelInstance = service.update(id, model);
+            return ResponseEntity.ok(modelInstance);
+        } catch (ServiceException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     public ResponseEntity get(@PathVariable("id") Long id) {
-        Optional<M> modelInstance = service.getById(id);
-        if (!modelInstance.isPresent()) {
+        M modelInstance = service.findById(id);
+        if (modelInstance == null) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(modelInstance);
@@ -43,15 +50,12 @@ public abstract class BaseController<M extends BaseModel, S extends BaseService<
 
     @Transactional
     public ResponseEntity delete(@PathVariable("id") Long id) {
-        if (!service.exists(id)) {
-            return ResponseEntity.notFound().build();
-        }
         try {
-            service.deleteById(id);
-        } catch (Exception e) {
+            service.delete(id);
+            return ResponseEntity.ok().build();
+        } catch (ServiceException e) {
             return ResponseEntity.badRequest().build();
         }
-        return ResponseEntity.ok().build();
     }
 
 }

@@ -1,7 +1,10 @@
 package atlantbh.restaurants.repositories;
 
 import atlantbh.restaurants.models.Cousine;
-import org.springframework.data.jpa.repository.JpaRepository;
+import atlantbh.restaurants.models.filters.CousineFilterBuilder;
+import atlantbh.restaurants.models.sortkeys.CousineSortKeys;
+import org.springframework.stereotype.Repository;
 
-public interface CousineRepository extends JpaRepository<Cousine,Long> {
+@Repository
+public class CousineRepository extends BaseRepositoryImpl<Cousine, CousineSortKeys, CousineFilterBuilder> {
 }

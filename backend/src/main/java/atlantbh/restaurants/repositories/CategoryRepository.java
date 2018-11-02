@@ -1,7 +1,10 @@
 package atlantbh.restaurants.repositories;
 
 import atlantbh.restaurants.models.Category;
-import org.springframework.data.jpa.repository.JpaRepository;
+import atlantbh.restaurants.models.filters.CategoryFilterBuilder;
+import atlantbh.restaurants.models.sortkeys.CategorySortKeys;
+import org.springframework.stereotype.Repository;
 
-public interface CategoryRepository extends JpaRepository<Category,Long> {
+@Repository
+public class CategoryRepository extends BaseRepositoryImpl<Category, CategorySortKeys, CategoryFilterBuilder> {
 }

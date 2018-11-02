@@ -4,13 +4,15 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.Collection;
 
 @Entity
-public class Restaurant extends BaseModel {
+public class Restaurant extends BaseModel<Restaurant> {
 
     private String name;
     private String description;
@@ -20,7 +22,7 @@ public class Restaurant extends BaseModel {
     private Location location;
     private Category category;
     private Cousine cousine;
-
+    private Collection<Review> reviews;
 
     public Restaurant(String name, String description, String logoPath, String coverPhotoPath, Integer priceRange, Location location, Category category, Cousine cousine) {
         this.name = name;
@@ -78,8 +80,8 @@ public class Restaurant extends BaseModel {
         this.coverPhotoPath = coverPhotoPath;
     }
 
-    @Min(1)
-    @Max(4)
+    @Min(value = 1, message = "Please select a rating between 1 and 4")
+    @Max(value = 4, message = "Please select a rating between 1 and 4")
     @Column(name = "price_range")
     public Integer getPriceRange() {
         return priceRange;
@@ -118,4 +120,40 @@ public class Restaurant extends BaseModel {
     public void setCousine(Cousine cousine) {
         this.cousine = cousine;
     }
+
+    @OneToMany(mappedBy = "restaurant")
+    public Collection<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(Collection<Review> reviews) {
+        this.reviews = reviews;
+    }
+
+    @Override
+    public Restaurant duplicate(Restaurant model) {
+        Restaurant restaurant = new Restaurant();
+        restaurant.setCategory(model.getCategory());
+        restaurant.setCousine(model.getCousine());
+        restaurant.setCoverPhotoPath(model.getCoverPhotoPath());
+        restaurant.setDescription(model.getDescription());
+        restaurant.setLocation(model.getLocation());
+        restaurant.setLogoPath(model.getLogoPath());
+        restaurant.setName(model.getName());
+        restaurant.setPriceRange(model.getPriceRange());
+        return restaurant;
+    }
+
+    @Override
+    public void update(Restaurant data) {
+        setCategory(data.getCategory());
+        setCousine(data.getCousine());
+        setCoverPhotoPath(data.getCoverPhotoPath());
+        setDescription(data.getDescription());
+        setLocation(data.getLocation());
+        setLogoPath(data.getLogoPath());
+        setName(data.getName());
+        setPriceRange(data.getPriceRange());
+    }
+
 }

@@ -11,8 +11,7 @@ import java.math.BigDecimal;
 import java.util.Collection;
 
 @Entity
-public class Location extends BaseModel {
-
+public class Location extends BaseModel<Location> {
 
     private String country;
     private String city;
@@ -94,5 +93,27 @@ public class Location extends BaseModel {
 
     public void setRestaurants(Collection<Restaurant> restaurants) {
         this.restaurants = restaurants;
+    }
+
+    @Override
+    public Location duplicate(Location model) {
+        Location location = new Location();
+        location.setCity(model.getCity());
+        location.setCountry(model.getCountry());
+        location.setLatitude(model.getLatitude());
+        location.setLongitude(model.getLongitude());
+        location.setRestaurants(model.getRestaurants());
+        location.setUsers(model.getUsers());
+        return location;
+    }
+
+    @Override
+    public void update(Location data) {
+        setRestaurants(data.getRestaurants());
+        setCity(data.getCity());
+        setCountry(data.getCountry());
+        setLatitude(data.getLatitude());
+        setLongitude(data.getLongitude());
+        setUsers(data.getUsers());
     }
 }

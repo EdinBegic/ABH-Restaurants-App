@@ -11,10 +11,27 @@ import org.springframework.web.bind.annotation.RestController;
 public class LocationController extends BaseController<Location, LocationService> {
 
     public ResponseEntity allCities(@PathVariable String country) {
-        return ResponseEntity.ok(service.findAllCitiesForCountry(country));
+        try {
+            return ResponseEntity.ok(service.findAllCitiesForCountry(country));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
+
     public ResponseEntity allCountries() {
-        return ResponseEntity.ok(service.findAllCountires());
+        try {
+            return ResponseEntity.ok(service.findAllCountries());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    public ResponseEntity topLocations(@RequestParam Integer size) {
+        try {
+            return ResponseEntity.ok(service.getTopLocations(size));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
 }

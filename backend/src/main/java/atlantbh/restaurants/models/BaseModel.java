@@ -7,13 +7,13 @@ import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotNull;
 
 @MappedSuperclass
-public abstract class BaseModel {
+public abstract class BaseModel<M> {
 
     private long id;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @NotNull(message = "User ID cannot be null")
+    @NotNull(message = "Table ID cannot be null")
     public long getId() {
         return id;
     }
@@ -21,4 +21,8 @@ public abstract class BaseModel {
     public void setId(long id) {
         this.id = id;
     }
+
+    public abstract M duplicate(M model);
+
+    public abstract void update(M data);
 }
