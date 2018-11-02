@@ -1,6 +1,7 @@
 package atlantbh.restaurants.models.filters;
 
 import atlantbh.restaurants.models.sortkeys.RestaurantSortKeys;
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.MatchMode;
@@ -28,42 +29,38 @@ public class RestaurantFilterBuilder extends BaseFilterBuilder<RestaurantSortKey
     @Override
     public Criteria addConditions(Criteria rootCriteria, boolean isCountCriteria) {
 
-        if (query != null && query.trim().length() > 0) { // ignore whtiespace characters
-            Criterion criterion = Restrictions.or(Restrictions.ilike("name", query,MatchMode.ANYWHERE),
-                                                    Restrictions.ilike("category.name", query, MatchMode.ANYWHERE),
-                                                    Restrictions.ilike("cousine.name", query, MatchMode.ANYWHERE),
-                                                    Restrictions.or(Restrictions.ilike("location.city",query, MatchMode.ANYWHERE),
-                                                                    Restrictions.ilike("location.country",query, MatchMode.ANYWHERE)));
-            rootCriteria.createAlias("category","category");
-            rootCriteria.createAlias("cousine","cousine");
-            rootCriteria.createAlias("location","location");
+        if (StringUtils.isNotBlank(query)) {
+            Criterion criterion = Restrictions.or(Restrictions.ilike("name", query, MatchMode.ANYWHERE),
+                    Restrictions.ilike("cat.name", query, MatchMode.ANYWHERE),
+                    Restrictions.ilike("cous.name", query, MatchMode.ANYWHERE),
+                    Restrictions.or(Restrictions.ilike("loc.city", query, MatchMode.ANYWHERE),
+                            Restrictions.ilike("loc.country", query, MatchMode.ANYWHERE)));
+            rootCriteria.createAlias("category", "cat");
+            rootCriteria.createAlias("cousine", "cous");
+            rootCriteria.createAlias("location", "loc");
             rootCriteria.add(criterion);
         }
-        if(name != null && query.trim().length() > 0) {
-            rootCriteria.add(Restrictions.ilike("name",name, MatchMode.ANYWHERE));
+        if (StringUtils.isNotBlank(name)) {
+            rootCriteria.add(Restrictions.ilike("name", name, MatchMode.ANYWHERE));
         }
-        if (category != null && category.trim().length() > 0) {
-            rootCriteria.createAlias("category","category");
-            rootCriteria.add(Restrictions.ilike("category.name", category,MatchMode.ANYWHERE));
+        if (StringUtils.isNotBlank(category)) {
+            rootCriteria.createAlias("category", "cat");
+            rootCriteria.add(Restrictions.ilike("cat.name", category, MatchMode.ANYWHERE));
         }
         if (priceRange != null && priceRange > 0) {
             rootCriteria.add(Restrictions.eq("priceRange", priceRange));
         }
-        if (location != null && location.trim().length() > 0) {
-            rootCriteria.createAlias("location", "location");
-            Criterion criterion = Restrictions.or(Restrictions.ilike("location.city", location, MatchMode.ANYWHERE),
-                    Restrictions.ilike("location.country", location,MatchMode.ANYWHERE));
+        if (StringUtils.isNotBlank(location)) {
+            rootCriteria.createAlias("location", "loc");
+            Criterion criterion = Restrictions.or(Restrictions.ilike("loc.city", location, MatchMode.ANYWHERE),
+                    Restrictions.ilike("loc.country", location, MatchMode.ANYWHERE));
             rootCriteria.add(criterion);
         }
-        if (cousine != null && cousine.trim().length() > 0) {
-            rootCriteria.createAlias("cousine","cousine");
-            rootCriteria.add(Restrictions.ilike("cousine.name", cousine,MatchMode.ANYWHERE));
+        if (StringUtils.isNotBlank(cousine)) {
+            rootCriteria.createAlias("cousine", "c");
+            rootCriteria.add(Restrictions.ilike("c.name", cousine, MatchMode.ANYWHERE));
         }
         return rootCriteria;
-    }
-
-    public String getQuery() {
-        return query;
     }
 
     public RestaurantFilterBuilder setQuery(String query) {
@@ -71,17 +68,9 @@ public class RestaurantFilterBuilder extends BaseFilterBuilder<RestaurantSortKey
         return this;
     }
 
-    public Integer getPriceRange() {
-        return priceRange;
-    }
-
     public RestaurantFilterBuilder setPriceRange(Integer priceRange) {
         this.priceRange = priceRange;
         return this;
-    }
-
-    public String getLocation() {
-        return location;
     }
 
     public RestaurantFilterBuilder setLocation(String location) {
@@ -89,26 +78,14 @@ public class RestaurantFilterBuilder extends BaseFilterBuilder<RestaurantSortKey
         return this;
     }
 
-    public String getCategory() {
-        return category;
-    }
-
     public RestaurantFilterBuilder setCategory(String category) {
         this.category = category;
         return this;
     }
 
-    public String getCousine() {
-        return cousine;
-    }
-
     public RestaurantFilterBuilder setCousine(String cousine) {
         this.cousine = cousine;
         return this;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public RestaurantFilterBuilder setName(String name) {

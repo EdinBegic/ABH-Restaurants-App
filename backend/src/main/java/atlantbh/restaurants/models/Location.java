@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
-import javax.persistence.Transient;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
@@ -13,7 +12,6 @@ import java.util.Collection;
 
 @Entity
 public class Location extends BaseModel<Location> {
-
 
     private String country;
     private String city;
@@ -111,11 +109,11 @@ public class Location extends BaseModel<Location> {
 
     @Override
     public void update(Location data) {
-        if (data.getRestaurants() != null) setRestaurants(data.getRestaurants());
-        if (data.getCity() != null) setCity(data.getCity());
-        if (data.getCountry() != null) setCountry(data.getCountry());
-        if (data.getLatitude() != null) setLatitude(data.getLatitude());
-        if (data.getLongitude() != null) setLongitude(data.getLongitude());
-        if (data.getUsers() != null) setUsers(data.getUsers());
+        setRestaurants(data.getRestaurants());
+        setCity(data.getCity());
+        setCountry(data.getCountry());
+        setLatitude(data.getLatitude());
+        setLongitude(data.getLongitude());
+        setUsers(data.getUsers());
     }
 }

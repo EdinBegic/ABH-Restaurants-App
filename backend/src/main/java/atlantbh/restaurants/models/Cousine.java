@@ -2,8 +2,11 @@ package atlantbh.restaurants.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.Collection;
 
 @Entity
@@ -19,6 +22,9 @@ public class Cousine extends BaseModel<Cousine> {
     public Cousine() {
     }
 
+    @NotBlank(message = "Name of cousine cannot be null or whitespace")
+    @Size(max = 50, message = "Name of cousine cannot be longer than 50 characters")
+    @Column(name = "name")
     public String getName() {
         return name;
     }
@@ -47,7 +53,7 @@ public class Cousine extends BaseModel<Cousine> {
 
     @Override
     public void update(Cousine data) {
-        if (data.getName() != null) setName(data.getName());
-        if (data.getRestaurants() != null) setRestaurants(data.getRestaurants());
+        setName(data.getName());
+        setRestaurants(data.getRestaurants());
     }
 }

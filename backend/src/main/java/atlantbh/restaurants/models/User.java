@@ -137,13 +137,13 @@ public class User extends BaseModel<User> {
 
     @Override
     public void update(User data) {
-        if (data.getFirstName() != null) setFirstName(data.getFirstName());
-        if (data.getLastName() != null) setLastName(data.getLastName());
-        if (data.getEmail() != null) setEmail(data.getEmail());
-        if (data.getPhoneNumber() != null) setPhoneNumber(data.getPhoneNumber());
-        if (data.getPasswordHash() != null) setPasswordHash(data.getPasswordHash());
-        if (data.getLocation() != null) setLocation(data.getLocation());
-        if (data.getRoleName() != null) setRoleName(data.getRoleName());
+        setFirstName(data.getFirstName());
+        setLastName(data.getLastName());
+        setEmail(data.getEmail());
+        setPhoneNumber(data.getPhoneNumber());
+        setPasswordHash(data.getPasswordHash());
+        setLocation(data.getLocation());
+        setRoleName(data.getRoleName());
 
     }
 }

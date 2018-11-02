@@ -17,16 +17,18 @@ public class BaseService<M extends BaseModel<M>, S extends Enum<S>, F extends Ba
         return repository.find(filterBuilder);
     }
 
+
     public M findById(Long id) {
         return repository.findById(id);
     }
 
+    // when not sure if model is in DB
     public M get(Long id) {
-        M model = repository.findById(id);
-        if (model != null) {
-            return model;
+        try {
+            return repository.get(id);
+        } catch (RepositoryException e) {
+            throw new ServiceException(e.getMessage(), e);
         }
-        throw new ServiceException("Model with id: " + id + " not found");
     }
 
     public M create(M m) throws ServiceException {
@@ -41,9 +43,6 @@ public class BaseService<M extends BaseModel<M>, S extends Enum<S>, F extends Ba
     public M update(Long id, M data) throws ServiceException {
         try {
             M model = get(id);
-            if (model == null) {
-                throw new ServiceException("Requested model not found");
-            }
             model.update(data);
             repository.update(model);
             return model;
@@ -55,11 +54,8 @@ public class BaseService<M extends BaseModel<M>, S extends Enum<S>, F extends Ba
     public void delete(Long id) throws ServiceException {
         try {
             M model = get(id);
-            if (model == null) {
-                throw new ServiceException("Requested model not found");
-            }
             repository.delete(id);
-        } catch (ServiceException e) {
+        } catch (RepositoryException e) {
             throw new ServiceException("Requested model couldn't be deleted");
         }
     }

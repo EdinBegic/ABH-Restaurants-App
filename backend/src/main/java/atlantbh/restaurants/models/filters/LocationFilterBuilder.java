@@ -6,6 +6,6 @@ import org.hibernate.Criteria;
 public class LocationFilterBuilder extends BaseFilterBuilder<LocationSortKeys, LocationFilterBuilder> {
     @Override
     protected Criteria addConditions(Criteria rootCriteria, boolean isCountCriteria) {
-        return null;
+        return rootCriteria;
     }
 }

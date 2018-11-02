@@ -1,12 +1,14 @@
 package atlantbh.restaurants.models;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.Collection;
 
 @Entity
@@ -144,14 +146,14 @@ public class Restaurant extends BaseModel<Restaurant> {
 
     @Override
     public void update(Restaurant data) {
-        if (data.getCategory() != null) setCategory(data.getCategory());
-        if (data.getCousine() != null) setCousine(data.getCousine());
-        if (data.getCoverPhotoPath() != null) setCoverPhotoPath(data.getCoverPhotoPath());
-        if (data.getDescription() != null) setDescription(data.getDescription());
-        if (data.getLocation() != null) setLocation(data.getLocation());
-        if (data.getLogoPath() != null) setLogoPath(data.getLogoPath());
-        if (data.getName() != null) setName(data.getName());
-        if (data.getPriceRange() != null) setPriceRange(data.getPriceRange());
+        setCategory(data.getCategory());
+        setCousine(data.getCousine());
+        setCoverPhotoPath(data.getCoverPhotoPath());
+        setDescription(data.getDescription());
+        setLocation(data.getLocation());
+        setLogoPath(data.getLogoPath());
+        setName(data.getName());
+        setPriceRange(data.getPriceRange());
     }
 
 }

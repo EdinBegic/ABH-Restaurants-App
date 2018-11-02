@@ -7,5 +7,5 @@ import atlantbh.restaurants.repositories.CousineRepository;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CousineService extends  BaseService<Cousine, CousineSortKeys, CousineFilterBuilder, CousineRepository> {
+public class CousineService extends BaseService<Cousine, CousineSortKeys, CousineFilterBuilder, CousineRepository> {
 }

@@ -1,6 +1,7 @@
 package atlantbh.restaurants.repositories;
 
 import atlantbh.restaurants.exceptions.RepositoryException;
+import atlantbh.restaurants.models.PaginatedResult;
 import atlantbh.restaurants.models.filters.BaseFilterBuilder;
 
 import java.util.List;
@@ -17,4 +18,6 @@ public interface BaseRepository<T, S extends Enum<S>, F extends BaseFilterBuilde
     Long count(F filterBuilder);
 
     List<T> findAll();
+
+    PaginatedResult<T> find(F filterBuilder);
 }

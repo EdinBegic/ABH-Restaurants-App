@@ -1,6 +1,7 @@
 package atlantbh.restaurants.services;
 
 import atlantbh.restaurants.exceptions.PropertyReservedException;
+import atlantbh.restaurants.exceptions.RepositoryException;
 import atlantbh.restaurants.exceptions.StringMissmatchException;
 import atlantbh.restaurants.models.Location;
 import atlantbh.restaurants.models.Role;
@@ -20,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.validation.Valid;
 import java.util.Collection;
-import java.util.List;
 
 @Service
 public class UserService extends BaseService<User, UserSortKeys, UserFilterBuilder, UserRepository> {
@@ -41,21 +41,15 @@ public class UserService extends BaseService<User, UserSortKeys, UserFilterBuild
     }
 
     public LoginResponseDTO checkLoginData(LoginRequestDTO request) {
-        String passwordHash = hashPassword(request.getPassword());
-        Criteria criteria = repository.getBaseCriteria();
-        criteria.add(Restrictions.eq("email", request.getEmail()));
-        criteria.add(Restrictions.eq("passwordHash", passwordHash));
-
-        List<User> users = criteria.list();
-        if (users.size() > 1)
-            throw new ServiceException("There are multiple users with the same email and password");
-        if (users.size() == 0) {
-            throw new ServiceException("Email or password is invalid");
+        try {
+            String passwordHash = hashPassword(request.getPassword());
+            User user = repository.checkLoginData(request.getEmail(), passwordHash);
+            user.setPasswordHash(null);
+            String token = TokenService.issueToken(true, true);
+            return new LoginResponseDTO(user, token);
+        } catch (RepositoryException e) {
+            throw new ServiceException(e.getMessage(), e);
         }
-        User user = users.get(0);
-        user.setPasswordHash(null);
-        String token = TokenService.issueToken(true, true);
-        return new LoginResponseDTO(user, token);
     }
 
     public Boolean isEmailTaken(String email) {

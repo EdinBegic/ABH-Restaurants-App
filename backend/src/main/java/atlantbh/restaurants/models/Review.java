@@ -10,7 +10,7 @@ import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 
 @Entity
-public class Review extends BaseModel<Review>{
+public class Review extends BaseModel<Review> {
 
     private BigDecimal mark;
     private String comment;
@@ -23,7 +23,9 @@ public class Review extends BaseModel<Review>{
         this.user = user;
         this.restaurant = restaurant;
     }
-    public Review(){}
+
+    public Review() {
+    }
 
     @Min(value = 1, message = "Please select a rating between 1 and 5")
     @Max(value = 5, message = "Please select a rating between 1 and 5")
@@ -78,9 +80,9 @@ public class Review extends BaseModel<Review>{
 
     @Override
     public void update(Review data) {
-        if(data.getComment() != null) setComment(data.getComment());
-        if(data.getMark() != null) setMark(data.getMark());
-        if(data.getRestaurant() != null) setRestaurant(data.getRestaurant());
-        if(data.getUser() != null) setUser(data.getUser());
+        setComment(data.getComment());
+        setMark(data.getMark());
+        setRestaurant(data.getRestaurant());
+        setUser(data.getUser());
     }
 }

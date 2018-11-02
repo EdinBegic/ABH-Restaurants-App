@@ -3,11 +3,11 @@ package atlantbh.restaurants.models;
 import java.util.List;
 
 public class PaginatedResult<T> {
+
     private int pageSize;
     private int pageNumber;
     private List<T> data;
     private int available;
-
 
     public PaginatedResult(int pageSize, int pageNumber, List<T> data, int available) {
         this.pageSize = pageSize;

@@ -6,7 +6,6 @@ import atlantbh.restaurants.models.PaginatedResult;
 import atlantbh.restaurants.models.filters.BaseFilterBuilder;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
-import org.hibernate.criterion.Projections;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -14,7 +13,7 @@ import javax.transaction.Transactional;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
-public class BaseRepositoryImpl<T extends BaseModel<T>,S extends Enum<S>,F extends BaseFilterBuilder<S,F>> implements BaseRepository<T,S,F>{
+public class BaseRepositoryImpl<T extends BaseModel<T>, S extends Enum<S>, F extends BaseFilterBuilder<S, F>> implements BaseRepository<T, S, F> {
 
     @PersistenceContext
     protected EntityManager entityManager;
@@ -26,30 +25,37 @@ public class BaseRepositoryImpl<T extends BaseModel<T>,S extends Enum<S>,F exten
         paginatedResult.setData(filterBuilder.buildCriteria(getBaseCriteria()).list());
         return paginatedResult;
     }
+
     public Long count(F filterBuilder) {
         Long result = (Long) filterBuilder.buildCountCriteria(getBaseCriteria()).uniqueResult();
         return result == null ? 0 : result;
     }
 
     public void delete(Long id) throws RepositoryException {
-        try{
+        try {
             getSession().delete(findById(id));
-        }catch (Exception e) {
+        } catch (Exception e) {
             throw new RepositoryException("Entity with id " + id + "couldn't be deleted in repository");
         }
     }
 
-    public T findById(Long id) throws RepositoryException {
-        try{
+    public T findById(Long id)  {
             return entityManager.find(getParameterType(), id);
-        }catch (Exception e) {
+    }
+
+    // when not sure if entity is in db
+    public T get(Long id) throws RepositoryException {
+        try{
+            return entityManager.find(getParameterType(),id);
+        }
+        catch (Exception e) {
             throw new RepositoryException("Entity with id " + id + "couldn't be found in repository");
         }
     }
 
     @Transactional
     public T save(T entity) throws RepositoryException {
-        try{
+        try {
             // The created entity is in transient state
             // To save the object first it needs to be placed in persistent state
             entityManager.persist(entity);
@@ -57,15 +63,14 @@ public class BaseRepositoryImpl<T extends BaseModel<T>,S extends Enum<S>,F exten
             entityManager.flush();
             return entity;
 
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             throw new RepositoryException(e.getMessage());
         }
     }
 
     @Transactional
     public T update(T entity) throws RepositoryException {
-        try{
+        try {
             entityManager.merge(entity);
             entityManager.flush();
             return entity;
@@ -75,7 +80,7 @@ public class BaseRepositoryImpl<T extends BaseModel<T>,S extends Enum<S>,F exten
     }
 
     public List<T> findAll() {
-        return getSession().createCriteria(getParameterType()).list();
+        return getBaseCriteria().list();
     }
 
     // Discarded JpaRepository, now using Hibernate sessions to create,update,delete of mapped entities
@@ -86,9 +91,10 @@ public class BaseRepositoryImpl<T extends BaseModel<T>,S extends Enum<S>,F exten
     public Criteria getBaseCriteria() {
         return getSession().createCriteria(getParameterType());
     }
+
     // Method to retrieve T entity
     // Solution found on https://stackoverflow.com/a/3403976
     private Class<T> getParameterType() {
-        return (Class<T>) ((ParameterizedType)getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+        return (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
     }
 }

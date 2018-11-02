@@ -6,6 +6,6 @@ import org.hibernate.Criteria;
 public class CategoryFilterBuilder extends BaseFilterBuilder<CategorySortKeys, CategoryFilterBuilder> {
     @Override
     protected Criteria addConditions(Criteria rootCriteria, boolean isCountCriteria) {
-        return null;
+        return rootCriteria;
     }
 }

@@ -1,18 +1,17 @@
 package atlantbh.restaurants.controllers;
 
 import atlantbh.restaurants.models.BaseModel;
-import atlantbh.restaurants.models.PaginatedResult;
-import atlantbh.restaurants.models.filters.BaseFilterBuilder;
 import atlantbh.restaurants.services.BaseService;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.transaction.Transactional;
 
-public abstract class BaseController<M extends BaseModel<M>, S extends BaseService<M, ?,?, ?>> {
+public abstract class BaseController<M extends BaseModel<M>, S extends BaseService<M, ?, ?, ?>> {
 
     protected S service;
 
@@ -23,8 +22,14 @@ public abstract class BaseController<M extends BaseModel<M>, S extends BaseServi
 
     @Transactional
     public ResponseEntity create(@RequestBody M model) {
-        service.create(model);
-        return ResponseEntity.ok().build();
+        M modelInstance = service.create(model);
+        return ResponseEntity.ok(modelInstance);
+    }
+
+    @Transactional
+    public ResponseEntity update(@RequestParam Long id, @RequestParam M model) {
+        M modelInstance = service.update(id, model);
+        return ResponseEntity.ok(modelInstance);
     }
 
     public ResponseEntity get(@PathVariable("id") Long id) {
@@ -38,7 +43,6 @@ public abstract class BaseController<M extends BaseModel<M>, S extends BaseServi
     @Transactional
     public ResponseEntity delete(@PathVariable("id") Long id) {
         try {
-            service.get(id);
             service.delete(id);
             return ResponseEntity.ok().build();
         } catch (ServiceException e) {
