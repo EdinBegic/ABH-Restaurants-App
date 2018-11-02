@@ -54,7 +54,7 @@ public class BaseService<M extends BaseModel<M>, S extends Enum<S>, F extends Ba
     public void delete(Long id) throws ServiceException {
         try {
             M model = get(id);
-            repository.delete(id);
+            repository.delete(model);
         } catch (RepositoryException e) {
             throw new ServiceException("Requested model couldn't be deleted");
         }

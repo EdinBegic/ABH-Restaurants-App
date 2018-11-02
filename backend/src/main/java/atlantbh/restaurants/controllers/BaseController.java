@@ -22,14 +22,22 @@ public abstract class BaseController<M extends BaseModel<M>, S extends BaseServi
 
     @Transactional
     public ResponseEntity create(@RequestBody M model) {
-        M modelInstance = service.create(model);
-        return ResponseEntity.ok(modelInstance);
+        try {
+            M modelInstance = service.create(model);
+            return ResponseEntity.ok(modelInstance);
+        } catch (ServiceException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     @Transactional
     public ResponseEntity update(@RequestParam Long id, @RequestParam M model) {
-        M modelInstance = service.update(id, model);
-        return ResponseEntity.ok(modelInstance);
+        try {
+            M modelInstance = service.update(id, model);
+            return ResponseEntity.ok(modelInstance);
+        } catch (ServiceException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     public ResponseEntity get(@PathVariable("id") Long id) {

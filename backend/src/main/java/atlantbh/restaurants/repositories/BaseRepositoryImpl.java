@@ -39,16 +39,23 @@ public class BaseRepositoryImpl<T extends BaseModel<T>, S extends Enum<S>, F ext
         }
     }
 
-    public T findById(Long id)  {
-            return entityManager.find(getParameterType(), id);
+    public void delete(T model) throws RepositoryException {
+        try {
+            getSession().delete(model);
+        } catch (Exception e) {
+            throw new RepositoryException("Entity with id " + model.getId() + "couldn't be deleted in repository");
+        }
+    }
+
+    public T findById(Long id) {
+        return entityManager.find(getParameterType(), id);
     }
 
     // when not sure if entity is in db
     public T get(Long id) throws RepositoryException {
-        try{
-            return entityManager.find(getParameterType(),id);
-        }
-        catch (Exception e) {
+        try {
+            return entityManager.find(getParameterType(), id);
+        } catch (Exception e) {
             throw new RepositoryException("Entity with id " + id + "couldn't be found in repository");
         }
     }
