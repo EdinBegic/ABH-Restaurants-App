@@ -48,7 +48,6 @@
 }
 %field-box {
   @extend %box;
-  margin-bottom: 10px;
   border: 0px;
   color: #131d24;
 }
@@ -89,9 +88,9 @@
 }
 .search-bar {
   margin-top: 130px;
-  margin-bottom: 130px;
-}
+  margin-bottom: 250px;
 
+}
 .popular-today-label {
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 30px;
@@ -234,4 +233,99 @@
 }
 .price-range-label {
   padding-left: 10px;
+}
+
+.suggestion-item{
+  background-color: #f4f1f1;
+  border: 1px solid #000000;
+  border-radius: 3px;
+  cursor: pointer;
+  line-height: 45px;
+  position: relative;
+  padding: 0 .75rem;
+}
+.mb-3{
+  margin-bottom: 0px !important;
+} 
+/*
+.tt-dropdown-menu {
+	min-width: 160px;
+	margin-top: 2px;
+	padding: 5px 0;
+	background-color: #ffffff;
+	border: 1px solid #cccccc;
+	border: 1px solid rgba(0, 0, 0, 0.15);
+	border-radius: 4px;
+	-webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+	      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+	background-clip: padding-box;
+
+}
+
+.tt-suggestion {
+	display: block;
+	padding: 3px 20px;
+}
+.tt-suggestion.tt-is-under-cursor {
+	color: #fff;
+	background-color: #428bca;
+}
+.tt-suggestion.tt-is-under-cursor a {
+	color: #fff;
+}
+.tt-suggestion p {
+	margin: 0;
+}
+*/
+
+span.twitter-typeahead .tt-menu,
+span.twitter-typeahead .tt-dropdown-menu {
+  cursor: pointer;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  display: none;
+  float: left;
+  min-width: 160px;
+  padding: 5px 0;
+  margin: 2px 0 0;
+  list-style: none;
+  font-size: 14px;
+  text-align: left;
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+  -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+  background-clip: padding-box;
+}
+span.twitter-typeahead .tt-suggestion {
+  display: block;
+  padding: 10px 20px;
+  clear: both;
+  font-weight: normal;
+  line-height: 1.42857143;
+  border: 1px solid #cccccc;
+  color: #333333;
+  background: white;
+  white-space: nowrap;
+  font-weight: 600;
+}
+span.twitter-typeahead .tt-suggestion.tt-cursor,
+span.twitter-typeahead .tt-suggestion:hover,
+span.twitter-typeahead .tt-suggestion:focus {
+  cursor: pointer;
+  color: #ffffff;
+  text-decoration: none;
+  outline: 0;
+  padding: 10px;
+  background-color: #337ab7;
+  border-radius: 3px;
+  border: 1px solid #337ab7;
+
+}
+span.twitter-typeahead {
+  width: 100%;
 }

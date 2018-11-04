@@ -39,26 +39,27 @@ public class RestaurantFilterBuilder extends BaseFilterBuilder<RestaurantSortKey
             rootCriteria.createAlias("cousine", "cous");
             rootCriteria.createAlias("location", "loc");
             rootCriteria.add(criterion);
-        }
-        if (StringUtils.isNotBlank(name)) {
-            rootCriteria.add(Restrictions.ilike("name", name, MatchMode.ANYWHERE));
-        }
-        if (StringUtils.isNotBlank(category)) {
-            rootCriteria.createAlias("category", "cat");
-            rootCriteria.add(Restrictions.ilike("cat.name", category, MatchMode.ANYWHERE));
-        }
-        if (priceRange != null && priceRange > 0) {
-            rootCriteria.add(Restrictions.eq("priceRange", priceRange));
-        }
-        if (StringUtils.isNotBlank(location)) {
-            rootCriteria.createAlias("location", "loc");
-            Criterion criterion = Restrictions.or(Restrictions.ilike("loc.city", location, MatchMode.ANYWHERE),
-                    Restrictions.ilike("loc.country", location, MatchMode.ANYWHERE));
-            rootCriteria.add(criterion);
-        }
-        if (StringUtils.isNotBlank(cousine)) {
-            rootCriteria.createAlias("cousine", "c");
-            rootCriteria.add(Restrictions.ilike("c.name", cousine, MatchMode.ANYWHERE));
+        } else { // otherwise creating aliases would throw exception
+            if (StringUtils.isNotBlank(name)) {
+                rootCriteria.add(Restrictions.ilike("name", name, MatchMode.ANYWHERE));
+            }
+            if (StringUtils.isNotBlank(category)) {
+                rootCriteria.createAlias("category", "cat");
+                rootCriteria.add(Restrictions.ilike("cat.name", category, MatchMode.ANYWHERE));
+            }
+            if (priceRange != null && priceRange > 0) {
+                rootCriteria.add(Restrictions.eq("priceRange", priceRange));
+            }
+            if (StringUtils.isNotBlank(location)) {
+                rootCriteria.createAlias("location", "loc");
+                Criterion criterion = Restrictions.or(Restrictions.ilike("loc.city", location, MatchMode.ANYWHERE),
+                        Restrictions.ilike("loc.country", location, MatchMode.ANYWHERE));
+                rootCriteria.add(criterion);
+            }
+            if (StringUtils.isNotBlank(cousine)) {
+                rootCriteria.createAlias("cousine", "c");
+                rootCriteria.add(Restrictions.ilike("c.name", cousine, MatchMode.ANYWHERE));
+            }
         }
         return rootCriteria;
     }

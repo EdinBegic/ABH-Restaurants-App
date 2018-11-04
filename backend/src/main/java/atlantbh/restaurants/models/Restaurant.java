@@ -1,5 +1,7 @@
 package atlantbh.restaurants.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -122,6 +124,7 @@ public class Restaurant extends BaseModel<Restaurant> {
     }
 
     @OneToMany(mappedBy = "restaurant")
+    @JsonIgnore
     public Collection<Review> getReviews() {
         return reviews;
     }

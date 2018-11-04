@@ -20,4 +20,9 @@ public class RestaurantService extends BaseService<Restaurant, RestaurantSortKey
             throw new ServiceException("Couldn't retrive popular restaurants", e);
         }
     }
+
+    public Collection<Restaurant> all() {
+        return repository.findAll();
+    }
+
 }

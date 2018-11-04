@@ -7,10 +7,7 @@ export default BaseHttpService.extend({
   getRestaurantById(id) {
     return this.ajax("GET", `/restaurants/${id}`);
   },
-  getReviewSize(id) {
-    return this.ajax("GET", `/restaurants/${id}/reviews`);
-  },
-  getAvgRating(id) {
-    return this.ajax("GET", `/restaurants/${id}/rating`);
+  filter(paramName, value, pageNumber, pageSize) {
+    return this.ajax("GET", `/restaurants/filter/?${paramName}=${value}&pageSize=${pageSize}&pageNumber=${pageNumber}`);
   }
 });

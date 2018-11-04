@@ -38,10 +38,11 @@ public class LocationRepository extends BaseRepositoryImpl<Location, LocationSor
 
     public Collection<Location> getTopLocations(Integer numOfLocations) throws RepositoryException {
         try {
-            // Unfortunately Criteria API doesn't support ordering in subqueries
+            // Result set is mapped to Location class with an aditional field for the number of restaurants
+            // Mapping is defined on top of the entity
             Query query = getSession()
-                    .createNativeQuery("SELECT * FROM location l order by " +
-                            "(SELECT COUNT(*) FROM restaurant r where r.location_id = l.id) desc", Location.class);
+                    .createNativeQuery("SELECT l.*, (SELECT COUNT(*) FROM restaurant r where r.location_id = l.id) as numOfRestaurants" +
+                            "  FROM location l order by numOfRestaurants desc", "TopLocationMapping");
             return query.getResultList().subList(0, numOfLocations);
 
         } catch (Exception e) {

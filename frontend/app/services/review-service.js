@@ -16,5 +16,11 @@ export default BaseHttpService.extend({
     
     reviewRestaurant(review){
         return this.ajax('POST', '/reviews',review);
+    },
+    numOfReviewsForRestaurant(id) {
+        return this.ajax('GET', `/reviews/restaurant/${id}/size`);
+    },
+    avgRatingForRestaurant(id){
+        return this.ajax('GET', `/reviews/restaurant/${id}/rating`);
     }
 });

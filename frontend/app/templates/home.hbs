@@ -13,12 +13,14 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-12" id="searchBar">
                 <div class="search-bar">
                     <div class="input-group mb-3">
+                        <div class="row"></div>
                         <div class="input-group-prepend">
                             <span class="input-group-text search-field search-text">{{material-icon "search"}}</span>
-                            <input class="search-field" id="search" placeholder='Location, Restaurant or Cousine'>
+                            {{input class="search-field" id="search" placeholder='Location, Restaurant or Cousine'
+                            value=query}}
                         </div>
                         <select class="list-field form-control ">
                             <option value=1>2 people</option>
@@ -34,6 +36,16 @@
                         </select>
                         <button type="submit" class="form-control table-button btn">Find a table</button>
                     </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <span class="twitter-typeahead tt-dropdown-menu" style="position: absolute;">
+                                {{#each suggestions as |suggestion|}}
+                                <div class="tt-suggestion" {{action "setRestaurant" suggestion on="click"}}>{{suggestion.name}},
+                                    {{suggestion.location.city}}</div>
+                                {{/each}}
+                            </span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -46,8 +58,8 @@
                 <div class="popular-today-label">Popular for lunch today</div>
             </div>
         </div>
-            {{#each (chunk 3 model.restaurants) as |restaurantRow|}}
-            <div class="row restaurant-row">
+        {{#each (chunk 3 model.restaurants) as |restaurantRow|}}
+        <div class="row restaurant-row">
             {{#each restaurantRow as |restaurant|}}
             <div class="col-md-4">
                 <div class="row ">
@@ -62,7 +74,8 @@
                 </div>
                 <div class="row stats-row">
                     <div class="star-rating" style="padding-left: 15px">
-                        {{star-rating restaurant.avgRating numStars=5 readOnly=true baseColor="#E5E5E5" fillColor="#fd6f60" width=20
+                        {{star-rating restaurant.avgRating numStars=5 readOnly=true baseColor="#E5E5E5"
+                        fillColor="#fd6f60" width=20
                         height=15 }}
                     </div>
                     <div class="restaurant-review-label">({{restaurant.numOfReviews}})</div>
@@ -71,19 +84,21 @@
                 <div class="row">
                     <!-- Not sure what to put here -->
                     <div class="col-md-12">
-                        <div class="restaurant-type-label">{{restaurant.cousine.name}} | {{restaurant.category.name}}</div>
+                        <div class="restaurant-type-label">{{restaurant.cousine.name}} |
+                            {{restaurant.category.name}}</div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <button type="submit" class="form-control reserve-button btn" {{action "reserveNow" restaurant.id}}>Reserve now</button>
+                        <button type="submit" class="form-control reserve-button btn"
+                            {{action "reserveNow" restaurant.id}}>Reserve now</button>
                     </div>
                 </div>
             </div>
             {{/each}}
-            </div>
-            {{/each}}
-            
+        </div>
+        {{/each}}
+
     </div>
 </div>
 
@@ -169,10 +184,16 @@
             <div class="col-md-3">
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="location-label">{{ topLocation.city }}, {{ topLocation.country }}</div>
+                        <div class="location-label">{{ topLocation.[0].city }}, {{ topLocation.[0].country }}</div>
                     </div>
                     <div class="col-md-12">
-                        <div class="num-of-restaurants">{{ topLocation.numOfRestaurants }} restaurants</div>
+                        <div class="num-of-restaurants">{{ topLocation.[1] }}
+                            {{#if (eq topLocation.[1] 1)}}
+                                restaurant
+                            {{else}}
+                                restaurants
+                            {{/if}}
+                        </div>
                     </div>
                 </div>
             </div>

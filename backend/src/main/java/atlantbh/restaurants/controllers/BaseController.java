@@ -1,6 +1,8 @@
 package atlantbh.restaurants.controllers;
 
 import atlantbh.restaurants.models.BaseModel;
+import atlantbh.restaurants.models.PaginatedResult;
+import atlantbh.restaurants.models.filters.BaseFilterBuilder;
 import atlantbh.restaurants.services.BaseService;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;

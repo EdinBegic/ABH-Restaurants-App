@@ -3,15 +3,26 @@
     <div class="col-md-6">
       {{#link-to 'home' class='app-name'}} ABH Restaurants {{/link-to}}
     </div>
-    <div class="col-md-6 menu">
+    <div class="col-md-6 menu" id="nav-menu">
       {{#link-to 'home' class='navigation-link'}} Home {{/link-to}}
-      {{#link-to 'home' class='navigation-link'}} Restaurants {{/link-to}}
+      {{#link-to 'restaurant-list' class='navigation-link'}} Restaurants {{/link-to}}
       {{#if session.isAuthenticated}}
       {{#link-to 'home' class='navigation-link' id='logout-link'}} {{fa-icon 'user'}} {{ session.data.authenticated.user.firstName }} {{/link-to}}
       <a href="#" class='navigation-link' {{action "logout"}}>Log out</a>
       {{else}}
       {{#link-to 'login' class='navigation-link' id='login-link'}} Login {{/link-to}}
       {{/if}}
+    </div>
+        <div class="col-md-6 menu" >
+    <select id="hidden-menu" onchange="location = this.value;">
+      <option value="/" selected="selected">Home</option>
+      <option value="/restaurant-list">Restaurants</option>
+      {{#if session.isAuthenticated}}
+      <option value="/" {{action "logout"}}>Log out</option>
+      {{else}}
+      <option value="/login">Log in</option>
+      {{/if}}
+    </select>
     </div>
   </div>
 </div>

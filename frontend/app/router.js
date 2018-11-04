@@ -11,6 +11,7 @@ Router.map(function() {
   this.route('sign-up');
   this.route('home');
   this.route('restaurant', {path: '/:id/restaurant'});
+  this.route('restaurant-list');
 });
 
 export default Router;

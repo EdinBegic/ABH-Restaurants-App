@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 @RestController
-public class UserController extends BaseController<User, UserService> {
+public class UserController extends BaseController<User, UserService>  {
 
     public ResponseEntity registerUser(@Valid @RequestBody UserRegistrationDTO user, BindingResult bindingResult) throws Exception {
         if (bindingResult.hasErrors()) {

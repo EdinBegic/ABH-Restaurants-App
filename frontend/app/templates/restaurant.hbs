@@ -1,7 +1,7 @@
 <!-- Button trigger modal -->
 
 <!-- Modal -->
-{{#bs-modal open=rateModal onHidden=(action 'resetModal') as |modal|}}
+{{#bs-modal open=rateModal onHidden=(action 'resetModal' rateModal) as |modal|}}
 {{#modal.body}}
 <div class="container modal-container">
     <div class="row">
@@ -27,7 +27,7 @@
         <div class="row">
             <div class="col-md-12">
                 <button type="submit" class="form-control modal-button btn"
-                    {{action 'review' session.data.authenticated.user}}>Save</button>
+                    {{action 'review' session.data.authenticated.user model.restaurant.id}}>Save</button>
             </div>
         </div>
     </form>
@@ -133,20 +133,31 @@
                 <div class="container description-container" id="section-menu">
                     <div class="row" id="menu-header">
                         <div class="col-md-12">
-                            <div class="input-group mb-3">
+                            <div class="input-group">
                                 <div class="menu-label">Menu: </div>
-                                <button type="submit" class="menu-button btn">Breakfast</button>
-                                <button type="submit" class="menu-button btn">Lunch</button>
-                                <button type="submit" class="menu-button btn">Dinner</button>
+                                {{#each model.menus as |menu|}}
+                                <button type="submit" class="menu-button btn" {{action 'listItems' menu.id}}>{{menu.menuType}}</button>
+                                {{/each}}
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            
+                    {{#each model.menuItems as |item index|}}
+                    <div class="row" style="padding-top: 10px;padding-right:5px; padding-left:3px;">
+                        <div class="col-md-10">
+                            <div class="menu-item-label">{{item.name}}</div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="menu-item-price">${{item.price}}</div>
                         </div>
                     </div>
+                    <div class="row" style=" padding-left:3px;">
+                        <div class="col-md-10">
+                            <div class="menu-item-description">{{item.description}}&nbsp;</div>
+                        </div>
+                    </div>
+                    {{/each}}                    
                 </div>
+
             </div>
         </div>
     </div>

@@ -86,6 +86,7 @@ public class BaseRepositoryImpl<T extends BaseModel<T>, S extends Enum<S>, F ext
         }
     }
 
+    @Transactional
     public List<T> findAll() {
         return getBaseCriteria().list();
     }

@@ -193,3 +193,4 @@ buildNumber.properties
 
 
 # End of https://www.gitignore.io/api/java,maven,ember,intellij+all,jetbrains+all,visualstudiocode
+backend/src/main/resources/application-local-bega\.properties

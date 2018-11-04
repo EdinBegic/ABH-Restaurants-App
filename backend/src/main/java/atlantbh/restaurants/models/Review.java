@@ -27,8 +27,8 @@ public class Review extends BaseModel<Review> {
     public Review() {
     }
 
-    @Min(value = 1, message = "Please select a rating between 1 and 5")
-    @Max(value = 5, message = "Please select a rating between 1 and 5")
+    @Min(value = 0, message = "Please select a rating between 0 and 5")
+    @Max(value = 5, message = "Please select a rating between 0 and 5")
     @Column(name = "mark")
     public BigDecimal getMark() {
         return mark;

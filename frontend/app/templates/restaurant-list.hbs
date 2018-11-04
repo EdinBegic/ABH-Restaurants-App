@@ -1,0 +1,158 @@
+{{main-navigation}}
+<div class="top-restaurants" style="background: #F9F9F9;">
+    <div class="container restaurant-list-container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="filter-bar">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text search-field search-text">{{material-icon "search"}}</span>
+                            {{input class="search-field" id="list-search" placeholder='Search for a restaurant...'}}
+                        </div>
+                        <div class="filter-dropdown">
+                            <button class="form-control filter-button" {{action 'myFunction'}}>Filter by</button>
+                            <div id="myDropdown" class="dropdown-content">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="price-label-filter">
+                                            PRICE
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="price-label-filter">
+                                            RATING
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row rated-row">
+                                    <div class="col-md-6">
+                                        {{star-rating restaurant.avgRating numStars=5 readOnly=false
+                                        baseColor="#E5E5E5"
+                                        fillColor="#fd6f60" width=15
+                                        height=15 
+                                        svgPath="m113.377,100.096v-39.744c3.961,1.471 7.417,4.17 9.82,7.82 2.127,3.229 6.468,4.123 9.696,1.997 3.229-2.126 4.123-6.467 1.996-9.696-5.029-7.636-12.778-12.82-21.512-14.647v-11.12c0-3.866-3.134-7-7-7s-7,3.134-7,7v11.099c-15.493,3.23-27.168,16.989-27.168,33.426 0,16.437 11.676,30.198 27.168,33.428v39.744c-3.961-1.471-7.417-4.17-9.82-7.82-2.127-3.229-6.468-4.124-9.696-1.997-3.229,2.126-4.123,6.467-1.996,9.696 5.029,7.636 12.778,12.82 21.512,14.647v11.119c0,3.866 3.134,7 7,7s7-3.134 7-7v-11.098c15.493-3.23 27.168-16.989 27.168-33.426-2.84217e-14-16.437-11.675-30.198-27.168-33.428zm-27.168-20.865c0-8.653 5.494-16.027 13.168-18.874v37.748c-7.674-2.847-13.168-10.221-13.168-18.874zm27.168,73.166v-37.748c7.674,2.847 13.168,10.221 13.168,18.874s-5.493,16.027-13.168,18.874z"
+
+                                        }}
+                                    </div>
+                                    <div class="col-md-6">
+                                        {{star-rating restaurant.avgRating numStars=5 readOnly=false
+                                        baseColor="#E5E5E5"
+                                        fillColor="#fd6f60" width=15
+                                        height=15 }}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="price-label-filter">
+                                            COUSINE
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="cousine-filter-name">
+                                            American
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="cousine-filter-name">
+                                            Lebanese
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="cousine-filter-name">
+                                            Chinese
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="cousine-filter-name">
+                                            Malaysian
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="form-control table-button btn">Search</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{#each (chunk 3 model.restaurants) as |restaurantRow|}}
+        <div class="row restaurant-row">
+            {{#each restaurantRow as |restaurant|}}
+            <div class="col-md-4">
+                <div class="row ">
+                    <div class="col-md-12">
+                        <img src={{restaurant.logoPath}} class="restaurant-picture">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="restaurant-name-label">{{restaurant.name}}</div>
+                    </div>
+                </div>
+                <div class="row stats-row">
+                    <div class="star-rating" style="padding-left: 15px">
+                        {{star-rating restaurant.avgRating numStars=5 readOnly=true baseColor="#E5E5E5"
+                        fillColor="#fd6f60" width=20
+                        height=15 }}
+                    </div>
+                    <div class="restaurant-review-label">({{restaurant.numOfReviews}})</div>
+                    {{price-range restaurant.priceRange}}
+                </div>
+                <div class="row">
+                    <!-- Not sure what to put here -->
+                    <div class="col-md-12">
+                        <div class="restaurant-type-label">{{restaurant.cousine.name}} |
+                            {{restaurant.category.name}}</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <button type="submit" class="form-control reserve-button--list btn"
+                            {{action "reserveNow" restaurant.id}}>Reserve now</button>
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+        {{/each}}
+        <div class="row">
+            <div class="previous-label">PREVIOUS</div>
+            <button type="submit" class="form-control table-button btn">1</button>
+            <div class="next-label">NEXT</div>
+        </div>
+    </div>
+</div>
+<div class="popular-locations">
+    <div class="container">
+        <div class="row" style="padding-bottom:50px;">
+            <div class="col-md-12">
+                <div class="popular-locations-label">Popular locations</div>
+            </div>
+        </div>
+        <div class="row">
+            {{#each model.topLocations as |topLocation|}}
+            <div class="col-md-3">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="location-label">{{ topLocation.[0].city }}, {{ topLocation.[0].country }}</div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="num-of-restaurants">{{ topLocation.[1] }}
+                            {{#if (eq topLocation.[1] 1)}}
+                            restaurant
+                            {{else}}
+                            restaurants
+                            {{/if}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+    </div>
+</div>
+{{outlet}}

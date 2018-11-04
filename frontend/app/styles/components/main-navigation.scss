@@ -40,3 +40,13 @@
   color: #FD6F60;
 
 }
+
+#hidden-menu{
+  display: none;
+  float: right;
+}
+
+@media(max-width: 960px) {
+  #nav-menu {display: none; }
+  #hidden-menu {display: block; }
+}
