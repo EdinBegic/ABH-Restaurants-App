@@ -12,12 +12,12 @@ import java.math.BigDecimal;
 @Entity
 public class Review extends BaseModel<Review> {
 
-    private BigDecimal mark;
+    private float mark;
     private String comment;
     private User user;
     private Restaurant restaurant;
 
-    public Review(BigDecimal mark, String comment, User user, Restaurant restaurant) {
+    public Review(float mark, String comment, User user, Restaurant restaurant) {
         this.mark = mark;
         this.comment = comment;
         this.user = user;
@@ -30,11 +30,11 @@ public class Review extends BaseModel<Review> {
     @Min(value = 1, message = "Please select a rating between 1 and 5")
     @Max(value = 5, message = "Please select a rating between 1 and 5")
     @Column(name = "mark")
-    public BigDecimal getMark() {
+    public float getMark() {
         return mark;
     }
 
-    public void setMark(BigDecimal mark) {
+    public void setMark(float mark) {
         this.mark = mark;
     }
 

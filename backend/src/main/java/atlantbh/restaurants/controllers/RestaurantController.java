@@ -4,6 +4,7 @@ import atlantbh.restaurants.models.Restaurant;
 import atlantbh.restaurants.models.filters.RestaurantFilterBuilder;
 import atlantbh.restaurants.models.sortkeys.RestaurantSortKeys;
 import atlantbh.restaurants.services.RestaurantService;
+import org.apache.commons.lang3.EnumUtils;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,9 +31,8 @@ public class RestaurantController extends BaseController<Restaurant, RestaurantS
                     .setCousine(cousine)
                     .setLocation(location)
                     .setPageSize(pageSize)
-                    .setPageNumber(pageNumber);
-            if (sortKey != null)
-                rfb = rfb.setSortKey(RestaurantSortKeys.valueOf(sortKey));
+                    .setPageNumber(pageNumber)
+                    .setSortKey(EnumUtils.getEnum(RestaurantSortKeys.class, sortKey));
             return ResponseEntity.ok(service.filter(rfb));
         } catch (ServiceException e) {
             return ResponseEntity.badRequest().body(e.getMessage());

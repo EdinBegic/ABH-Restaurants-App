@@ -23,8 +23,7 @@ public abstract class BaseController<M extends BaseModel<M>, S extends BaseServi
     @Transactional
     public ResponseEntity create(@RequestBody M model) {
         try {
-            M modelInstance = service.create(model);
-            return ResponseEntity.ok(modelInstance);
+            return ResponseEntity.ok(service.create(model));
         } catch (ServiceException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
@@ -33,8 +32,7 @@ public abstract class BaseController<M extends BaseModel<M>, S extends BaseServi
     @Transactional
     public ResponseEntity update(@RequestParam Long id, @RequestParam M model) {
         try {
-            M modelInstance = service.update(id, model);
-            return ResponseEntity.ok(modelInstance);
+            return ResponseEntity.ok(service.update(id,model));
         } catch (ServiceException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
@@ -52,7 +50,7 @@ public abstract class BaseController<M extends BaseModel<M>, S extends BaseServi
     public ResponseEntity delete(@PathVariable("id") Long id) {
         try {
             service.delete(id);
-            return ResponseEntity.ok().build();
+            return ResponseEntity.noContent().build();
         } catch (ServiceException e) {
             return ResponseEntity.badRequest().build();
         }
