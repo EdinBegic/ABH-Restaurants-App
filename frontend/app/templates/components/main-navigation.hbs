@@ -1,0 +1,15 @@
+<nav class="navbar navbar-light">
+  <div class="container" id="navContainer">
+    <span class="navbar-brand mb-0 h1">Restaurants app</span>
+    <div class="col-md-10 navList">
+      {{#link-to 'home' class='navButton'}} Home {{/link-to}} 
+      {{#link-to 'home' class='navButton'}} Restaurants {{/link-to}} 
+      {{#if session.isAuthenticated}} 
+        {{#link-to 'home' class="navButton"}} {{ session.data.authenticated.user.firstName}} {{/link-to}}
+        <a class='navButton2' href="#" {{action 'logout'}}>Log out</a>
+      {{else}} 
+        {{#link-to 'login' class='navButton2'}} Login {{/link-to}} 
+      {{/if}}
+    </div>
+  </div>
+</nav>

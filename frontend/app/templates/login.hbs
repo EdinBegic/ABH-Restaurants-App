@@ -1,0 +1,29 @@
+<div class="backgroundColor">
+  <div class="loginContainer container">
+    <div class="row login">
+      <div class="col-md-4 ">
+        <div class="labelLogin">Login</div>
+      </div>
+      <div class="createAccountLabel col-md-8">
+        <div class="createAccountLabel">{{#link-to 'sign-up' id="createAccountLink"}}Create account{{/link-to}}</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="row login ">
+        <div class="col-md-12">
+          {{input class="form-control loginInput" placeholder='Email' value=model.email}}
+        </div>
+      </div>
+      <div class="row login ">
+        <div class="col-md-12">
+          {{input type="password" class="form-control loginInput" placeholder='Password' value=model.password}}
+        </div>
+      </div>
+      <div class="row login ">
+        <div class="col-md-12">
+          <button type="submit" class="form-control loginButton btn" {{action 'login'}}>Login</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
