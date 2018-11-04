@@ -5,6 +5,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Configuration
@@ -15,6 +16,6 @@ public class WebAppConfig extends RouterConfigurationSupport {
 
         List<String> routeFiles = new ArrayList<String>();
         routeFiles.add("classpath:routes.conf");
-        return routeFiles;
+        return Arrays.asList("classpath:routes.conf");
     }
 }

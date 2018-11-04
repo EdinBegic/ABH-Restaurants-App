@@ -12,8 +12,6 @@ import atlantbh.restaurants.models.dto.UserRegistrationDTO;
 import atlantbh.restaurants.models.filters.UserFilterBuilder;
 import atlantbh.restaurants.models.sortkeys.UserSortKeys;
 import atlantbh.restaurants.repositories.UserRepository;
-import org.hibernate.Criteria;
-import org.hibernate.criterion.Restrictions;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -53,11 +51,14 @@ public class UserService extends BaseService<User, UserSortKeys, UserFilterBuild
     }
 
     public Boolean isEmailTaken(String email) {
-        Criteria criteria = repository.getBaseCriteria();
-        criteria.add(Restrictions.eq("email", email));
-        if (criteria.list().size() > 0)
-            return true;
-        return false;
+        try {
+            if (repository.isEmailTaken(email)) {
+                return true;
+            }
+            return false;
+        } catch (RepositoryException e) {
+            throw new ServiceException(e.getMessage(), e);
+        }
     }
 
     public User get(@Valid @RequestBody UserRegistrationDTO user) throws ServiceException, PropertyReservedException, StringMissmatchException {
