@@ -41,68 +41,183 @@
   box-shadow: 0 2px 14px 0 rgba(0, 0, 0, 0.1);
   border-radius: 3px;
   width: 330px;
-  margin-left:-70px;
-
+  margin-left: -120px;
 }
 
-.dropdown-content:after, .dropdown-content:before{
-    bottom: 100%;
-	left: 50%;
-	border: solid transparent;
-	content: " ";
-	height: 0;
-	width: 0;
-	position: absolute;
-	pointer-events: none;
-
+.dropdown-content:after,
+.dropdown-content:before {
+  bottom: 100%;
+  left: 50%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
 }
-.dropdown-content:after{
-    border-color: rgba(136, 183, 213, 0);
-	border-bottom-color: #ffffff;
-    border-width: 8px;
-	margin-left: -8px;
+.dropdown-content:after {
+  border-color: rgba(136, 183, 213, 0);
+  border-bottom-color: #ffffff;
+  border-width: 8px;
+  margin-left: -8px;
 }
-.dropdown-content:before{
-    border-color: rgba(194, 225, 245, 0);
-	border-bottom-color: rgba(0, 0, 0, 0.1);
+.dropdown-content:before {
+  border-color: rgba(194, 225, 245, 0);
+  border-bottom-color: rgba(0, 0, 0, 0.1);
 
-    border-width: 10px;
-	margin-left: -10px;
-
+  border-width: 10px;
+  margin-left: -10px;
 }
 
 .show-drop {
   display: block;
 }
 
-.filter-button{
-    height: 56px;
-    border: 0px;
-    font-weight: 600;
-    width: 200px;
-    z-index: 1;
+.filter-button {
+  height: 56px;
+  border: 0px;
+  font-weight: 600;
+  width: 100px;
+  z-index: 1;
+}
+.filter-button:focus {
+  box-shadow: none;
+}
+.price-label-filter {
+  font-family: sans-serif;
+  font-size: 14px;
+  color: rgba(46, 57, 63, 0.6);
+  letter-spacing: 0;
+  padding: 10px;
 }
 
-.price-label-filter{
-    font-family:sans-serif;
-    font-size: 14px;
-color: rgba(46,57,63,0.60);
-letter-spacing: 0;
-    padding: 10px;
+.cousine-filter-name {
+  font-family: sans-serif;
+  font-size: 14px;
+  color: #000012;
+  line-height: 20px;
+  padding-left: 10px;
+  padding-top: 5px;
+  cursor: pointer;
 }
 
-.cousine-filter-name{
-    font-family:sans-serif;
-    font-size: 14px;
-    color: #000012;
-    line-height: 20px;
-    padding-left: 10px;
-    padding-top: 5px;
+.rated-row {
+  margin-left: 0px;
+  margin-right: 0px;
+  border-bottom: 1px solid #f9f9f9;
+  padding-bottom: 10px;
 }
 
-.rated-row{
-    margin-left: 0px;
-    margin-right: 0px;
-    border-bottom: 1px solid #F9F9F9;
-    padding-bottom: 10px;
+.cousine-filter-list {
+  padding-top: 10px;
+  padding-bottom: 20px;
+  padding-left: 5px;
 }
+
+.page-list-button {
+  width: auto;
+  height: auto;
+  margin-right: 15px;
+  display: inline-flex;
+  font-family: sans-serif;
+  font-size: 14px;
+  color: rgba(-2147483648, 27, -2147483648, 0.6);
+  line-height: 17px;
+}
+.page-list-button--active {
+  width: auto;
+  height: auto;
+  margin-right: 15px;
+  display: inline-flex;
+  font-family: sans-serif;
+  font-size: 14px;
+  background-color: #fd6f60;
+  color: #ffffff;
+  line-height: 17px;
+}
+
+.page-list-button:hover {
+  background-color: #fd6f60;
+  color: #ffffff;
+}
+.previous-label {
+  font-size: 14px;
+  color: rgba(46, 57, 63, 0.6);
+  letter-spacing: 0;
+  display: inline-flex;
+  margin-right: 15px;
+  cursor: pointer;
+}
+
+.next-label {
+  font-size: 14px;
+  color: rgba(46, 57, 63, 0.6);
+  letter-spacing: 0;
+  display: inline-flex;
+  cursor: pointer;
+}
+
+.previous-label:hover,
+.next-label:hover {
+  color: #fd6f60;
+}
+
+.page-number-col {
+  margin-right: 0;
+  margin-left: auto;
+}
+.p-page-list {
+  display: inline-flex;
+  margin-right: 15px;
+}
+
+.order-label {
+  font-family: sans-serif;
+  font-size: 14px;
+}
+.radio-button-row {
+  margin-left: 0px;
+}
+.custom-radio .custom-control-input:checked ~ .custom-control-label::before {
+  background-color: #fd6f60;
+}
+.custom-control-input:active ~ .custom-control-label::before {
+  background-color: rgb(250, 133, 120);
+}
+
+.reset-button {
+  height: 40px;
+  width: auto;
+  margin-left: 33%;
+  background-color: #fd6f60;
+  color: #ffffff;
+}
+.reset-button:active {
+  background: #d83f2e;
+  color: #ffffff;
+  box-shadow: none;
+  outline: 0;
+}
+.reset-button:focus {
+  background: #d83f2e;
+  color: #ffffff;
+  box-shadow: none;
+  outline: 0;
+}
+
+// div over whole page 
+.overlay-area{
+    position: fixed;
+    padding: 0;
+    margin: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.hide-drop {
+    display: none;
+  }
+  
+  

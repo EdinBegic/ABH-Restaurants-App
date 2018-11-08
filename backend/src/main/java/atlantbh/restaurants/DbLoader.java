@@ -74,6 +74,7 @@ public class DbLoader implements CommandLineRunner {
         cousineService.create(new Cousine("Italian"));
         cousineService.create(new Cousine("Mexican"));
         cousineService.create(new Cousine("Chinese"));
+        cousineService.create(new Cousine("Thai"));
     }
 
 

@@ -1,6 +1,5 @@
 import Controller from "@ember/controller";
 import { inject as service } from "@ember/service";
-import { isEmpty }  from '@ember/utils';
 export default Controller.extend({
     router: service('-routing'),
     _restaurantService: service("restaurant-service"),
@@ -10,7 +9,7 @@ export default Controller.extend({
     selectedRestaurantId:null,
     suggestions:[],
 
-    search:function() {
+    search() {
         let q = this.get('query');
         console.log(q);
         if(q != ''){

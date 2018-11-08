@@ -23,6 +23,7 @@ public class BaseRepositoryImpl<T extends BaseModel<T>, S extends Enum<S>, F ext
         paginatedResult.setPageNumber(filterBuilder.getPageNumber());
         paginatedResult.setPageSize(filterBuilder.getPageSize());
         paginatedResult.setData(filterBuilder.buildCriteria(getBaseCriteria()).list());
+        paginatedResult.setAvailable(Math.toIntExact(count(filterBuilder)));
         return paginatedResult;
     }
 

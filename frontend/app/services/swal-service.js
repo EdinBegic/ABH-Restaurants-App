@@ -1,6 +1,7 @@
-import Ember from 'ember';
+import Service from '@ember/service';
+import sweetAlert from 'ember-sweetalert';
 
-export default Ember.Service.extend({
+export default Service.extend({
   error(message) {
     sweetAlert({
       title: message,

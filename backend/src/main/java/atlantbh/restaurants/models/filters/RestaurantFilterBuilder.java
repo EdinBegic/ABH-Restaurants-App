@@ -7,6 +7,8 @@ import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 
+import java.util.List;
+
 public class RestaurantFilterBuilder extends BaseFilterBuilder<RestaurantSortKeys, RestaurantFilterBuilder> {
 
     private String query;
@@ -14,8 +16,8 @@ public class RestaurantFilterBuilder extends BaseFilterBuilder<RestaurantSortKey
     private Integer priceRange;
     private String location;
     private String category;
-    private String cousine;
-    //TODO implement filtering for average rating of restaurant
+    private List<String> cousines;
+    private Double avgRating;
 
     public RestaurantFilterBuilder() {
         query = null;
@@ -23,7 +25,8 @@ public class RestaurantFilterBuilder extends BaseFilterBuilder<RestaurantSortKey
         priceRange = null;
         location = null;
         category = null;
-        cousine = null;
+        cousines = null;
+        avgRating = null;
     }
 
     @Override
@@ -45,10 +48,10 @@ public class RestaurantFilterBuilder extends BaseFilterBuilder<RestaurantSortKey
             }
             if (StringUtils.isNotBlank(category)) {
                 rootCriteria.createAlias("category", "cat");
-                rootCriteria.add(Restrictions.ilike("cat.name", category, MatchMode.ANYWHERE));
+                rootCriteria.add(Restrictions.ilike("cat.name", category));
             }
-            if (priceRange != null && priceRange > 0) {
-                rootCriteria.add(Restrictions.eq("priceRange", priceRange));
+            if (priceRange != null && priceRange > 0 && priceRange <= 4) {
+                rootCriteria.add(Restrictions.le("priceRange", priceRange));
             }
             if (StringUtils.isNotBlank(location)) {
                 rootCriteria.createAlias("location", "loc");
@@ -56,9 +59,12 @@ public class RestaurantFilterBuilder extends BaseFilterBuilder<RestaurantSortKey
                         Restrictions.ilike("loc.country", location, MatchMode.ANYWHERE));
                 rootCriteria.add(criterion);
             }
-            if (StringUtils.isNotBlank(cousine)) {
+            if (cousines != null && cousines.size() > 0) {
                 rootCriteria.createAlias("cousine", "c");
-                rootCriteria.add(Restrictions.ilike("c.name", cousine, MatchMode.ANYWHERE));
+                rootCriteria.add(Restrictions.in("c.name", cousines));
+            }
+            if(avgRating != null && avgRating >=0 && avgRating <=5){
+                rootCriteria.add(Restrictions.le("avgRating", avgRating));
             }
         }
         return rootCriteria;
@@ -84,13 +90,18 @@ public class RestaurantFilterBuilder extends BaseFilterBuilder<RestaurantSortKey
         return this;
     }
 
-    public RestaurantFilterBuilder setCousine(String cousine) {
-        this.cousine = cousine;
+    public RestaurantFilterBuilder setCousines(List<String> cousines) {
+        this.cousines = cousines;
         return this;
     }
 
     public RestaurantFilterBuilder setName(String name) {
         this.name = name;
+        return this;
+    }
+
+    public RestaurantFilterBuilder setAvgRating(Double avgRating) {
+        this.avgRating = avgRating;
         return this;
     }
 }
