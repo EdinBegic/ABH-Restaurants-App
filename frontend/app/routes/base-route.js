@@ -1,5 +1,4 @@
 import Route from "@ember/routing/route";
-import ScrollResetMixin from '../mixins/scroll-reset';
+import ScrollResetMixin from "../mixins/scroll-reset";
 
-export default Route.extend(ScrollResetMixin,{
-});
+export default Route.extend(ScrollResetMixin, {});

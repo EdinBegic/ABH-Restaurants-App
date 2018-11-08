@@ -25,7 +25,7 @@ export default BaseRoute.extend({
     this.controller.set("selectedRestaurantId", null);
     this.controller.set("showAutoComplete", false);
   },
-  
+
   actions: {
     didTransition() {
       let restaurants = this.controller.get("model.restaurants");

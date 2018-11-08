@@ -9,6 +9,6 @@ export default BaseHttpService.extend({
     return this.ajax("GET", `/locations/distinct/countries`);
   },
   getTopLocations(size) {
-    return this.ajax("GET",`/locations/top/?size=${size}`)
+    return this.ajax("GET", `/locations/top/?size=${size}`);
   }
 });

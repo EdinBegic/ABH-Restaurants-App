@@ -1,52 +1,53 @@
-.app-name{
+.app-name {
   font-size: 20px;
-  color: #131D24;
+  color: #131d24;
 }
-.app-name:hover{
-  color: #131D24;
+.app-name:hover {
+  color: #131d24;
   text-decoration: none;
 }
 
-.menu{
+.menu {
   font-size: 16px;
-  color: #131D24;
+  color: #131d24;
   text-align: right;
-
 }
 
-.navigation-link{
+.navigation-link {
   padding: 10px;
-  color: #131D24;
-
+  color: #131d24;
 }
-.navigation-link:hover{
-  color: #131D24;
+.navigation-link:hover {
+  color: #131d24;
   text-decoration: none;
 }
 
-.navigation-bar{
+.navigation-bar {
   padding-top: 30px;
   padding-bottom: 30px;
 }
 
-.navigation-container{
-  background: #FFFFFF;
+.navigation-container {
+  background: #ffffff;
 }
 
-#login-link{
-  color: #FD6F60;
+#login-link {
+  color: #fd6f60;
 }
-#logout-link{
-  color: #FD6F60;
-
+#logout-link {
+  color: #fd6f60;
 }
 
-#hidden-menu{
+#hidden-menu {
   display: none;
   float: right;
 }
 
-@media(max-width: 960px) {
-  #nav-menu {display: none; }
-  #hidden-menu {display: block; }
+@media (max-width: 960px) {
+  #nav-menu {
+    display: none;
+  }
+  #hidden-menu {
+    display: block;
+  }
 }

@@ -4,9 +4,8 @@ import { isArray } from "@ember/array";
 import CONSTANTS from "../constants";
 import { set } from "@ember/object";
 import EmberObject from "@ember/object";
-import ClickElsewhereMixin from "../mixins/click-elsewhere";
 
-export default Controller.extend(ClickElsewhereMixin, {
+export default Controller.extend({
   _reviewService: service("review-service"),
   _swalService: service("swal-service"),
   _restaurantService: service("restaurant-service"),
@@ -27,21 +26,7 @@ export default Controller.extend(ClickElsewhereMixin, {
     number: 1,
     activeStatus: true
   }),
-/*
-  $(document).click(function (e) {
-    e.stopPropagation();
-    var container = $(".sort-dropdown");
-  
-    //check if the clicked area is dropDown or not
-    if (container.has(e.target).length === 0) {
-        $('#mySortDropDown').hide();
-    } else{
-      $('#mySortDropDown').show();
-  
-    }
-  }),
-*/
-  
+
   addParameter(paramName, paramValue) {
     let searchParam = this.get("searchParameters");
     searchParam += paramName;
@@ -64,14 +49,9 @@ export default Controller.extend(ClickElsewhereMixin, {
     showDropDown(element) {
       document.getElementById(element).classList.add("show-drop");
     },
-    reserveNow(restaurantId) {
-      this.get("router").transitionTo("restaurant", [restaurantId]);
-    },
     changeCousineStatus(cousine) {
       let cousineFilters = this.get("cousineFilters");
-      //let cousineIndex = this.get('model.cousines').indexOf(cousine);
       if (cousine.activeStatus) {
-        // this.set("cousine.activeStatus", false);
         set(cousine, "activeStatus", false);
         // removing cousine name from filter
         let indexOfElement = cousineFilters.indexOf(cousine.name);
@@ -79,7 +59,6 @@ export default Controller.extend(ClickElsewhereMixin, {
           cousineFilters.splice(indexOfElement, 1);
         }
       } else {
-        //this.set("cousine.activeStatus", true);
         set(cousine, "activeStatus", true);
         cousineFilters.push(cousine.name);
       }
@@ -92,16 +71,16 @@ export default Controller.extend(ClickElsewhereMixin, {
     setRating(rating) {
       this.set("rating", rating);
     },
-    changeSortKey(checkedValue, sortKeyValue){
-      if(checkedValue != this.get('checkedKey') ) {
-        this.set('checkedKey', !this.get('checkedKey'));
+    changeSortKey(checkedValue, sortKeyValue) {
+      if (checkedValue != this.get("checkedKey")) {
+        this.set("checkedKey", !this.get("checkedKey"));
       }
-      this.set('sortKey', sortKeyValue);
+      this.set("sortKey", sortKeyValue);
     },
-    resetFilter(){
-      this.set("cousineFilters",[]);
-      let cousines = this.get('model.cousines');
-      for(let i = 0; i < cousines.length; i++) {
+    resetFilter() {
+      this.set("cousineFilters", []);
+      let cousines = this.get("model.cousines");
+      for (let i = 0; i < cousines.length; i++) {
         set(cousines[i], "activeStatus", false);
       }
       this.set("name", "");

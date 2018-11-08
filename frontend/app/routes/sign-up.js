@@ -16,8 +16,7 @@ export default BaseRoute.extend({
   },
 
   beforeModel(transition) {
-    if (this.get("session.isAuthenticated")) 
-      this.transitionTo("home");
+    if (this.get("session.isAuthenticated")) this.transitionTo("home");
   },
 
   actions: {

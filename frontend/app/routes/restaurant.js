@@ -13,7 +13,9 @@ export default BaseRoute.extend({
     return hash({
       restaurant: this.get("_restaurantService").getRestaurantById(params.id),
       review: this.get("_reviewService").createReview(),
-      numOfReviews: this.get("_reviewService").numOfReviewsForRestaurant(params.id),
+      numOfReviews: this.get("_reviewService").numOfReviewsForRestaurant(
+        params.id
+      ),
       avgRating: this.get("_reviewService").avgRatingForRestaurant(params.id),
       menus: this.get("_menuService").getMenusByRestaurant(params.id),
       menuItems: null
@@ -22,10 +24,11 @@ export default BaseRoute.extend({
   actions: {
     didTransition() {
       let menus = this.controller.get("model.menus");
-      let items = this.get("_menuItemService").getItemsByMenu(menus[0].id).then(response => {
-        this.controller.set('model.menuItems',response);
-      });
+      let items = this.get("_menuItemService")
+        .getItemsByMenu(menus[0].id)
+        .then(response => {
+          this.controller.set("model.menuItems", response);
+        });
     }
   }
-
 });

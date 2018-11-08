@@ -19,13 +19,17 @@ export default Controller.extend({
           this.set("model.numOfReviews", newReviewCount);
           this.set("currentRating", 0);
           this.set("rateModal", false);
-          this.get("_reviewService").avgRatingForRestaurant(restId).then(response=>{
-              this.set('model.avgRating',response);
-          });
+          this.get("_reviewService")
+            .avgRatingForRestaurant(restId)
+            .then(response => {
+              this.set("model.avgRating", response);
+            });
           this.get("_swalService").success("Successfuly created review");
         })
         .catch(error => {
-          this.get("_swalService").error("An error ocured when saving your review. Please try again.");
+          this.get("_swalService").error(
+            "An error ocured when saving your review. Please try again."
+          );
         });
     },
     saveRating(rating) {

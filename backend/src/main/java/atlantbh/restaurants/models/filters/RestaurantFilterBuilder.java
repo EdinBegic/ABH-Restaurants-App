@@ -63,7 +63,7 @@ public class RestaurantFilterBuilder extends BaseFilterBuilder<RestaurantSortKey
                 rootCriteria.createAlias("cousine", "c");
                 rootCriteria.add(Restrictions.in("c.name", cousines));
             }
-            if(avgRating != null && avgRating >=0 && avgRating <=5){
+            if (avgRating != null && avgRating >= 0 && avgRating <= 5) {
                 rootCriteria.add(Restrictions.le("avgRating", avgRating));
             }
         }

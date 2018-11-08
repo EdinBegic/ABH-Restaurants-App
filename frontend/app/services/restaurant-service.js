@@ -8,9 +8,15 @@ export default BaseHttpService.extend({
     return this.ajax("GET", `/restaurants/${id}`);
   },
   filter(paramName, value, pageNumber, pageSize) {
-    return this.ajax("GET", `/restaurants/filter/?${paramName}=${value}&pageSize=${pageSize}&pageNumber=${pageNumber}`);
+    return this.ajax(
+      "GET",
+      `/restaurants/filter/?${paramName}=${value}&pageSize=${pageSize}&pageNumber=${pageNumber}`
+    );
   },
   filterMultipleParams(params, pageNumber, pageSize) {
-    return this.ajax("GET", `/restaurants/filter/?${params}pageSize=${pageSize}&pageNumber=${pageNumber}`);   
+    return this.ajax(
+      "GET",
+      `/restaurants/filter/?${params}pageSize=${pageSize}&pageNumber=${pageNumber}`
+    );
   }
 });

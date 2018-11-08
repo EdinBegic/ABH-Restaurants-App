@@ -8,7 +8,7 @@ export default Controller.extend({
 
   init() {
     this._super(...arguments);
-    this.model={};
+    this.model = {};
   },
   actions: {
     login() {

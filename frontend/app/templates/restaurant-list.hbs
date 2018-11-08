@@ -186,46 +186,7 @@
                 </div>
             </div>
         </div>
-        {{#each (chunk 3 model.restaurants) as |restaurantRow|}}
-        <div class="row restaurant-row">
-            {{#each restaurantRow as |restaurant|}}
-            <div class="col-md-4">
-                <div class="row ">
-                    <div class="col-md-12">
-                        <img src={{restaurant.logoPath}} class="restaurant-picture">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="restaurant-name-label">{{restaurant.name}}</div>
-                    </div>
-                </div>
-                <div class="row stats-row">
-                    <div class="star-rating" style="padding-left: 15px">
-                        {{star-rating restaurant.avgRating numStars=5 readOnly=true baseColor="#E5E5E5"
-                        fillColor="#fd6f60" width=20
-                        height=15 }}
-                    </div>
-                    <div class="restaurant-review-label">({{restaurant.numOfReviews}})</div>
-                    {{price-range restaurant.priceRange}}
-                </div>
-                <div class="row">
-                    <!-- Not sure what to put here -->
-                    <div class="col-md-12">
-                        <div class="restaurant-type-label">{{restaurant.cousine.name}} |
-                            {{restaurant.category.name}}</div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <button type="submit" class="form-control reserve-button--list btn"
-                            {{action "reserveNow" restaurant.id}}>Reserve now</button>
-                    </div>
-                </div>
-            </div>
-            {{/each}}
-        </div>
-        {{/each}}
+        {{restaurant-cards rowLength = 3 restaurants = model.restaurants buttonClass = 'form-control reserve-button--list btn'}}
         <div class="row">
             <div class="col-md-12 page-number-col" style="{{css-properties margin-left=pageMargin}}">
                 <div class="previous-label" {{action 'nextPage' -1}}>PREVIOUS</div>
@@ -274,26 +235,7 @@
                 <div class="popular-locations-label">Popular locations</div>
             </div>
         </div>
-        <div class="row">
-            {{#each model.topLocations as |topLocation|}}
-            <div class="col-md-3">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="location-label">{{ topLocation.[0].city }}, {{ topLocation.[0].country }}</div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="num-of-restaurants">{{ topLocation.[1] }}
-                            {{#if (eq topLocation.[1] 1)}}
-                            restaurant
-                            {{else}}
-                            restaurants
-                            {{/if}}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {{/each}}
-        </div>
+        {{top-locations locations=model.topLocations}}
     </div>
 </div>
 {{outlet}}
