@@ -7,6 +7,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.TimeZone;
 
 @Component
 public class DbLoader implements CommandLineRunner {
@@ -31,6 +34,13 @@ public class DbLoader implements CommandLineRunner {
     @Autowired
     MenuItemService menuItemService;
 
+    @Autowired
+    RestaurantTableService restaurantTableService;
+
+    @Autowired
+    ReservationService reservationService;
+
+    private static final int NUM_OF_TABLES = 4;
     @Override
     public void run(String... args) throws Exception {
         addLocations();
@@ -39,6 +49,8 @@ public class DbLoader implements CommandLineRunner {
         addCousines();
         addRestaurants();
         addMenusAndItems();
+        addTables();
+        addReservations();
     }
 
     private void addUsers() {
@@ -152,7 +164,27 @@ public class DbLoader implements CommandLineRunner {
                 "\n", "/assets/images/rest4.jpg", "placeholder", 4, location, category, cousine));
 
     }
+    private void addTables() {
+        for(Restaurant r: restaurantService.all()) {
+            for(int i = 0; i < NUM_OF_TABLES; i++) {
+                restaurantTableService.create(new RestaurantTable(2, r));
+                restaurantTableService.create(new RestaurantTable(3, r));
+                restaurantTableService.create(new RestaurantTable(4, r));
+                restaurantTableService.create(new RestaurantTable(6, r));
+                restaurantTableService.create(new RestaurantTable(8, r));
+                restaurantTableService.create(new RestaurantTable(10, r));
+            }
+        }
+    }
+    private void addReservations() throws ParseException {
+        User user = userService.findById(12L);
+        RestaurantTable restaurantTable = restaurantTableService.findById(227L);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-HH:mm:ss");
+        dateFormat.setTimeZone(TimeZone.getTimeZone("CET"));
+        reservationService.create(new Reservation(dateFormat.parse("2018-02-02-12:00:00"), dateFormat.parse("2018-02-02-12:45:00"), user, restaurantTable));
+        reservationService.create(new Reservation(dateFormat.parse("2018-02-02-14:05:00"), dateFormat.parse("2018-02-02-15:05:00"), user, restaurantTable));
 
+    }
     private void addMenusAndItems() {
         for(Restaurant restaurant: restaurantService.all()) {
             Menu menu = menuService.create(new Menu("Breakfast", restaurant));
@@ -173,5 +205,4 @@ public class DbLoader implements CommandLineRunner {
             menuItemService.create(new MenuItem("Fish", null, new BigDecimal(10.2), menu));
         }
     }
-
 }

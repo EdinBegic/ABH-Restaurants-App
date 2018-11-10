@@ -7,6 +7,7 @@ export default Controller.extend({
   _swalService: service("swal-service"),
   _menuItemService: service("menu-item-service"),
   session: service(),
+  tableSizes: [2,3,4,6,8,10],
   actions: {
     review(user, restId) {
       this.set("model.review.user", user);

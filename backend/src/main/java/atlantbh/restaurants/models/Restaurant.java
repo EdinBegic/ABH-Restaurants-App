@@ -27,6 +27,7 @@ public class Restaurant extends BaseModel<Restaurant> {
     private Long reviewSize;
     private Double avgRating;
     private Collection<Review> reviews;
+    private Collection<RestaurantTable> restaurantTables;
 
     public Restaurant(String name, String description, String logoPath, String coverPhotoPath, Integer priceRange, Location location, Category category, Cousine cousine) {
         this.name = name;
@@ -155,6 +156,16 @@ public class Restaurant extends BaseModel<Restaurant> {
         this.reviews = reviews;
     }
 
+
+    @OneToMany(mappedBy = "restaurant")
+    @JsonIgnore
+    public Collection<RestaurantTable> getRestaurantTables() {
+        return restaurantTables;
+    }
+
+    public void setRestaurantTables(Collection<RestaurantTable> restaurantTables) {
+        this.restaurantTables = restaurantTables;
+    }
     @Override
     public Restaurant duplicate(Restaurant model) {
         Restaurant restaurant = new Restaurant();
@@ -168,6 +179,7 @@ public class Restaurant extends BaseModel<Restaurant> {
         restaurant.setPriceRange(model.getPriceRange());
         restaurant.setAvgRating(model.getAvgRating());
         restaurant.setReviewSize(model.getReviewSize());
+        restaurant.setRestaurantTables(model.getRestaurantTables());
         return restaurant;
     }
 
@@ -183,5 +195,7 @@ public class Restaurant extends BaseModel<Restaurant> {
         setPriceRange(data.getPriceRange());
         setAvgRating(data.getAvgRating());
         setReviewSize(data.getReviewSize());
+        setRestaurantTables(data.getRestaurantTables());
     }
+
 }

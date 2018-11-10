@@ -89,6 +89,7 @@ export default Controller.extend({
     },
     setActivePage(page) {
       this.send("search", page.number);
+      window.scrollTo(0, 0);
     },
 
     nextPage(value) {
