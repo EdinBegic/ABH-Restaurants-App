@@ -94,11 +94,11 @@
                     <div class="row" style="inline-block">
                         <div class="input-group mb-3" id="reserveTable">
                             <select class="form-control select-table" style="height:56px;">
-                                <option>2 people</option>
+                                {{#each tableSizes  as |tableSize|}}
+                                <option value={{tableSize}}>{{tableSize}} people</option>
+                                {{/each}}
                             </select>
-                            <select class="form-control" style="height:56px;">
-                                <option>Apr 29, 2018</option>
-                            </select>
+                            {{pikaday-input format="yyyy-MM-DD" value="2-2-2-2"}}
                             <select class="form-control" style="height:56px;">
                                 <option>7:00 PM</option>
                             </select>
