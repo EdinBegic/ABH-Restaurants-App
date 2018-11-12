@@ -41,6 +41,7 @@ public class ReservationService extends BaseService<Reservation, ReservationSort
             User user = userService.get(reservationDTO.getUserId());
             Date startTime = formatDate(reservationDTO.getStartDate(), reservationDTO.getStartTime());
             Date stayingPeriod = new Date(startTime.getTime() + STAYING_TIME_MINUTES * ONE_MINUTE_IN_MILLIS);
+            Date createdAt = Calendar.getInstance().getTime();
             PaginatedResult<RestaurantTable> tableList = restaurantTableService.filter
                     (new RestaurantTableFilterBuilder().setSittingPlaces(reservationDTO.getSittingPlaces())
                             .setRestaurantId(reservationDTO.getRestaurantId()));
@@ -50,7 +51,7 @@ public class ReservationService extends BaseService<Reservation, ReservationSort
             for (RestaurantTable rt : restaurantTables) {
                 if (repository.isAvailable(rt.getId(), startTime, stayingPeriod)) {
                     counter++;
-                    r = new Reservation(startTime, stayingPeriod, user, rt);
+                    r = new Reservation(startTime, stayingPeriod, user, rt,createdAt, reservationDTO.getConfirmed());
                 }
             }
             if (counter == 0) {

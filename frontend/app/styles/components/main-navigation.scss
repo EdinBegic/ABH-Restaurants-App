@@ -51,3 +51,14 @@
     display: block;
   }
 }
+
+.history-button{
+  color: #fd6f60;
+}
+.history-button:hover{
+  color: #c0392a;
+  text-decoration: none;
+}
+.reservation-button:active{
+  background-color: #fd6f60;
+}

@@ -4,5 +4,8 @@
 @import "routes/home";
 @import "routes/restaurant";
 @import "routes/restaurant-list";
+@import "routes/complete-reservation";
 @import "components/main-navigation";
 @import "helpers/footer";
+
+@import "ember-power-select";

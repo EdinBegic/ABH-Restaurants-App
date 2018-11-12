@@ -11,6 +11,8 @@ public class ReservationFilterBuilder extends BaseFilterBuilder<ReservationSortK
     private Long userId;
     private Date startTime;
     private Date finishTime;
+    private Long restaurantId;
+    private Boolean confirmed;
     @Override
     protected Criteria addConditions(Criteria rootCriteria, boolean isCountCriteria) {
         if(userId != null) {
@@ -18,10 +20,18 @@ public class ReservationFilterBuilder extends BaseFilterBuilder<ReservationSortK
             rootCriteria.add(Restrictions.eq("u.id", userId));
         }
         if(startTime != null) {
-            rootCriteria.add(Restrictions.ge("startTime", startTime));
+            rootCriteria.add(Restrictions.ge("createdAt", startTime));
         }
         if(finishTime != null) {
-            rootCriteria.add(Restrictions.le("startTime", finishTime));
+            rootCriteria.add(Restrictions.le("createdAt", finishTime));
+        }
+        if(restaurantId != null) {
+            rootCriteria.createAlias("restaurantTable", "rt");
+            rootCriteria.createAlias("rt.restaurant", "rest");
+            rootCriteria.add(Restrictions.eq("rest.id", restaurantId));
+        }
+        if(confirmed != null) {
+            rootCriteria.add(Restrictions.eq("confirmed", confirmed));
         }
         return rootCriteria;
     }
@@ -38,6 +48,16 @@ public class ReservationFilterBuilder extends BaseFilterBuilder<ReservationSortK
 
     public ReservationFilterBuilder setFinishTime(Date finishTime) {
         this.finishTime = finishTime;
+        return this;
+    }
+
+    public ReservationFilterBuilder setRestaurantId(Long restaurantId) {
+        this.restaurantId = restaurantId;
+        return this;
+    }
+
+    public ReservationFilterBuilder setConfirmed(Boolean confirmed) {
+        this.confirmed = confirmed;
         return this;
     }
 }

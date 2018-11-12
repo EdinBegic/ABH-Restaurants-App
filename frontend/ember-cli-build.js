@@ -12,7 +12,7 @@ module.exports = function(defaults) {
     fontawesome: {
       icons: {
         'free-solid-svg-icons': [
-          'user','star'
+          'user','star','info-circle','check-circle'
         ]
       }
     }

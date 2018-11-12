@@ -12,6 +12,8 @@ Router.map(function() {
   this.route('home');
   this.route('restaurant', {path: '/:id/restaurant'});
   this.route('restaurant-list');
+  this.route('complete-reservation', {path: '/:id/complete-reservation'});
+  this.route('reservation-history');
 });
 
 export default Router;

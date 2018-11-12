@@ -11,13 +11,15 @@ public class ReservationDTO {
     private String startDate;
     //HH:mm:ss
     private String startTime;
+    private Boolean confirmed;
 
-    public ReservationDTO(Long userId, Long restaurantId, String startDate, String startTime, Integer sittingPlaces) {
+    public ReservationDTO(Long userId, Long restaurantId, String startDate, String startTime, Integer sittingPlaces, Boolean confirmed) {
         this.userId = userId;
         this.restaurantId = restaurantId;
         this.sittingPlaces = sittingPlaces;
         this.startDate = startDate;
         this.startTime = startTime;
+        this.confirmed = confirmed;
     }
     public ReservationDTO() {
 
@@ -69,5 +71,13 @@ public class ReservationDTO {
 
     public void setRestaurantId(Long restaurantId) {
         this.restaurantId = restaurantId;
+    }
+
+    public Boolean getConfirmed() {
+        return confirmed;
+    }
+
+    public void setConfirmed(Boolean confirmed) {
+        this.confirmed = confirmed;
     }
 }
