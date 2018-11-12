@@ -16,12 +16,16 @@ public class Reservation extends BaseModel<Reservation>{
     private Date stayingPeriod;
     private User user;
     private RestaurantTable restaurantTable;
+    private Date createdAt;
+    private Boolean confirmed;
 
-    public Reservation(Date startTime, Date stayingPeriod, User user, RestaurantTable restaurantTable) {
+    public Reservation(Date startTime, Date stayingPeriod, User user, RestaurantTable restaurantTable, Date createdAt, Boolean confirmedReservation) {
         this.startTime = startTime;
         this.stayingPeriod = stayingPeriod;
         this.user = user;
         this.restaurantTable = restaurantTable;
+        this.createdAt = createdAt;
+        this.confirmed = confirmedReservation;
     }
 
     public Reservation() {
@@ -70,6 +74,21 @@ public class Reservation extends BaseModel<Reservation>{
         this.restaurantTable = restaurantTable;
     }
 
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Boolean getConfirmed() {
+        return confirmed;
+    }
+
+    public void setConfirmed(Boolean confirmed) {
+        this.confirmed = confirmed;
+    }
 
     @Override
     public Reservation duplicate(Reservation model) {
@@ -78,6 +97,9 @@ public class Reservation extends BaseModel<Reservation>{
         reservation.setStayingPeriod(model.getStayingPeriod());
         reservation.setRestaurantTable(model.getRestaurantTable());
         reservation.setUser(model.getUser());
+        reservation.setConfirmed(model.getConfirmed());
+        // not sure for this setter
+        reservation.setCreatedAt(model.getCreatedAt());
         return reservation;
     }
 
@@ -87,6 +109,9 @@ public class Reservation extends BaseModel<Reservation>{
         setStayingPeriod(data.getStayingPeriod());
         setRestaurantTable(data.getRestaurantTable());
         setUser(data.getUser());
+        setConfirmed(data.getConfirmed());
+        // not sure for this setter
+        setCreatedAt(data.getCreatedAt());
     }
 
 }

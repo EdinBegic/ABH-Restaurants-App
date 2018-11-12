@@ -1,0 +1,59 @@
+{{main-navigation}}
+<div class="complete-reservation" style="background: #F9F9F9;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="reservation-header-label">Complete your reservation</div>
+            </div>
+        </div>
+    </div>
+    <div class="container find-table-container">
+        <div class="row row-info">
+            <div class="col-md-6">
+                <div class="reservation-details-label">Reservation details</div>
+            </div>
+            <div class="col-md-6" style="text-align: right;">
+            {{countdown-string startDate=startDate}}
+            </div>
+        </div>
+        <div class="row row-info">
+            <div class="col-md-2">
+                <img src={{model.restaurantTable.restaurant.logoPath}} class="restaurant-card-image">
+            </div>
+            <div class="col-md-9">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="restaurant-card-header">RESTAURANT</div>
+                    </div>
+                </div>
+                <div class="row" style="padding-bottom: 20px;">
+                    <div class="col-md-12">
+                        <div class="restaurant-card-name">{{model.restaurantTable.restaurant.name}}</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="restaurant-card-reservation-info">GUESTS</div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="restaurant-card-reservation-info">DATE</div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="restaurant-card-reservation-info">TIME</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="restaurant-card-reservation-details">{{model.restaurantTable.sittingPlaces}}</div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="restaurant-card-reservation-details">{{reservationDate}}</div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="restaurant-card-reservation-details">{{reservationTime}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

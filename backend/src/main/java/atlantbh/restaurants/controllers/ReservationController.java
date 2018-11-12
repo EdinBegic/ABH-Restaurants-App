@@ -47,6 +47,7 @@ public class ReservationController extends BaseController<Reservation, Reservati
                     .setUserId(userId)
                     .setPageNumber(pageNumber)
                     .setPageSize(pageSize)
+                    .setConfirmed(true)
                     .setSortKey(EnumUtils.getEnum(ReservationSortKeys.class, sortKey))
                     .setSortAsc(sortAsc);
             return ResponseEntity.ok(service.filter(rfb));
@@ -59,6 +60,7 @@ public class ReservationController extends BaseController<Reservation, Reservati
                                                      @RequestParam(value = "finishTime") String finishTime,
                                                      @RequestParam(value = "startDate") String startDate,
                                                      @RequestParam(value = "finishDate") String finishDate,
+                                                     @RequestParam(value = "restaurantId") Long restaurantId,
                                                      @RequestParam(value = "sortKey", required = false) String sortKey,
                                                      @RequestParam(value = "sortAsc", required = false) Boolean sortAsc) {
         try {
@@ -67,6 +69,8 @@ public class ReservationController extends BaseController<Reservation, Reservati
             ReservationFilterBuilder rfb = new ReservationFilterBuilder()
                     .setStartTime(start)
                     .setFinishTime(finish)
+                    .setRestaurantId(restaurantId)
+                    .setConfirmed(true)
                     .setSortKey(EnumUtils.getEnum(ReservationSortKeys.class, sortKey))
                     .setSortAsc(sortAsc);
             return ResponseEntity.ok(service.filter(rfb).getAvailable());

@@ -87,25 +87,66 @@
                             <div class="reservation-name-label">Make a free reservation</div>
                         </div>
                         <div class="col-md-3">
-                            <!-- TODO change hard-coded values-->
-                            <div class="booking-count-label">Booked 72 times today</div>
+                            <div class="booking-count-label">Booked {{model.bookedCounter}} times today</div>
                         </div>
                     </div>
                     <div class="row" style="inline-block">
                         <div class="input-group mb-3" id="reserveTable">
                             <select class="form-control select-table" style="height:56px;">
-                                {{#each tableSizes  as |tableSize|}}
-                                <option value={{tableSize}}>{{tableSize}} people</option>
+                                {{#each tableSizes as |tableSize|}}
+                                <option value={{tableSize}} {{action 'changeSittingPlaces' value}}>{{tableSize}} people</option>
                                 {{/each}}
                             </select>
-                            {{pikaday-input format="yyyy-MM-DD" value="2-2-2-2"}}
-                            <select class="form-control" style="height:56px;">
-                                <option>7:00 PM</option>
-                            </select>
-                            <button type="submit" class="form-control find-table-button btn" style="height:56px;">Find
-                                a table</button>
+                            {{pikaday-input
+                            format="MMMM DD, YYYY"
+                            class="calendar-picker"
+                            onSelection=(action 'changeDay')
+                            value=presentedDay
+                            }}
+                            {{time-picker
+                            selectedTime=presentedTime
+                            onchange=(action "changeTime")
+                            military=true
+                            increment=5
+                            }}
+                            <button type="submit" class="form-control find-table-button btn" style="height:56px;"
+                                {{action 'reserve'}}>Find a table</button>
                         </div>
                     </div>
+                    <div id="suggested-info">
+                    <div class="row row-info">
+                        <div class="col-md-12">
+                            <div class="availability-label">Availability on {{presentedDay}} around {{presentedTime}}
+                                for {{sittingPlaces}} people:</div>
+                        </div>
+                    </div>
+                    <div class="row row-info">
+                        <div class="col-md-3">
+                            {{fa-icon 'info-circle'}}<div class="reservation-counters-label"> {{availableTables}}
+                                tables left</div>
+                        </div>
+                        <div class="col-md-3">
+                            {{fa-icon 'check-circle' class="reservations-completed-icon"}}<div class="reservation-counters-label">{{model.bookedCounter}}
+                                reservations today</div>
+                        </div>
+                    </div>
+                    <div class="row row-info">
+                        <div class="col-md-12">
+                            <div class="date-select-label">Select the best time that fits you:</div>
+                        </div>
+                    </div>
+                    <div class="row row-info">
+                        {{#each suggestions as |date index| }}
+                        <div class="col-md-2 suggested-reservation-col">
+                            <button type="button" class="form-control suggested-reservation-button btn" {{action 'selectSuggestedTime' index}}>
+                                {{date}}
+                            </button>
+                        </div>
+                        {{/each}}
+                    </div>
+
+                    </div>
+
                 </div>
                 <div class="container description-container" id="section-description">
                     <div class="row row-info">
@@ -115,6 +156,12 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row row-info">
+                        <div class="col-md-12">
+                            <img src={{model.restaurant.coverPhotoPath}} class="cover-image"><img>
+                        </div>
+                    </div>
+
                     <div class="row row-info">
                         <div class="col-md-12">
                             <div class="description-label">
@@ -155,7 +202,7 @@
                             <div class="menu-item-description">{{item.description}}&nbsp;</div>
                         </div>
                     </div>
-                    {{/each}}                    
+                    {{/each}}
                 </div>
 
             </div>

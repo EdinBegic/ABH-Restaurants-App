@@ -9,6 +9,8 @@ import org.springframework.stereotype.Component;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.TimeZone;
 
 @Component
@@ -40,7 +42,7 @@ public class DbLoader implements CommandLineRunner {
     @Autowired
     ReservationService reservationService;
 
-    private static final int NUM_OF_TABLES = 4;
+    private static final int NUM_OF_TABLES = 1;
     @Override
     public void run(String... args) throws Exception {
         addLocations();
@@ -94,74 +96,64 @@ public class DbLoader implements CommandLineRunner {
         Location location = locationService.findById((long) 1);
         Category category = categoryService.findById((long) 14);
         Cousine cousine = cousineService.findById((long) 18);
-        restaurantService.create(new Restaurant("U2", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eu libero nec eros pharetra cursus. Sed consectetur vestibulum aliquam. Aliquam semper facilisis purus. Fusce vitae elementum justo, ac pulvinar enim. Morbi at nisi at neque convallis laoreet. Nunc tincidunt lacus vitae efficitur condimentum. Mauris gravida turpis sed ipsum mattis elementum. Duis tincidunt libero a nisl ultrices, quis hendrerit nulla convallis. Praesent scelerisque risus eget purus fermentum, id tincidunt magna vehicula. Phasellus tempus cursus blandit. Vestibulum velit sem, finibus et enim eget, bibendum tincidunt odio. Proin in dolor sed lorem mattis ornare in vel mauris. Integer ut finibus libero. Suspendisse tristique mollis odio nec tincidunt.\n" +
-                "\n", "/assets/images/rest1.jpg", "placeholder", 1, location, category, cousine));
+        String description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eu libero nec eros pharetra cursus. Sed consectetur vestibulum aliquam. Aliquam semper facilisis purus. Fusce vitae elementum justo, ac pulvinar enim. Morbi at nisi at neque convallis laoreet. Nunc tincidunt lacus vitae efficitur condimentum. Mauris gravida turpis sed ipsum mattis elementum. Duis tincidunt libero a nisl ultrices, quis hendrerit nulla convallis. Praesent scelerisque risus eget purus fermentum, id tincidunt magna vehicula. Phasellus tempus cursus blandit. Vestibulum velit sem, finibus et enim eget, bibendum tincidunt odio. Proin in dolor sed lorem mattis ornare in vel mauris. Integer ut finibus libero. Suspendisse tristique mollis odio nec tincidunt.";
+        String coverLogoPath = "/assets/images/cover.jpg";
+        restaurantService.create(new Restaurant("U2", description, "/assets/images/rest1.jpg", coverLogoPath, 1, location, category, cousine));
 
         location = locationService.findById((long) 1);
         category = categoryService.findById((long) 15);
         cousine = cousineService.findById((long) 19);
-        restaurantService.create(new Restaurant("Metropolis", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eu libero nec eros pharetra cursus. Sed consectetur vestibulum aliquam. Aliquam semper facilisis purus. Fusce vitae elementum justo, ac pulvinar enim. Morbi at nisi at neque convallis laoreet. Nunc tincidunt lacus vitae efficitur condimentum. Mauris gravida turpis sed ipsum mattis elementum. Duis tincidunt libero a nisl ultrices, quis hendrerit nulla convallis. Praesent scelerisque risus eget purus fermentum, id tincidunt magna vehicula. Phasellus tempus cursus blandit. Vestibulum velit sem, finibus et enim eget, bibendum tincidunt odio. Proin in dolor sed lorem mattis ornare in vel mauris. Integer ut finibus libero. Suspendisse tristique mollis odio nec tincidunt.\n" +
-                "\n", "/assets/images/rest2.jpg", "placeholder", 2, location, category, cousine));
+        restaurantService.create(new Restaurant("Metropolis", description, "/assets/images/rest2.jpg", coverLogoPath, 2, location, category, cousine));
 
         location = locationService.findById((long) 1);
         category = categoryService.findById((long) 16);
         cousine = cousineService.findById((long) 20);
-        restaurantService.create(new Restaurant("McDonalds", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eu libero nec eros pharetra cursus. Sed consectetur vestibulum aliquam. Aliquam semper facilisis purus. Fusce vitae elementum justo, ac pulvinar enim. Morbi at nisi at neque convallis laoreet. Nunc tincidunt lacus vitae efficitur condimentum. Mauris gravida turpis sed ipsum mattis elementum. Duis tincidunt libero a nisl ultrices, quis hendrerit nulla convallis. Praesent scelerisque risus eget purus fermentum, id tincidunt magna vehicula. Phasellus tempus cursus blandit. Vestibulum velit sem, finibus et enim eget, bibendum tincidunt odio. Proin in dolor sed lorem mattis ornare in vel mauris. Integer ut finibus libero. Suspendisse tristique mollis odio nec tincidunt.\n" +
-                "\n", "/assets/images/rest3.jpg", "placeholder", 3, location, category, cousine));
+        restaurantService.create(new Restaurant("McDonalds", description, "/assets/images/rest3.jpg", coverLogoPath, 3, location, category, cousine));
 
         location = locationService.findById((long) 1);
         category = categoryService.findById((long) 17);
         cousine = cousineService.findById((long) 21);
-        restaurantService.create(new Restaurant("Burger King", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eu libero nec eros pharetra cursus. Sed consectetur vestibulum aliquam. Aliquam semper facilisis purus. Fusce vitae elementum justo, ac pulvinar enim. Morbi at nisi at neque convallis laoreet. Nunc tincidunt lacus vitae efficitur condimentum. Mauris gravida turpis sed ipsum mattis elementum. Duis tincidunt libero a nisl ultrices, quis hendrerit nulla convallis. Praesent scelerisque risus eget purus fermentum, id tincidunt magna vehicula. Phasellus tempus cursus blandit. Vestibulum velit sem, finibus et enim eget, bibendum tincidunt odio. Proin in dolor sed lorem mattis ornare in vel mauris. Integer ut finibus libero. Suspendisse tristique mollis odio nec tincidunt.\n" +
-                "\n", "/assets/images/rest4.jpg", "placeholder", 4, location, category, cousine));
+        restaurantService.create(new Restaurant("Burger King", description, "/assets/images/rest4.jpg", coverLogoPath, 4, location, category, cousine));
 
         location = locationService.findById((long) 1);
         category = categoryService.findById((long) 14);
         cousine = cousineService.findById((long) 18);
-        restaurantService.create(new Restaurant("Montana", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eu libero nec eros pharetra cursus. Sed consectetur vestibulum aliquam. Aliquam semper facilisis purus. Fusce vitae elementum justo, ac pulvinar enim. Morbi at nisi at neque convallis laoreet. Nunc tincidunt lacus vitae efficitur condimentum. Mauris gravida turpis sed ipsum mattis elementum. Duis tincidunt libero a nisl ultrices, quis hendrerit nulla convallis. Praesent scelerisque risus eget purus fermentum, id tincidunt magna vehicula. Phasellus tempus cursus blandit. Vestibulum velit sem, finibus et enim eget, bibendum tincidunt odio. Proin in dolor sed lorem mattis ornare in vel mauris. Integer ut finibus libero. Suspendisse tristique mollis odio nec tincidunt.\n" +
-                "\n", "/assets/images/rest1.jpg", "placeholder", 1, location, category, cousine));
+        restaurantService.create(new Restaurant("Montana", description, "/assets/images/rest1.jpg", coverLogoPath, 1, location, category, cousine));
 
         location = locationService.findById((long) 1);
         category = categoryService.findById((long) 15);
         cousine = cousineService.findById((long) 19);
-        restaurantService.create(new Restaurant("In-N-Out", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eu libero nec eros pharetra cursus. Sed consectetur vestibulum aliquam. Aliquam semper facilisis purus. Fusce vitae elementum justo, ac pulvinar enim. Morbi at nisi at neque convallis laoreet. Nunc tincidunt lacus vitae efficitur condimentum. Mauris gravida turpis sed ipsum mattis elementum. Duis tincidunt libero a nisl ultrices, quis hendrerit nulla convallis. Praesent scelerisque risus eget purus fermentum, id tincidunt magna vehicula. Phasellus tempus cursus blandit. Vestibulum velit sem, finibus et enim eget, bibendum tincidunt odio. Proin in dolor sed lorem mattis ornare in vel mauris. Integer ut finibus libero. Suspendisse tristique mollis odio nec tincidunt.\n" +
-                "\n", "/assets/images/rest2.jpg", "placeholder", 2, location, category, cousine));
+        restaurantService.create(new Restaurant("In-N-Out", description, "/assets/images/rest2.jpg", coverLogoPath, 2, location, category, cousine));
 
         location = locationService.findById((long) 2);
         category = categoryService.findById((long) 16);
         cousine = cousineService.findById((long) 20);
-        restaurantService.create(new Restaurant("Starbucks", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eu libero nec eros pharetra cursus. Sed consectetur vestibulum aliquam. Aliquam semper facilisis purus. Fusce vitae elementum justo, ac pulvinar enim. Morbi at nisi at neque convallis laoreet. Nunc tincidunt lacus vitae efficitur condimentum. Mauris gravida turpis sed ipsum mattis elementum. Duis tincidunt libero a nisl ultrices, quis hendrerit nulla convallis. Praesent scelerisque risus eget purus fermentum, id tincidunt magna vehicula. Phasellus tempus cursus blandit. Vestibulum velit sem, finibus et enim eget, bibendum tincidunt odio. Proin in dolor sed lorem mattis ornare in vel mauris. Integer ut finibus libero. Suspendisse tristique mollis odio nec tincidunt.\n" +
-                "\n", "/assets/images/rest3.jpg", "placeholder", 3, location, category, cousine));
+        restaurantService.create(new Restaurant("Starbucks", description, "/assets/images/rest3.jpg", coverLogoPath, 3, location, category, cousine));
 
         location = locationService.findById((long) 3);
         category = categoryService.findById((long) 17);
         cousine = cousineService.findById((long) 21);
-        restaurantService.create(new Restaurant("Olive Garden", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eu libero nec eros pharetra cursus. Sed consectetur vestibulum aliquam. Aliquam semper facilisis purus. Fusce vitae elementum justo, ac pulvinar enim. Morbi at nisi at neque convallis laoreet. Nunc tincidunt lacus vitae efficitur condimentum. Mauris gravida turpis sed ipsum mattis elementum. Duis tincidunt libero a nisl ultrices, quis hendrerit nulla convallis. Praesent scelerisque risus eget purus fermentum, id tincidunt magna vehicula. Phasellus tempus cursus blandit. Vestibulum velit sem, finibus et enim eget, bibendum tincidunt odio. Proin in dolor sed lorem mattis ornare in vel mauris. Integer ut finibus libero. Suspendisse tristique mollis odio nec tincidunt.\n" +
-                "\n", "/assets/images/rest4.jpg", "placeholder", 4, location, category, cousine));
+        restaurantService.create(new Restaurant("Olive Garden", description, "/assets/images/rest4.jpg", coverLogoPath, 4, location, category, cousine));
 
         location = locationService.findById((long) 4);
         category = categoryService.findById((long) 14);
         cousine = cousineService.findById((long) 18);
-        restaurantService.create(new Restaurant("Taco Bell", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eu libero nec eros pharetra cursus. Sed consectetur vestibulum aliquam. Aliquam semper facilisis purus. Fusce vitae elementum justo, ac pulvinar enim. Morbi at nisi at neque convallis laoreet. Nunc tincidunt lacus vitae efficitur condimentum. Mauris gravida turpis sed ipsum mattis elementum. Duis tincidunt libero a nisl ultrices, quis hendrerit nulla convallis. Praesent scelerisque risus eget purus fermentum, id tincidunt magna vehicula. Phasellus tempus cursus blandit. Vestibulum velit sem, finibus et enim eget, bibendum tincidunt odio. Proin in dolor sed lorem mattis ornare in vel mauris. Integer ut finibus libero. Suspendisse tristique mollis odio nec tincidunt.\n" +
-                "\n", "/assets/images/rest1.jpg", "placeholder", 1, location, category, cousine));
+        restaurantService.create(new Restaurant("Taco Bell", description, "/assets/images/rest1.jpg", coverLogoPath, 1, location, category, cousine));
 
         location = locationService.findById((long) 4);
         category = categoryService.findById((long) 15);
         cousine = cousineService.findById((long) 19);
-        restaurantService.create(new Restaurant("Arby's", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eu libero nec eros pharetra cursus. Sed consectetur vestibulum aliquam. Aliquam semper facilisis purus. Fusce vitae elementum justo, ac pulvinar enim. Morbi at nisi at neque convallis laoreet. Nunc tincidunt lacus vitae efficitur condimentum. Mauris gravida turpis sed ipsum mattis elementum. Duis tincidunt libero a nisl ultrices, quis hendrerit nulla convallis. Praesent scelerisque risus eget purus fermentum, id tincidunt magna vehicula. Phasellus tempus cursus blandit. Vestibulum velit sem, finibus et enim eget, bibendum tincidunt odio. Proin in dolor sed lorem mattis ornare in vel mauris. Integer ut finibus libero. Suspendisse tristique mollis odio nec tincidunt.\n" +
-                "\n", "/assets/images/rest2.jpg", "placeholder", 2, location, category, cousine));
+        restaurantService.create(new Restaurant("Arby's", description, "/assets/images/rest2.jpg", coverLogoPath, 2, location, category, cousine));
 
         location = locationService.findById((long) 4);
         category = categoryService.findById((long) 16);
         cousine = cousineService.findById((long) 20);
-        restaurantService.create(new Restaurant("KFC", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eu libero nec eros pharetra cursus. Sed consectetur vestibulum aliquam. Aliquam semper facilisis purus. Fusce vitae elementum justo, ac pulvinar enim. Morbi at nisi at neque convallis laoreet. Nunc tincidunt lacus vitae efficitur condimentum. Mauris gravida turpis sed ipsum mattis elementum. Duis tincidunt libero a nisl ultrices, quis hendrerit nulla convallis. Praesent scelerisque risus eget purus fermentum, id tincidunt magna vehicula. Phasellus tempus cursus blandit. Vestibulum velit sem, finibus et enim eget, bibendum tincidunt odio. Proin in dolor sed lorem mattis ornare in vel mauris. Integer ut finibus libero. Suspendisse tristique mollis odio nec tincidunt.\n" +
-                "\n", "/assets/images/rest3.jpg", "placeholder", 3, location, category, cousine));
+        restaurantService.create(new Restaurant("KFC", description, "/assets/images/rest3.jpg", coverLogoPath, 3, location, category, cousine));
 
         location = locationService.findById((long) 4);
         category = categoryService.findById((long) 17);
         cousine = cousineService.findById((long) 21);
-        restaurantService.create(new Restaurant("Pizza Hut", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eu libero nec eros pharetra cursus. Sed consectetur vestibulum aliquam. Aliquam semper facilisis purus. Fusce vitae elementum justo, ac pulvinar enim. Morbi at nisi at neque convallis laoreet. Nunc tincidunt lacus vitae efficitur condimentum. Mauris gravida turpis sed ipsum mattis elementum. Duis tincidunt libero a nisl ultrices, quis hendrerit nulla convallis. Praesent scelerisque risus eget purus fermentum, id tincidunt magna vehicula. Phasellus tempus cursus blandit. Vestibulum velit sem, finibus et enim eget, bibendum tincidunt odio. Proin in dolor sed lorem mattis ornare in vel mauris. Integer ut finibus libero. Suspendisse tristique mollis odio nec tincidunt.\n" +
-                "\n", "/assets/images/rest4.jpg", "placeholder", 4, location, category, cousine));
+        restaurantService.create(new Restaurant("Pizza Hut", description, "/assets/images/rest4.jpg", coverLogoPath, 4, location, category, cousine));
 
     }
     private void addTables() {
@@ -181,8 +173,9 @@ public class DbLoader implements CommandLineRunner {
         RestaurantTable restaurantTable = restaurantTableService.findById(227L);
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-HH:mm:ss");
         dateFormat.setTimeZone(TimeZone.getTimeZone("CET"));
-        reservationService.create(new Reservation(dateFormat.parse("2018-02-02-12:00:00"), dateFormat.parse("2018-02-02-12:45:00"), user, restaurantTable));
-        reservationService.create(new Reservation(dateFormat.parse("2018-02-02-14:05:00"), dateFormat.parse("2018-02-02-15:05:00"), user, restaurantTable));
+        Date createdAt = Calendar.getInstance().getTime();
+        reservationService.create(new Reservation(dateFormat.parse("2018-11-12-12:00:00"), dateFormat.parse("2018-11-12-12:45:00"), user, restaurantTable, createdAt, true));
+        reservationService.create(new Reservation(dateFormat.parse("2018-11-12-14:05:00"), dateFormat.parse("2018-11-12-15:05:00"), user, restaurantTable, createdAt, true));
 
     }
     private void addMenusAndItems() {

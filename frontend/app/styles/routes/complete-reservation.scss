@@ -1,0 +1,43 @@
+.reservation-header-label {
+  font-family: sans-serif;
+  font-size: 36px;
+  color: #262626;
+  letter-spacing: 0;
+  text-align: center;
+  padding-top: 60px;
+  padding-bottom: 50px;
+}
+.reservation-details-label{
+    font-family: sans-serif;
+    font-size: 20px;
+color: rgba(19,29,36,0.40);
+}
+.restaurant-card-image{
+    width: 130px;
+    height: 113px;
+}
+.restaurant-card-header{
+    opacity: 0.4;
+font-family: sans-serif;
+font-size: 14px;
+color: #171717;
+letter-spacing: 0;
+}
+.restaurant-card-name{
+    font-family: sans-serif;
+font-size: 20px;
+color: #FD6F60;
+}
+
+.restaurant-card-reservation-info{
+    opacity: 0.4;
+font-family: sans-serif;
+font-size: 14px;
+color: #171717;
+letter-spacing: 0;
+}
+
+.restaurant-card-reservation-details{
+    font-size: 20px;
+color: #131D24;
+}
