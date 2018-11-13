@@ -32,7 +32,7 @@ public abstract class BaseController<M extends BaseModel<M>, S extends BaseServi
     }
 
     @Transactional
-    public ResponseEntity update(@RequestParam Long id, @RequestParam M model) {
+    public ResponseEntity update(@RequestParam Long id, @RequestBody M model) {
         try {
             return ResponseEntity.ok(service.update(id,model));
         } catch (ServiceException e) {

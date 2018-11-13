@@ -1,0 +1,17 @@
+<div class="form-group">
+  <div class="row login ">
+    <div class="col-md-12">
+      {{input class="form-control login-input" placeholder='Email' value=loginData.email}}
+    </div>
+  </div>
+  <div class="row login ">
+    <div class="col-md-12">
+      {{input type="password" class="form-control login-input" placeholder='Password' value=loginData.password}}
+    </div>
+  </div>
+  <div class="row login">
+    <div class="col-md-12">
+      <button type="submit" class="form-control login-button btn" {{action 'login' shouldTransition}}>Login</button>
+    </div>
+  </div>
+</div>

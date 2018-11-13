@@ -1,0 +1,105 @@
+    {{#if dividedForm}}
+        <div class="form-group">
+      <div class="row  ">
+        <div class="col-md-6">
+          {{input class="form-control login-input" placeholder='First Name' value=user.firstName}}
+        </div>
+        <div class="col-md-6">
+          {{input class="form-control login-input" placeholder='Last Name' value=user.lastName}}
+        </div>
+      </div>
+      <div class="row  ">
+        <div class="col-md-6">
+          {{input class="form-control login-input" placeholder='Email' value=user.email}}
+        </div>
+        <div class="col-md-6">
+          {{input class="form-control login-input" placeholder='Phone Number' value=user.phoneNumber}}
+        </div>
+      </div>
+      <div class="row ">
+        <div class="col-md-6" >
+          <select class="form-control login-input" onchange={{action "listCitiesForCountry" value="target.value" }}>
+            {{#each locations as |location|}}
+            <option value="{{location.country}}">{{location.country}}</option>
+            {{/each}}
+          </select>
+        </div>
+        <div class="col-md-6">
+          <select class="form-control login-input" onchange={{action "setLocationId" value="target.value" }}>
+            {{#each cities as |location|}}
+            <option value="{{location.id}}">{{location.city}}</option>
+            {{/each}}
+          </select>
+        </div>
+
+      </div>
+      <div class="row ">
+        <div class="col-md-6">
+          {{input type="password" class="form-control login-input" placeholder='Password' value=user.password}}
+        </div>
+        <div class="col-md-6">
+          {{input type="password" class="form-control login-input" placeholder='Confirm password' value=user.confirmedPassword}}
+        </div>
+      </div>
+      <div class="row login ">
+        <div class="col-md-12">
+          <button type="submit" class="form-control login-button btn" {{action 'createAccount' shouldTransition}}>Create Account</button>
+        </div>
+      </div>
+    </div>
+    {{else}}
+    <div class="form-group">
+      <div class="row login ">
+        <div class="col-md-12">
+          {{input class="form-control login-input" placeholder='First Name' value=user.firstName}}
+        </div>
+      </div>
+      <div class="row login ">
+        <div class="col-md-12">
+          {{input class="form-control login-input" placeholder='Last Name' value=user.lastName}}
+        </div>
+      </div>
+      <div class="row login ">
+        <div class="col-md-12">
+          {{input class="form-control login-input" placeholder='Email' value=user.email}}
+        </div>
+      </div>
+      <div class="row login ">
+        <div class="col-md-12">
+          {{input class="form-control login-input" placeholder='Phone Number' value=user.phoneNumber}}
+        </div>
+      </div>
+      <div class="row login">
+        <div class="col-md-6" id='select-right'>
+          <select class="form-control login-input" onchange={{action "listCitiesForCountry" value="target.value" }}>
+            {{#each locations as |location|}}
+            <option value="{{location.country}}">{{location.country}}</option>
+            {{/each}}
+          </select>
+        </div>
+        <div class="col-md-6" id='select-left'>
+          <select class="form-control login-input" onchange={{action "setLocationId" value="target.value" }}>
+            {{#each cities as |location|}}
+            <option value="{{location.id}}">{{location.city}}</option>
+            {{/each}}
+          </select>
+        </div>
+
+      </div>
+      <div class="row login">
+        <div class="col-md-12">
+          {{input type="password" class="form-control login-input" placeholder='Password' value=user.password}}
+        </div>
+      </div>
+      <div class="row login ">
+        <div class="col-md-12">
+          {{input type="password" class="form-control login-input" placeholder='Confirm password' value=user.confirmedPassword}}
+        </div>
+      </div>
+      <div class="row login ">
+        <div class="col-md-12">
+          <button type="submit" class="form-control login-button btn" {{action 'createAccount'}}>Create Account</button>
+        </div>
+      </div>
+    </div>
+    {{/if}}

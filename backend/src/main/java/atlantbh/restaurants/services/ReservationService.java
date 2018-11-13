@@ -36,9 +36,20 @@ public class ReservationService extends BaseService<Reservation, ReservationSort
         return dateFormat.parse(startDate + "-" + startTime);
     }
 
+    @Override
+    public Reservation update(Long id, Reservation data) throws ServiceException {
+        if(!repository.isAvailable(data.getRestaurantTable().getId(), data.getStartTime(), data.getStayingPeriod())) {
+            throw new ServiceException("You did not reserve on time. Somebody already reserved in that time slot.");
+        }
+        return super.update(id, data);
+    }
+
     public Reservation create(ReservationDTO reservationDTO) {
         try {
-            User user = userService.get(reservationDTO.getUserId());
+            User user = null;
+            if(reservationDTO.getUserId() != null) {
+                 user = userService.get(reservationDTO.getUserId());
+            }
             Date startTime = formatDate(reservationDTO.getStartDate(), reservationDTO.getStartTime());
             Date stayingPeriod = new Date(startTime.getTime() + STAYING_TIME_MINUTES * ONE_MINUTE_IN_MILLIS);
             Date createdAt = Calendar.getInstance().getTime();
@@ -55,7 +66,7 @@ public class ReservationService extends BaseService<Reservation, ReservationSort
                 }
             }
             if (counter == 0) {
-                throw new RepositoryException("All tables in that time slot are already reserved");
+                throw new RepositoryException("All tables in that time slot are already reserved. Please select another time");
             }
             return repository.save(r);
         } catch (ServiceException | ParseException | RepositoryException e) {

@@ -1,30 +1,14 @@
 {{main-navigation}}
 <div class="login-background">
+  <div class="row login">
+  <div class="col-md-4">
+    <div class="login-label">Login</div>
+  </div>
+  <div class="col-md-8">
+    <div class="registration-label">{{#link-to 'sign-up' id="registration-link"}}Create account{{/link-to}}</div>
+  </div>
+</div>
   <div class="login-container container">
-    <div class="row login">
-      <div class="col-md-4">
-        <div class="login-label">Login</div>
-      </div>
-      <div class="col-md-8">
-        <div class="registration-label">{{#link-to 'sign-up' id="registration-link"}}Create account{{/link-to}}</div>
-      </div>
-    </div>
-    <div class="form-group">
-      <div class="row login ">
-        <div class="col-md-12">
-          {{input class="form-control login-input" placeholder='Email' value=model.email}}
-        </div>
-      </div>
-      <div class="row login ">
-        <div class="col-md-12">
-          {{input type="password" class="form-control login-input" placeholder='Password' value=model.password}}
-        </div>
-      </div>
-      <div class="row login">
-        <div class="col-md-12">
-          <button type="submit" class="form-control login-button btn" {{action 'login'}}>Login</button>
-        </div>
-      </div>
-    </div>
+    {{login-form shouldTransition=true}}
   </div>
 </div>

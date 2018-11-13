@@ -95,7 +95,6 @@ export default Controller.extend({
       reservation.startTime = this.get('selectedTime');
       this.set('model.reservation', reservation);
       this.get('_reservationService').create(reservation).then(response=>{
-        console.log(response);
         this.get("router").transitionTo('complete-reservation',[response.id]);
       }).catch(errorResponse => {
         this.suggestedReservations = this.get('_reservationService').getSuggestedTimes(reservation, CONSTANTS.SUGGESTED_DATES_SIZE)
