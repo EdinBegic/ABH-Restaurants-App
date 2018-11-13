@@ -3,7 +3,7 @@ import { inject as service } from "@ember/service";
 
 export default Component.extend({
   session: service("session"),
-  router: service("-routing"),
+  router: service(),
   _swalService: service("swal-service"),
   classNames: ["main-navigation"],
 
@@ -16,7 +16,7 @@ export default Component.extend({
             "Successfuly logged out",
             confirm => {
               this.get("session").invalidate();
-              this.transitionToRoute("home");
+              this.get("router").transitionTo("home");
             }
           );
         }

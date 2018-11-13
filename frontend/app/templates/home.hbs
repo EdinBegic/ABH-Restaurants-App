@@ -23,17 +23,18 @@
                             value=query}}
                         </div>
                         <select class="list-field form-control ">
-                            <option value=1>2 people</option>
-                            <option value=2>Test2</option>
+                            {{#each tableSizes as |tableSize|}}
+                                <option value={{tableSize}}>{{tableSize}} people</option>
+                            {{/each}}
                         </select>
-                        <select class="form-control list-field">
-                            <option value=1>Apr 29, 2018.</option>
-                            <option value=2>Test2</option>
-                        </select>
-                        <select class="form-control list-field">
-                            <option value=1>7:00 PM</option>
-                            <option value=2>Test2</option>
-                        </select>
+                            {{pikaday-input
+                            format="MMMM DD, YYYY"
+                            class="calendar-picker"
+                            }}
+                            {{time-picker
+                            military=true
+                            increment=5
+                            }}
                         <button type="submit" class="form-control table-button btn">Find a table</button>
                     </div>
                     <div class="row">

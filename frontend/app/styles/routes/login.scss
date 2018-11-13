@@ -36,11 +36,27 @@
   height: 53px;
   margin-top: 40px;
 }
-
+.login-button--reservation{
+  background: #fd6f60;
+  color: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 18px;
+  border-radius: 3px;
+  height: 56px;
+  width: 50%;
+  margin-top: 150px;
+  margin-bottom: 30px;
+  margin-left:25%;
+}
 .login-container {
   background: #f9f9f9;
   padding-top: 89px;
   padding-bottom: 617px;
+}
+.login-container--reservation{
+  background: #f9f9f9;
+  padding-top: 50px;
+  padding-bottom: 50px;
 }
 .login-background {
   background: #f9f9f9;

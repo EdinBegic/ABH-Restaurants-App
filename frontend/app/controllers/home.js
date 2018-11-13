@@ -9,6 +9,7 @@ export default BaseController.extend({
   query: "",
   selectedRestaurantId: null,
   suggestions: [],
+  tableSizes: [2,3,4,6,8,10],
 
   search() {
     let q = this.get("query");

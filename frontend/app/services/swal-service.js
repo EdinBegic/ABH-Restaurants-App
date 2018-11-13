@@ -2,13 +2,13 @@ import Service from "@ember/service";
 import sweetAlert from "ember-sweetalert";
 
 export default Service.extend({
-  error(message) {
+  error(message, callback) {
     sweetAlert({
       title: message,
       confirmButtonText: "Try again",
       confirmButtonColor: "#DC5154",
       type: "error"
-    });
+    }).then(callback);
   },
   success(title, callback) {
     sweetAlert({

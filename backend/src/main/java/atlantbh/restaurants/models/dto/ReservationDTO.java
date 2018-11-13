@@ -25,7 +25,6 @@ public class ReservationDTO {
 
     }
 
-    @NotNull
     @Positive
     public Long getUserId() {
         return userId;

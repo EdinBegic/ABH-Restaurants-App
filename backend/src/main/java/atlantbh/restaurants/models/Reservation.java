@@ -55,7 +55,7 @@ public class Reservation extends BaseModel<Reservation>{
     }
 
     @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = true)
     public User getUser() {
         return user;
     }

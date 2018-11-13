@@ -30,4 +30,7 @@ export default BaseHttpService.extend({
     getNumOfReservationsForPeriod(startDate, startTime, finishDate, finishTime, restaurantId) {
         return this.ajax("GET", `/reservations/size-for-period?startDate=${startDate}&startTime=${startTime}&finishDate=${finishDate}&finishTime=${finishTime}&restaurantId=${restaurantId}`);
     },
+    update(id,reservation) {
+        return this.ajax("PUT", `/reservations?id=${id}`, reservation);
+    }
 });
