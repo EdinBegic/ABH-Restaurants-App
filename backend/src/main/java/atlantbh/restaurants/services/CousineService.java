@@ -10,7 +10,4 @@ import java.util.List;
 
 @Service
 public class CousineService extends BaseService<Cousine, CousineSortKeys, CousineFilterBuilder, CousineRepository> {
-    public List<Cousine> findAll() {
-        return repository.findAll();
-    }
 }

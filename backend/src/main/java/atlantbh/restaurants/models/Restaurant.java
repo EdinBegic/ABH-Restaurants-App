@@ -133,6 +133,10 @@ public class Restaurant extends BaseModel<Restaurant> {
         return reviews;
     }
 
+    public void setReviews(Collection<Review> reviews) {
+        this.reviews = reviews;
+    }
+
     @Column(name = "review_size")
     public Long getReviewSize() {
         return reviewSize;
@@ -149,10 +153,6 @@ public class Restaurant extends BaseModel<Restaurant> {
 
     public void setAvgRating(Double avgRating) {
         this.avgRating = avgRating;
-    }
-
-    public void setReviews(Collection<Review> reviews) {
-        this.reviews = reviews;
     }
 
     @Override

@@ -1,7 +1,8 @@
-import Controller from "@ember/controller";
+import Ember from "ember";
 import { inject as service } from "@ember/service";
+import BaseController from "./base-controller";
 
-export default Controller.extend({
+export default BaseController.extend({
   currentRating: 0,
   _reviewService: service("review-service"),
   _swalService: service("swal-service"),
@@ -10,7 +11,6 @@ export default Controller.extend({
   actions: {
     review(user, restId) {
       this.set("model.review.user", user);
-      console.log(restId);
       this.set("model.review.restaurant", this.get("model.restaurant"));
       this.get("_reviewService")
         .reviewRestaurant(this.get("model.review"))

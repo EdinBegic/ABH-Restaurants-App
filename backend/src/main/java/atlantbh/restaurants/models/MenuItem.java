@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 
 @Entity
 @Table(name = "menu_item")
-public class MenuItem extends BaseModel<MenuItem>{
+public class MenuItem extends BaseModel<MenuItem> {
     private String name;
     private String description;
     private BigDecimal price;
@@ -20,6 +20,7 @@ public class MenuItem extends BaseModel<MenuItem>{
         this.price = price;
         this.menu = menu;
     }
+
     public MenuItem() {
 
     }

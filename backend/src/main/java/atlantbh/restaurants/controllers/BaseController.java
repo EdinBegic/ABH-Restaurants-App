@@ -1,8 +1,6 @@
 package atlantbh.restaurants.controllers;
 
 import atlantbh.restaurants.models.BaseModel;
-import atlantbh.restaurants.models.PaginatedResult;
-import atlantbh.restaurants.models.filters.BaseFilterBuilder;
 import atlantbh.restaurants.services.BaseService;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +32,7 @@ public abstract class BaseController<M extends BaseModel<M>, S extends BaseServi
     @Transactional
     public ResponseEntity update(@RequestParam Long id, @RequestParam M model) {
         try {
-            return ResponseEntity.ok(service.update(id,model));
+            return ResponseEntity.ok(service.update(id, model));
         } catch (ServiceException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }

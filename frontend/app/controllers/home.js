@@ -1,6 +1,7 @@
-import Controller from "@ember/controller";
+import BaseController from "./base-controller";
+
 import { inject as service } from "@ember/service";
-export default Controller.extend({
+export default BaseController.extend({
   router: service("-routing"),
   _restaurantService: service("restaurant-service"),
   showAutoComplete: false,
@@ -11,15 +12,10 @@ export default Controller.extend({
 
   search() {
     let q = this.get("query");
-    console.log(q);
     if (q != "") {
       this.get("_restaurantService")
         .filter("q", q, 1, 5)
         .then(response => {
-          console.log("SELECT:");
-          console.log(this.get("selectedRestaurant"));
-          console.log("AUTO:");
-          console.log(this.get("showAutoComplete"));
           this.set("suggestions", response.data);
           this.set("showAutoComplete", true);
           this.set("selectedRestaurant", false);

@@ -1,11 +1,12 @@
-import Controller from "@ember/controller";
+import Ember from "ember";
 import { inject as service } from "@ember/service";
 import { isArray } from "@ember/array";
 import CONSTANTS from "../constants";
 import { set } from "@ember/object";
 import EmberObject from "@ember/object";
+import BaseController from "./base-controller";
 
-export default Controller.extend({
+export default BaseController.extend({
   _reviewService: service("review-service"),
   _swalService: service("swal-service"),
   _restaurantService: service("restaurant-service"),
@@ -54,7 +55,10 @@ export default Controller.extend({
       if (cousine.activeStatus) {
         set(cousine, "activeStatus", false);
         // removing cousine name from filter
-        let indexOfElement = cousineFilters.indexOf(cousine.name);
+       // let indexOfElement = cousineFilters.indexOf(cousine.name);
+        let indexOfElement = cousineFilters.find(filter => filter === cousine.name);
+
+
         if (indexOfElement > -1) {
           cousineFilters.splice(indexOfElement, 1);
         }

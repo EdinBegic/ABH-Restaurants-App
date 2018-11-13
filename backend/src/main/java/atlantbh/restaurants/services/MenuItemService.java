@@ -10,7 +10,4 @@ import java.util.List;
 
 @Service
 public class MenuItemService extends BaseService<MenuItem, MenuItemSortKeys, MenuItemFilterBuilder, MenuItemRepository> {
-    public List<MenuItem> getByMenu(Long menu) {
-        return repository.findByMenu(menu);
-    }
 }

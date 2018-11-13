@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
-public class Menu extends BaseModel<Menu>{
+public class Menu extends BaseModel<Menu> {
     private String menuType;
     private Restaurant restaurant;
     private Collection<MenuItem> menuItems;

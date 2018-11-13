@@ -21,8 +21,4 @@ public class RestaurantService extends BaseService<Restaurant, RestaurantSortKey
         }
     }
 
-    public Collection<Restaurant> all() {
-        return repository.findAll();
-    }
-
 }

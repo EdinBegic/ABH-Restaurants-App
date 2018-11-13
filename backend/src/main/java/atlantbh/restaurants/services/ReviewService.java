@@ -34,11 +34,11 @@ public class ReviewService extends BaseService<Review, ReviewSortKeys, ReviewFil
 
     @Override
     public Review create(Review review) throws ServiceException {
-        Review rev = super.create(review);
-        Restaurant restaurant = restaurantService.get(rev.getRestaurant().getId());
+        Review createdReview = super.create(review);
+        Restaurant restaurant = restaurantService.get(createdReview.getRestaurant().getId());
         restaurant.setReviewSize(restaurant.getReviewSize() + 1);
         restaurant.setAvgRating(getRatingForRestaurant(restaurant.getId()));
         restaurantService.update(restaurant.getId(), restaurant);
-        return rev;
+        return createdReview;
     }
 }

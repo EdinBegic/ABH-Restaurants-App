@@ -1,12 +1,15 @@
 package atlantbh.restaurants;
 
 import atlantbh.restaurants.models.*;
+import atlantbh.restaurants.models.filters.RestaurantFilterBuilder;
 import atlantbh.restaurants.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import javax.transaction.Transactional;
 import java.math.BigDecimal;
+import java.util.List;
 
 @Component
 public class DbLoader implements CommandLineRunner {
@@ -154,7 +157,9 @@ public class DbLoader implements CommandLineRunner {
     }
 
     private void addMenusAndItems() {
-        for(Restaurant restaurant: restaurantService.all()) {
+        RestaurantFilterBuilder rfb = new RestaurantFilterBuilder();
+        List<Restaurant> restaurantList = restaurantService.filter(rfb).getData();
+        for(Restaurant restaurant: restaurantList) {
             Menu menu = menuService.create(new Menu("Breakfast", restaurant));
             menuItemService.create(new MenuItem("Brocoli Rabe", "With grilled sausage, olive oil and garlic", new BigDecimal(8.95), menu));
             menuItemService.create(new MenuItem("Fried Mozzarella", null, new BigDecimal(3.42), menu));
