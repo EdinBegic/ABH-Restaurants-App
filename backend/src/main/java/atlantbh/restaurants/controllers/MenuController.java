@@ -10,10 +10,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class MenuController extends BaseController<Menu, MenuService> {
 
-    public ResponseEntity filter(@RequestParam Long restaurantId) {
+    public ResponseEntity filter(@RequestParam Long restaurantId,
+                                 @RequestParam Integer pageSize,
+                                 @RequestParam Integer pageNumber) {
 
         MenuFilterBuilder mfb = new MenuFilterBuilder()
-                .setRestaurantId(restaurantId);
+                .setRestaurantId(restaurantId)
+                .setPageNumber(pageNumber)
+                .setPageSize(pageSize);
         return ResponseEntity.ok(service.filter(mfb).getData());
     }
 }

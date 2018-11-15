@@ -14,8 +14,7 @@ public class MenuItemFilterBuilder extends BaseFilterBuilder<MenuItemSortKeys, M
     @Override
     protected Criteria addConditions(Criteria rootCriteria, boolean isCountCriteria) {
         if (menuId != null) {
-            rootCriteria.createAlias("menu", "m");
-            rootCriteria.add(Restrictions.eq("m.id", menuId));
+            rootCriteria.add(Restrictions.eq("menu.id", menuId));
         }
         return rootCriteria;
     }

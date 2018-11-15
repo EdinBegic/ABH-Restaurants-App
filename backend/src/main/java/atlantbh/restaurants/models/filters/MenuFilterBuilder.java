@@ -15,8 +15,7 @@ public class MenuFilterBuilder extends BaseFilterBuilder<MenuSortKeys, MenuFilte
     @Override
     protected Criteria addConditions(Criteria rootCriteria, boolean isCountCriteria) {
         if (restaurantId != null) {
-            rootCriteria.createAlias("restaurant", "r");
-            rootCriteria.add(Restrictions.eq("r.id", restaurantId));
+            rootCriteria.add(Restrictions.eq("restaurant.id", restaurantId));
         }
         return rootCriteria;
     }

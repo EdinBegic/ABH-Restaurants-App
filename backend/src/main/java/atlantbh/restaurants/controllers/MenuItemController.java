@@ -9,9 +9,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class MenuItemController extends BaseController<MenuItem, MenuItemService> {
-    public ResponseEntity filter(@RequestParam Long menuId) {
+    public ResponseEntity filter(@RequestParam Long menuId,
+                                 @RequestParam Integer pageSize,
+                                 @RequestParam Integer pageNumber) {
         MenuItemFilterBuilder mifb = new MenuItemFilterBuilder()
-                .setMenuId(menuId);
+                .setMenuId(menuId)
+                .setPageNumber(pageNumber)
+                .setPageSize(pageSize);
         return ResponseEntity.ok(service.filter(mifb).getData());
     }
 
