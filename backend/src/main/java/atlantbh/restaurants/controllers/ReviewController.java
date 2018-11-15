@@ -25,16 +25,17 @@ public class ReviewController extends BaseController<Review, ReviewService> {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
     @PostMapping
     @Override
     public ResponseEntity create(@RequestBody Review model) {
         return super.create(model);
     }
+
     @GetMapping("/{id}")
     @Override
     public ResponseEntity get(@PathVariable("id") Long id) {
         return super.get(id);
     }
-
 
 }

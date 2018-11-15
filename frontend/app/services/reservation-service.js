@@ -31,6 +31,6 @@ export default BaseHttpService.extend({
         return this.ajax("GET", `/reservations/size-for-period?startDate=${startDate}&startTime=${startTime}&finishDate=${finishDate}&finishTime=${finishTime}&restaurantId=${restaurantId}`);
     },
     update(id,reservation) {
-        return this.ajax("PUT", `/reservations?id=${id}`, reservation);
+        return this.ajax("PUT", `/reservations/${id}`, reservation);
     }
 });

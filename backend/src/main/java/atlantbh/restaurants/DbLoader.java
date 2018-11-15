@@ -160,7 +160,10 @@ public class DbLoader implements CommandLineRunner {
 
     }
     private void addTables() {
-        for(Restaurant r: restaurantService.all()) {
+        RestaurantFilterBuilder rfb = new RestaurantFilterBuilder()
+                .setPageSize(0);
+
+        for(Restaurant r: restaurantService.filter(rfb).getData()) {
             for(int i = 0; i < NUM_OF_TABLES; i++) {
                 restaurantTableService.create(new RestaurantTable(2, r));
                 restaurantTableService.create(new RestaurantTable(3, r));

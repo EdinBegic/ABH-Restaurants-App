@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.text.ParseException;
+import java.time.DateTimeException;
 import java.util.Date;
 
 @RestController
@@ -27,7 +28,7 @@ public class ReservationController extends BaseController<Reservation, Reservati
         }
     }
 
-    @GetMapping("/suggested-times")
+    @PostMapping("/suggested-times")
     public ResponseEntity suggestedTimes(@RequestBody @Valid ReservationDTO reservationDTO, @RequestParam(value = "numOfDates") Integer numOfDates) {
         try {
             return ResponseEntity.ok((service.suggestedTimes(reservationDTO, numOfDates)));
@@ -94,11 +95,11 @@ public class ReservationController extends BaseController<Reservation, Reservati
         return super.create(model);
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     @Override
-    public ResponseEntity update(@RequestParam Long id, @RequestBody Reservation model) {
-        return super.update(id,model);
+    public ResponseEntity update(@PathVariable("id") Long id, @RequestBody Reservation model) {
+        return super.update(id, model);
     }
 
 
-    }
+}

@@ -14,11 +14,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/cousines")
 public class CousineController extends BaseController<Cousine, CousineService> {
 
-    @GetMapping
-    public ResponseEntity filter() {
+    @GetMapping("/filter")
+    public ResponseEntity filter(@RequestParam(value = "pageSize") Integer pageSize,
+                                 @RequestParam(value = "pageNumber") Integer pageNumber) {
         try {
             //for now no specific filter
-            CousineFilterBuilder cfb = new CousineFilterBuilder();
+            CousineFilterBuilder cfb = new CousineFilterBuilder()
+                    .setPageNumber(pageNumber)
+                    .setPageSize(pageSize);
             return ResponseEntity.ok(service.filter(cfb).getData());
         } catch (ServiceException e) {
             return ResponseEntity.badRequest().body(e.getMessage());

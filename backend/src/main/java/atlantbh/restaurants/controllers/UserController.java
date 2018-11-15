@@ -24,6 +24,7 @@ public class UserController extends BaseController<User, UserService> {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
     @GetMapping("/{id}")
     @Override
     public ResponseEntity get(@PathVariable("id") Long id) {

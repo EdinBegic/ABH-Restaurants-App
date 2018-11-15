@@ -8,7 +8,7 @@ import java.util.Collection;
 
 @Entity
 @Table(name = "restaurant_table")
-public class RestaurantTable extends BaseModel<RestaurantTable>{
+public class RestaurantTable extends BaseModel<RestaurantTable> {
     private Integer sittingPlaces;
     private Restaurant restaurant;
     private Collection<Reservation> reservations;

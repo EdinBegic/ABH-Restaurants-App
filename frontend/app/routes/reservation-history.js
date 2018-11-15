@@ -6,5 +6,5 @@ export default BaseRoute.extend({
     session: service(),
     model(){
         return this.get('_reservationService').getReservationHistory(this.get('session.data.authenticated.user.id'),1,10);
-    }
+    },
 });

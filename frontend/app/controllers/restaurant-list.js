@@ -54,8 +54,6 @@ export default BaseController.extend({
       let cousineFilters = this.get("cousineFilters");
       if (cousine.activeStatus) {
         set(cousine, "activeStatus", false);
-        // removing cousine name from filter
-       // let indexOfElement = cousineFilters.indexOf(cousine.name);
         let indexOfElement = cousineFilters.find(filter => filter === cousine.name);
 
 

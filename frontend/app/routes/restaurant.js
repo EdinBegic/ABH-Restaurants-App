@@ -10,7 +10,7 @@ export default BaseRoute.extend({
   _menuItemService: service("menu-item-service"),
   _reservationService: service("reservation-service"),
   session: service(),
-  startDate: moment().format('YYYY-MM-DD'),
+  startDate: moment().tz("Europe/Berlin").format('YYYY-MM-DD'),
   startTime: "00:00:00",
   finishTime: "23:59:00",
 
@@ -35,7 +35,7 @@ export default BaseRoute.extend({
         params.id
       ),
       avgRating: this.get("_reviewService").avgRatingForRestaurant(params.id),
-      menus: this.get("_menuService").getMenusByRestaurant(params.id),
+      menus: this.get("_menuService").getMenusByRestaurant(params.id, 0, 1),
       menuItems: null,
       bookedCounter: this.get("_reservationService").
           getNumOfReservationsForPeriod(this.startDate, this.startTime, this.startDate, this.finishTime, params.id),
@@ -46,7 +46,7 @@ export default BaseRoute.extend({
     didTransition() {
       let menus = this.controller.get("model.menus");
       let items = this.get("_menuItemService")
-        .getItemsByMenu(menus[0].id)
+        .getItemsByMenu(menus[0].id,1,0)
         .then(response => {
           this.controller.set("model.menuItems", response);
         });

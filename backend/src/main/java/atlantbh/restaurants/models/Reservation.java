@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
-public class Reservation extends BaseModel<Reservation>{
+public class Reservation extends BaseModel<Reservation> {
 
     private Date startTime;
     private Date stayingPeriod;

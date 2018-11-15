@@ -30,14 +30,14 @@ export default Component.extend({
     setLocationId(id) {
       this.set("user.locationId", id); // update the location of the user
     },
-    createAccount(shouldTransition) {
+    createAccount() {
       this.get("_userService")
         .registerUser(this.get("user"))
         .then(response => {
           this.get("_swalService").success(
             "Registration successful",
             confirm => {
-              if (shouldTransition) {
+              if (this.get('shouldTransition')) {
                 this.get("router").transitionTo("login");
               } else {
                 this.sendAction("functionName", true);

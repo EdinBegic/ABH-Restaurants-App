@@ -7,7 +7,6 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
-import java.math.BigDecimal;
 
 @Entity
 public class Review extends BaseModel<Review> {

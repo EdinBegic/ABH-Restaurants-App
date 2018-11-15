@@ -20,7 +20,7 @@ export default BaseRoute.extend({
       topLocations: this.get("_locationService").getTopLocations(
         CONSTANTS.TOP_LOCATIONS_SIZE
       ),
-      cousines: this.get("_cousineService").findAll()
+      cousines: this.get("_cousineService").findAll(1,0)
     });
   },
   createPageArray(num, pageNumber) {
@@ -48,7 +48,6 @@ export default BaseRoute.extend({
         "numOfPages",
         this.createPageArray(numOfPages, pageNumber)
       );
-      console.log(this.controller.get("numOfPages"));
       let margin = 480 - numOfPages * 15;
       margin = margin + "px";
       this.controller.set("pageMargin", margin);

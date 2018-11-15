@@ -1,5 +1,7 @@
 package atlantbh.restaurants.models.dto;
 
+import atlantbh.restaurants.models.RestaurantTable;
+
 import java.util.Date;
 import java.util.List;
 
@@ -7,10 +9,12 @@ public class ReservationResponseDTO {
 
     private List<Date> suggestedDates;
     private Integer availableTables;
+    private List<RestaurantTable> restaurantTables;
 
-    public ReservationResponseDTO(List<Date> suggestedDates, Integer availableTables) {
+    public ReservationResponseDTO(List<Date> suggestedDates, Integer availableTables, List<RestaurantTable> restaurantTables) {
         this.suggestedDates = suggestedDates;
         this.availableTables = availableTables;
+        this.restaurantTables = restaurantTables;
     }
 
     public List<Date> getSuggestedDates() {
@@ -27,5 +31,13 @@ public class ReservationResponseDTO {
 
     public void setAvailableTables(Integer availableTables) {
         this.availableTables = availableTables;
+    }
+
+    public List<RestaurantTable> getRestaurantTables() {
+        return restaurantTables;
+    }
+
+    public void setRestaurantTables(List<RestaurantTable> restaurantTables) {
+        this.restaurantTables = restaurantTables;
     }
 }

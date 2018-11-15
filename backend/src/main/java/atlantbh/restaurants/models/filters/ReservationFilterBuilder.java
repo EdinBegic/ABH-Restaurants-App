@@ -13,24 +13,25 @@ public class ReservationFilterBuilder extends BaseFilterBuilder<ReservationSortK
     private Date finishTime;
     private Long restaurantId;
     private Boolean confirmed;
+
     @Override
     protected Criteria addConditions(Criteria rootCriteria, boolean isCountCriteria) {
-        if(userId != null) {
-            rootCriteria.createAlias("user", "u");
+        rootCriteria.createAlias("restaurantTable", "rt");
+        rootCriteria.createAlias("rt.restaurant", "rest");
+        rootCriteria.createAlias("user", "u");
+        if (userId != null) {
             rootCriteria.add(Restrictions.eq("u.id", userId));
         }
-        if(startTime != null) {
+        if (startTime != null) {
             rootCriteria.add(Restrictions.ge("createdAt", startTime));
         }
-        if(finishTime != null) {
+        if (finishTime != null) {
             rootCriteria.add(Restrictions.le("createdAt", finishTime));
         }
-        if(restaurantId != null) {
-            rootCriteria.createAlias("restaurantTable", "rt");
-            rootCriteria.createAlias("rt.restaurant", "rest");
+        if (restaurantId != null) {
             rootCriteria.add(Restrictions.eq("rest.id", restaurantId));
         }
-        if(confirmed != null) {
+        if (confirmed != null) {
             rootCriteria.add(Restrictions.eq("confirmed", confirmed));
         }
         return rootCriteria;

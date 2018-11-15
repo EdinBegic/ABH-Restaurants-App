@@ -1,7 +1,7 @@
 import BaseHttpService from "./base-http-service";
 
 export default BaseHttpService.extend({
-  findAll() {
-    return this.ajax("GET", `/cousines/filter/`);
+  findAll(pageNumber, pageSize) {
+    return this.ajax("GET", `/cousines/filter?pageSize=${pageSize}&pageNumber=${pageNumber}`);
   }
 });

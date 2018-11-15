@@ -21,6 +21,7 @@ public class ReservationDTO {
         this.startTime = startTime;
         this.confirmed = confirmed;
     }
+
     public ReservationDTO() {
 
     }

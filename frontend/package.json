@@ -49,6 +49,7 @@
     "ember-load-initializers": "^1.0.0",
     "ember-material-icons": "^1.1.0",
     "ember-maybe-import-regenerator": "^0.1.6",
+    "ember-moment": "^7.8.0",
     "ember-pikaday": "^2.3.0",
     "ember-power-select": "^2.0.9",
     "ember-power-timepicker": "^1.0.7",
@@ -68,6 +69,7 @@
     "node": "^4.5 || 6.* || >= 7.*"
   },
   "dependencies": {
-    "corejs-typeahead": "^1.2.1"
+    "corejs-typeahead": "^1.2.1",
+    "moment-timezone": "^0.5.23"
   }
 }

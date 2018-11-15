@@ -156,11 +156,6 @@ public class Restaurant extends BaseModel<Restaurant> {
         this.avgRating = avgRating;
     }
 
-    public void setReviews(Collection<Review> reviews) {
-        this.reviews = reviews;
-    }
-
-
     @OneToMany(mappedBy = "restaurant")
     @JsonIgnore
     public Collection<RestaurantTable> getRestaurantTables() {

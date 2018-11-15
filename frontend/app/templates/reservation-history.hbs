@@ -8,24 +8,23 @@
         </div>
     </div>
     <div class="container find-table-container">
-    <table class="table">
-    <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Reservation time</th>
-      <th scope="col">Sitting places</th>
-      <th scope="col">Restuarant</th>
-    </tr>
-  </thead>
-{{#each model.data as |reservation index|}}
-  <tbody>
-      <th scope="col">{{index}}</th>
-      <th scope="col">{{reservation.startTime}}</th>
-      <th scope="col">{{reservation.restaurantTable.sittingPlaces}}</th>
-      <th scope="col">{{reservation.restaurantTable.restaurant.name}}</th>
-  </tbody>
-        {{/each}}
-
-</table>
-</div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Reservation time</th>
+                    <th scope="col">Sitting places</th>
+                    <th scope="col">Restuarant</th>
+                </tr>
+            </thead>
+            {{#each model.data as |reservation index|}}
+            <tbody>
+                <th scope="col">{{index}}</th>
+                <th scope="col">{{reservation.startTime}}</th>
+                <th scope="col">{{reservation.restaurantTable.sittingPlaces}}</th>
+                <th scope="col">{{reservation.restaurantTable.restaurant.name}}</th>
+            </tbody>
+            {{/each}}
+        </table>
+    </div>
 </div>

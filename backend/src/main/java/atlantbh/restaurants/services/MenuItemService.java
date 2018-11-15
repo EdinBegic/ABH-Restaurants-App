@@ -6,8 +6,6 @@ import atlantbh.restaurants.models.sortkeys.MenuItemSortKeys;
 import atlantbh.restaurants.repositories.MenuItemRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class MenuItemService extends BaseService<MenuItem, MenuItemSortKeys, MenuItemFilterBuilder, MenuItemRepository> {
 }

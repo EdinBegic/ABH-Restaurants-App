@@ -38,8 +38,8 @@ public class ReservationService extends BaseService<Reservation, ReservationSort
 
     @Override
     public Reservation update(Long id, Reservation data) throws ServiceException {
-        if(!repository.isAvailable(data.getRestaurantTable().getId(), data.getStartTime(), data.getStayingPeriod())) {
-            throw new ServiceException("You did not reserve on time. Somebody already reserved in that time slot.");
+        if (!repository.isAvailable(data.getRestaurantTable().getId(), data.getStartTime(), data.getStayingPeriod())) {
+            throw new ServiceException("Reservation not completed in time. Somebody already reserved in that time slot.");
         }
         return super.update(id, data);
     }
@@ -47,10 +47,13 @@ public class ReservationService extends BaseService<Reservation, ReservationSort
     public Reservation create(ReservationDTO reservationDTO) {
         try {
             User user = null;
-            if(reservationDTO.getUserId() != null) {
-                 user = userService.get(reservationDTO.getUserId());
+            if (reservationDTO.getUserId() != null) {
+                user = userService.get(reservationDTO.getUserId());
             }
             Date startTime = formatDate(reservationDTO.getStartDate(), reservationDTO.getStartTime());
+            if (startTime.before(new Date())) {
+                throw new ServiceException("Requested reservation time already passed");
+            }
             Date stayingPeriod = new Date(startTime.getTime() + STAYING_TIME_MINUTES * ONE_MINUTE_IN_MILLIS);
             Date createdAt = Calendar.getInstance().getTime();
             PaginatedResult<RestaurantTable> tableList = restaurantTableService.filter
@@ -62,7 +65,7 @@ public class ReservationService extends BaseService<Reservation, ReservationSort
             for (RestaurantTable rt : restaurantTables) {
                 if (repository.isAvailable(rt.getId(), startTime, stayingPeriod)) {
                     counter++;
-                    r = new Reservation(startTime, stayingPeriod, user, rt,createdAt, reservationDTO.getConfirmed());
+                    r = new Reservation(startTime, stayingPeriod, user, rt, createdAt, reservationDTO.getConfirmed());
                 }
             }
             if (counter == 0) {
@@ -81,7 +84,7 @@ public class ReservationService extends BaseService<Reservation, ReservationSort
                 (new RestaurantTableFilterBuilder().setSittingPlaces(reservationDTO.getSittingPlaces())
                         .setRestaurantId(reservationDTO.getRestaurantId()));
         List<RestaurantTable> restaurantTables = tableList.getData();
-        ReservationResponseDTO reservationResponseDTO = new ReservationResponseDTO(new ArrayList<>(), 0);
+        ReservationResponseDTO reservationResponseDTO = new ReservationResponseDTO(new ArrayList<>(), 0, new ArrayList<>());
         addSuggestedTimes(startTime, stayingPeriod, restaurantTables, numOfDates, true, reservationResponseDTO);
         numOfDates -= reservationResponseDTO.getSuggestedDates().size();
         addSuggestedTimes(startTime, stayingPeriod, restaurantTables, numOfDates, false, reservationResponseDTO);
@@ -108,13 +111,10 @@ public class ReservationService extends BaseService<Reservation, ReservationSort
                                                      ReservationResponseDTO reservationResponseDTO) {
         List<Date> suggestedDates = new ArrayList<>();
         Integer shiftedTime = OFFSET;
-        List<RestaurantTable> availableTables = new ArrayList<>();
         for (RestaurantTable rt : restaurantTables) {
             while (shiftedTime <= TIME_RANGE) {
                 if (negativeOffset) {
                     shiftedTime = -shiftedTime;
-                }
-                if (suggestedDates.size() == numOfDates) {
                 }
                 Date suggestedStartingTime = new Date(startTime.getTime() + shiftedTime * ONE_MINUTE_IN_MILLIS);
                 Date suggestedStayingPeriod = new Date(stayingPeriod.getTime() + shiftedTime * ONE_MINUTE_IN_MILLIS);
@@ -124,8 +124,8 @@ public class ReservationService extends BaseService<Reservation, ReservationSort
                             && suggestedDates.size() < numOfDates) {
                         suggestedDates.add(suggestedStartingTime);
                     }
-                    if (!availableTables.contains(rt)) { // if table is already marked, skip it
-                        availableTables.add(rt);
+                    if (!reservationResponseDTO.getRestaurantTables().contains(rt)) { // if table is already marked, skip it
+                        reservationResponseDTO.getRestaurantTables().add(rt);
                     }
                 }
                 if (negativeOffset) {
@@ -136,7 +136,7 @@ public class ReservationService extends BaseService<Reservation, ReservationSort
             shiftedTime = OFFSET;
         }
         reservationResponseDTO.getSuggestedDates().addAll(suggestedDates);
-        reservationResponseDTO.setAvailableTables(reservationResponseDTO.getAvailableTables() + availableTables.size());
+        reservationResponseDTO.setAvailableTables(reservationResponseDTO.getRestaurantTables().size());
         return reservationResponseDTO;
     }
 }

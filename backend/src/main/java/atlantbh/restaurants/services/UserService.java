@@ -37,7 +37,7 @@ public class UserService extends BaseService<User, UserSortKeys, UserFilterBuild
         try {
             String passwordHash = hashPassword(request.getPassword());
             User user = repository.checkLoginData(request.getEmail(), passwordHash);
-            if(user == null)
+            if (user == null)
                 throw new ServiceException("Email or password invalid");
             user.setPasswordHash(null);
             String token = TokenService.issueToken(true, true);

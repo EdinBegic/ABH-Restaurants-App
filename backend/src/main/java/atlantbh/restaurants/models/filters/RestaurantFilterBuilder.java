@@ -51,7 +51,7 @@ public class RestaurantFilterBuilder extends BaseFilterBuilder<RestaurantSortKey
             rootCriteria.add(Restrictions.ilike("cat.name", category));
         }
         if (priceRange != null && priceRange > 0 && priceRange < 5) {
-            rootCriteria.add(Restrictions.le("priceRange", priceRange));
+            rootCriteria.add(Restrictions.eq("priceRange", priceRange));
         }
         if (StringUtils.isNotBlank(location)) {
             Criterion criterion = Restrictions.or(Restrictions.ilike("loc.city", location, MatchMode.ANYWHERE),
@@ -62,7 +62,7 @@ public class RestaurantFilterBuilder extends BaseFilterBuilder<RestaurantSortKey
             rootCriteria.add(Restrictions.in("cous.name", cousines));
         }
         if (avgRating != null && avgRating >= 0 && avgRating <= 5) {
-            rootCriteria.add(Restrictions.le("avgRating", avgRating));
+            rootCriteria.add(Restrictions.eq("avgRating", avgRating));
         }
 
         return rootCriteria;
