@@ -7,14 +7,15 @@ import atlantbh.restaurants.services.RestaurantService;
 import org.apache.commons.lang3.EnumUtils;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("/restaurants")
 public class RestaurantController extends BaseController<Restaurant, RestaurantService> {
 
+    @GetMapping("/filter")
     public ResponseEntity filter(@RequestParam(value = "q", required = false) String query,
                                  @RequestParam(value = "priceRange", required = false) Integer priceRange,
                                  @RequestParam(value = "avgRating", required = false) Double avgRating,
@@ -45,8 +46,21 @@ public class RestaurantController extends BaseController<Restaurant, RestaurantS
         }
     }
 
+    @GetMapping("/popular")
     public ResponseEntity popularRestaurants(@RequestParam Integer size) {
 
         return ResponseEntity.ok(service.getPopularRestaurants(size));
+    }
+
+    @GetMapping("/{id}")
+    @Override
+    public ResponseEntity get(@PathVariable("id") Long id) {
+        return super.get(id);
+    }
+
+    @PostMapping
+    @Override
+    public ResponseEntity create(@RequestBody Restaurant model) {
+        return super.create(model);
     }
 }

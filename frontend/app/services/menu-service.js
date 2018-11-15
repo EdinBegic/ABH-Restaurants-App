@@ -1,7 +1,7 @@
 import BaseHttpService from "./base-http-service";
 
 export default BaseHttpService.extend({
-  getMenusByRestaurant(restaurantId) {
-    return this.ajax("GET", `/menus/filter/?restaurantId=${restaurantId}`);
+  getMenusByRestaurant(id) {
+    return this.ajax("GET", `/menus/filter/restaurant/${id}`);
   }
 });

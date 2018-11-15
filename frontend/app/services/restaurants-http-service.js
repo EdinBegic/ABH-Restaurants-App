@@ -1,4 +1,5 @@
 import Ember from "ember";
+import config from "frontend/config/environment";
 const {
   $: { ajax },
   run
@@ -8,7 +9,7 @@ const { RSVP } = Ember;
 export default Ember.Service.extend({
   _innerCreateMethod(route, data, httpRequest, happyPath, unhappyPath) {
     let requestOptions = {
-      url: `/${route}`,
+      url: `${config.apiHost}/${route}`,
       contentType: "application/json",
       type: httpRequest,
       dataType: "json"

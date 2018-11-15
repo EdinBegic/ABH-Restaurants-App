@@ -15,7 +15,11 @@ module.exports = function(defaults) {
           'user','star','info-circle','check-circle','clock'
         ]
       }
+    },
+    fingerprint: {
+      enabled: false
     }
+  
   });
 
   // Use `app.import` to add additional libraries to the generated

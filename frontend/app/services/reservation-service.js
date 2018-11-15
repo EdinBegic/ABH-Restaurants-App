@@ -19,7 +19,7 @@ export default BaseHttpService.extend({
         return this.ajax("GET", `/reservations/${id}`);
     },    
     create(reservation) {
-        return this.ajax("POST", `/reservations`, reservation);
+        return this.ajax("POST", `/reservations/request`, reservation);
     },
     getSuggestedTimes(reservation, numOfDates) {
         return this.ajax("POST", `/reservations/suggested-times?numOfDates=${numOfDates}`, reservation);

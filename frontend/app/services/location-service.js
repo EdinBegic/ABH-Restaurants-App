@@ -1,8 +1,8 @@
 import BaseHttpService from "./base-http-service";
 
 export default BaseHttpService.extend({
-  getAllCitiesForCountry(country) {
-    return this.ajax("GET", `/locations/${country}`);
+  getAllCitiesForCountry(id) {
+    return this.ajax("GET", `/locations/country/${id}`);
   },
 
   getAllCountries() {

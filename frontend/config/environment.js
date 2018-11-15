@@ -14,7 +14,8 @@ module.exports = function(environment) {
       EXTEND_PROTOTYPES: {
         // Prevent Ember Data from overriding Date.parse.
         Date: false
-      }
+      },
+      apiHost: null
     },
 
     APP: {
@@ -23,12 +24,25 @@ module.exports = function(environment) {
     }
   };
 
+  ENV['ember-simple-auth'] = {
+    authorizer: 'authorizer:token',
+    baseURL: ''
+  };
+
+  ENV['ember-simple-auth-token'] = {
+    refreshAccessTokens: false,
+    authorizer: 'authorizer:token',
+    identificationField: 'email',
+    serverTokenEndpoint: ''
+  };
+
   if (environment === 'development') {
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
     // ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
+    ENV.apiHost = "http://localhost:8091";
   }
 
   if (environment === 'test') {
@@ -45,7 +59,12 @@ module.exports = function(environment) {
 
   if (environment === 'production') {
     // here you can enable a production-specific feature
+    ENV.apiHost = "https://abh-restaurants-app.herokuapp.com/";
+    ENV.apiVersion = "1";
   }
+  ENV['ember-simple-auth'].baseURL = ENV.apiHost;
+
+  ENV['ember-simple-auth-token'].serverTokenEndpoint = `${ENV.apiHost}/login`;
 
   return ENV;
 };
