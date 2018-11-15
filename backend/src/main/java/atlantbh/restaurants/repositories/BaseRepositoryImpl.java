@@ -11,18 +11,19 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.lang.reflect.ParameterizedType;
-import java.util.List;
 
 public class BaseRepositoryImpl<T extends BaseModel<T>, S extends Enum<S>, F extends BaseFilterBuilder<S, F>> implements BaseRepository<T, S, F> {
 
     @PersistenceContext
     protected EntityManager entityManager;
 
+    @Transactional
     public PaginatedResult<T> find(F filterBuilder) {
         PaginatedResult<T> paginatedResult = new PaginatedResult<>();
         paginatedResult.setPageNumber(filterBuilder.getPageNumber());
         paginatedResult.setPageSize(filterBuilder.getPageSize());
         paginatedResult.setData(filterBuilder.buildCriteria(getBaseCriteria()).list());
+        paginatedResult.setAvailable(Math.toIntExact(count(filterBuilder)));
         return paginatedResult;
     }
 
@@ -86,9 +87,6 @@ public class BaseRepositoryImpl<T extends BaseModel<T>, S extends Enum<S>, F ext
         }
     }
 
-    public List<T> findAll() {
-        return getBaseCriteria().list();
-    }
 
     // Discarded JpaRepository, now using Hibernate sessions to create,update,delete of mapped entities
     public Session getSession() {

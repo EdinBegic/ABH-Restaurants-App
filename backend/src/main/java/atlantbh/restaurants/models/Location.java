@@ -2,13 +2,23 @@ package atlantbh.restaurants.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.Collection;
+
+@SqlResultSetMapping(
+        name = "TopLocationMapping",
+        entities = @EntityResult(
+                entityClass = Location.class,
+                fields = {
+                        @FieldResult(name = "id", column = "id"),
+                        @FieldResult(name = "country", column = "country"),
+                        @FieldResult(name = "city", column = "city"),
+                        @FieldResult(name = "longitude", column = "longitude"),
+                        @FieldResult(name = "latitude", column = "latitude")}),
+        columns = @ColumnResult(name = "numOfRestaurants", type = Long.class))
 
 @Entity
 public class Location extends BaseModel<Location> {

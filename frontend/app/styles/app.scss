@@ -1,6 +1,8 @@
 @import "ember-bootstrap/bootstrap";
 @import "routes/login";
 @import "routes/sign-up";
+@import "routes/home";
+@import "routes/restaurant";
+@import "routes/restaurant-list";
 @import "components/main-navigation";
 @import "helpers/footer";
-

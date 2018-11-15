@@ -18,7 +18,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.validation.Valid;
-import java.util.Collection;
 
 @Service
 public class UserService extends BaseService<User, UserSortKeys, UserFilterBuilder, UserRepository> {
@@ -28,10 +27,6 @@ public class UserService extends BaseService<User, UserSortKeys, UserFilterBuild
 
     private static String hashPassword(String password) {
         return org.apache.commons.codec.digest.DigestUtils.sha256Hex(password);
-    }
-
-    public Collection<User> all() {
-        return repository.findAll();
     }
 
     public Long count(UserFilterBuilder ufb) {
@@ -52,10 +47,7 @@ public class UserService extends BaseService<User, UserSortKeys, UserFilterBuild
 
     public Boolean isEmailTaken(String email) {
         try {
-            if (repository.isEmailTaken(email)) {
-                return true;
-            }
-            return false;
+            return repository.isEmailTaken(email);
         } catch (RepositoryException e) {
             throw new ServiceException(e.getMessage(), e);
         }

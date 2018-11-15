@@ -1,6 +1,6 @@
 import $ from "jquery";
-
-export default Ember.Service.extend({
+import Service from "@ember/service";
+export default Service.extend({
   ajax(method, url, data, token) {
     return $.ajax({
       url: url,

@@ -1,14 +1,14 @@
 .login {
-  margin-left: 290px;
-  margin-right: 290px;
+  margin-left: 30%;
+  margin-right: 30%;
 }
-.labelLogin {
+.login-label {
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 24px;
   margin-bottom: 19px;
   color: #131d24;
 }
-.loginInput {
+.login-input {
   height: 53px;
   background: #ffffff;
   border: 1px solid #e1e1e1;
@@ -17,17 +17,17 @@
   margin-bottom: 10px;
 }
 
-.createAccountLabel {
+.registration-label {
   text-align: right;
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 18px;
 }
 
-#createAccountLink {
+#registration-link {
   color: #fd6f60;
 }
 
-.loginButton {
+.login-button {
   background: #fd6f60;
   color: #ffffff;
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
@@ -37,11 +37,11 @@
   margin-top: 40px;
 }
 
-.loginContainer {
+.login-container {
   background: #f9f9f9;
   padding-top: 89px;
   padding-bottom: 617px;
 }
-.backgroundColor {
+.login-background {
   background: #f9f9f9;
 }

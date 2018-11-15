@@ -20,4 +20,5 @@ public class RestaurantService extends BaseService<Restaurant, RestaurantSortKey
             throw new ServiceException("Couldn't retrive popular restaurants", e);
         }
     }
+
 }

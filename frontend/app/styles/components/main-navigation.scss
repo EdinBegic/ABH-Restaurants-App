@@ -1,20 +1,53 @@
-.navButton {
-  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+.app-name {
+  font-size: 20px;
+  color: #131d24;
+}
+.app-name:hover {
+  color: #131d24;
+  text-decoration: none;
+}
+
+.menu {
   font-size: 16px;
   color: #131d24;
-  padding: 30px;
-}
-#navContainer {
-  margin-left: 220px;
-  margin-right: 220px;
-  padding: 20px;
-}
-.navList {
   text-align: right;
 }
-.navButton2 {
-  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: 16px;
+
+.navigation-link {
+  padding: 10px;
+  color: #131d24;
+}
+.navigation-link:hover {
+  color: #131d24;
+  text-decoration: none;
+}
+
+.navigation-bar {
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+.navigation-container {
+  background: #ffffff;
+}
+
+#login-link {
   color: #fd6f60;
-  padding: 30px;
+}
+#logout-link {
+  color: #fd6f60;
+}
+
+#hidden-menu {
+  display: none;
+  float: right;
+}
+
+@media (max-width: 960px) {
+  #nav-menu {
+    display: none;
+  }
+  #hidden-menu {
+    display: block;
+  }
 }

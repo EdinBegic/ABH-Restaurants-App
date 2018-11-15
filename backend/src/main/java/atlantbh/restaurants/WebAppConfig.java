@@ -4,6 +4,7 @@ import org.resthub.web.springmvc.router.RouterConfigurationSupport;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -13,9 +14,6 @@ import java.util.List;
 public class WebAppConfig extends RouterConfigurationSupport {
     @Override
     public List<String> listRouteFiles() {
-
-        List<String> routeFiles = new ArrayList<String>();
-        routeFiles.add("classpath:routes.conf");
         return Arrays.asList("classpath:routes.conf");
     }
 }

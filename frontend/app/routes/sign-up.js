@@ -1,8 +1,8 @@
-import Route from "@ember/routing/route";
+import BaseRoute from "./base-route";
 import { inject as service } from "@ember/service";
 import { hash } from "rsvp";
 
-export default Route.extend({
+export default BaseRoute.extend({
   _locationService: service("location-service"),
   _userService: service("user-service"),
   session: service(),
@@ -16,8 +16,7 @@ export default Route.extend({
   },
 
   beforeModel(transition) {
-    if (this.get("session.isAuthenticated")) 
-      this.transitionTo("home");
+    if (this.get("session.isAuthenticated")) this.transitionTo("home");
   },
 
   actions: {

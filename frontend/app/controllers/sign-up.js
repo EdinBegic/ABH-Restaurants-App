@@ -1,8 +1,8 @@
-import Controller from "@ember/controller";
+import Ember from "ember";
 import { inject as service } from "@ember/service";
+import BaseController from "./base-controller";
 
-export default Controller.extend({
-    
+export default BaseController.extend({
   _locationService: service("location-service"),
   _userService: service("user-service"),
   _swalService: service("swal-service"),
@@ -12,7 +12,7 @@ export default Controller.extend({
       this.get("_locationService")
         .getAllCitiesForCountry(country) // Only list cities from the selected country
         .then(response => {
-          this.get("model.cities").clear(); 
+          this.get("model.cities").clear();
           this.get("model.cities").pushObjects(response);
           this.set("model.user.locationId", response[0].id);
         });

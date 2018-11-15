@@ -1,0 +1,164 @@
+<!-- Button trigger modal -->
+
+<!-- Modal -->
+{{#bs-modal open=rateModal onHidden=(action 'resetModal' rateModal) as |modal|}}
+{{#modal.body}}
+<div class="container modal-container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="modal-rate-label">Rate this place</div>
+        </div>
+    </div>
+    <form>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="stars-row">
+                    {{star-rating currentRating onClick=(action 'saveRating') numStars=5 readOnly=false
+                    baseColor="#858585" fillColor="#fd6f60" width=55 height=36 id="star-rating" }}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12" style="padding-bottom: 30px;">
+                {{textarea class="form-control modal-textarea" placeholder="Write a review"
+                value=model.review.comment}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <button type="submit" class="form-control modal-button btn"
+                    {{action 'review' session.data.authenticated.user model.restaurant.id}}>Save</button>
+            </div>
+        </div>
+    </form>
+</div>
+{{/modal.body}}
+{{/bs-modal}}
+<div class="restaurant-profile">
+    {{main-navigation}}
+    <div class="container">
+        <div class="row restaurant-details">
+            <div class="col-md-3">
+                <img src={{model.restaurant.logoPath}} class="logo-centered">
+            </div>
+            <div class="col-md-9">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="restaurant-name-label">
+                            {{model.restaurant.name}}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="star-rating" style="padding-left: 15px">
+                        {{star-rating model.avgRating numStars=5 readOnly=true baseColor="#858585" fillColor="#fd6f60"
+                        width=20
+                        height=15 }}
+                    </div>
+                    <div class="restaurant-review-label">({{model.numOfReviews}})</div>
+                    {{price-range model.restaurant.priceRange}}
+                    <div class="restaurant-type-label">{{model.restaurant.cousine.name}} |
+                        {{model.restaurant.category.name}}</div>
+                    <div class="col-md-3">
+                        {{#if session.isAuthenticated}}
+                        <button class="form-control rate-button btn" onclick={{action (mut rateModal) true}}>{{fa-icon
+                            "star"}} Rate this place</button>
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="restaurant-info">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 col-sm-3 col-xs-12">
+                <ul class="sidebar">
+                    <li>{{scroll-to href='#section-reservation' label='Reservation'}}</li>
+                    <li>{{scroll-to href='#section-description' label='About'}}</li>
+                    <li>{{scroll-to href='#section-menu' label='Menu'}}</li>
+                </ul>
+            </div>
+            <div class="col-md-9">
+                <div class="container find-table-container" id="section-reservation">
+                    <div class="row row-info">
+                        <div class="col-md-9">
+                            <div class="reservation-name-label">Make a free reservation</div>
+                        </div>
+                        <div class="col-md-3">
+                            <!-- TODO change hard-coded values-->
+                            <div class="booking-count-label">Booked 72 times today</div>
+                        </div>
+                    </div>
+                    <div class="row" style="inline-block">
+                        <div class="input-group mb-3" id="reserveTable">
+                            <select class="form-control select-table" style="height:56px;">
+                                <option>2 people</option>
+                            </select>
+                            <select class="form-control" style="height:56px;">
+                                <option>Apr 29, 2018</option>
+                            </select>
+                            <select class="form-control" style="height:56px;">
+                                <option>7:00 PM</option>
+                            </select>
+                            <button type="submit" class="form-control find-table-button btn" style="height:56px;">Find
+                                a table</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="container description-container" id="section-description">
+                    <div class="row row-info">
+                        <div class="col-md-12">
+                            <div class="reservation-name-label">
+                                About {{model.restaurant.name}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row-info">
+                        <div class="col-md-12">
+                            <div class="description-label">
+                                Description:
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row-info">
+                        <div class="col-md-12">
+                            <div class="description-text">
+                                {{model.restaurant.description}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container description-container" id="section-menu">
+                    <div class="row" id="menu-header">
+                        <div class="col-md-12">
+                            <div class="input-group">
+                                <div class="menu-label">Menu: </div>
+                                {{#each model.menus as |menu|}}
+                                <button type="submit" class="menu-button btn" {{action 'listItems' menu.id}}>{{menu.menuType}}</button>
+                                {{/each}}
+                            </div>
+                        </div>
+                    </div>
+                    {{#each model.menuItems as |item index|}}
+                    <div class="row" style="padding-top: 10px;padding-right:5px; padding-left:3px;">
+                        <div class="col-md-10">
+                            <div class="menu-item-label">{{item.name}}</div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="menu-item-price">${{item.price}}</div>
+                        </div>
+                    </div>
+                    <div class="row" style=" padding-left:3px;">
+                        <div class="col-md-10">
+                            <div class="menu-item-description">{{item.description}}&nbsp;</div>
+                        </div>
+                    </div>
+                    {{/each}}                    
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

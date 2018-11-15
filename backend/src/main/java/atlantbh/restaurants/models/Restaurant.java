@@ -1,5 +1,7 @@
 package atlantbh.restaurants.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -22,6 +24,8 @@ public class Restaurant extends BaseModel<Restaurant> {
     private Location location;
     private Category category;
     private Cousine cousine;
+    private Long reviewSize;
+    private Double avgRating;
     private Collection<Review> reviews;
 
     public Restaurant(String name, String description, String logoPath, String coverPhotoPath, Integer priceRange, Location location, Category category, Cousine cousine) {
@@ -33,6 +37,8 @@ public class Restaurant extends BaseModel<Restaurant> {
         this.location = location;
         this.category = category;
         this.cousine = cousine;
+        this.avgRating = 0D;
+        this.reviewSize = 0L;
     }
 
     public Restaurant() {
@@ -122,12 +128,31 @@ public class Restaurant extends BaseModel<Restaurant> {
     }
 
     @OneToMany(mappedBy = "restaurant")
+    @JsonIgnore
     public Collection<Review> getReviews() {
         return reviews;
     }
 
     public void setReviews(Collection<Review> reviews) {
         this.reviews = reviews;
+    }
+
+    @Column(name = "review_size")
+    public Long getReviewSize() {
+        return reviewSize;
+    }
+
+    public void setReviewSize(Long reviewSize) {
+        this.reviewSize = reviewSize;
+    }
+
+    @Column(name = "avg_rating")
+    public Double getAvgRating() {
+        return avgRating;
+    }
+
+    public void setAvgRating(Double avgRating) {
+        this.avgRating = avgRating;
     }
 
     @Override
@@ -141,6 +166,8 @@ public class Restaurant extends BaseModel<Restaurant> {
         restaurant.setLogoPath(model.getLogoPath());
         restaurant.setName(model.getName());
         restaurant.setPriceRange(model.getPriceRange());
+        restaurant.setAvgRating(model.getAvgRating());
+        restaurant.setReviewSize(model.getReviewSize());
         return restaurant;
     }
 
@@ -154,6 +181,7 @@ public class Restaurant extends BaseModel<Restaurant> {
         setLogoPath(data.getLogoPath());
         setName(data.getName());
         setPriceRange(data.getPriceRange());
+        setAvgRating(data.getAvgRating());
+        setReviewSize(data.getReviewSize());
     }
-
 }

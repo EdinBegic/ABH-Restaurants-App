@@ -87,7 +87,7 @@ public abstract class BaseFilterBuilder<S extends Enum<S>, T extends BaseFilterB
         return sortAsc;
     }
 
-    public T setSortAsc(boolean sortAsc) {
+    public T setSortAsc(Boolean sortAsc) {
         this.sortAsc = sortAsc;
         return (T) this;
     }

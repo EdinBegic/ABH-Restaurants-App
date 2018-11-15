@@ -8,6 +8,13 @@ module.exports = function(defaults) {
       'bootstrapVersion': 4,
       'importBootstrapFont': false,
       'importBootstrapCSS': true
+    },
+    fontawesome: {
+      icons: {
+        'free-solid-svg-icons': [
+          'user','star'
+        ]
+      }
     }
   });
 

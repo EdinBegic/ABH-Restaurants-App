@@ -1,0 +1,241 @@
+{{main-navigation}}
+<div class="top-restaurants" style="background: #F9F9F9;">
+    <div class="container restaurant-list-container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="filter-bar">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text search-field search-text">{{material-icon "search"}}</span>
+                            {{input class="search-field" id="list-search" placeholder='Search for a restaurant...'
+                            value=name}}
+                        </div>
+                        {{#click-outside action=(action "hideDropDown" 'mySortDropDown')}}
+                        <div class="sort-dropdown">
+                            <button class="form-control filter-button" {{action "showDropDown" 'mySortDropDown'}}>Sort
+                                by</button>
+                            <div id="mySortDropDown" class="dropdown-content">
+                                <div class="row">
+                                    <div class="col-md-12" style="padding-left: 18px;">
+                                        <div class="price-label-filter">
+                                            SORT BY
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row radio-button-row">
+                                    <div class="col-md-6">
+                                        <div class="custom-control custom-radio">
+                                            <input type="radio" class="custom-control-input sort-radio" id="sortByPriceRange"
+                                                checked={{checkedKey}} onclick={{action 'changeSortKey' true 'priceRange'}}>
+                                            <label class="custom-control-label order-label" for="sortByPriceRange">PRICE
+                                                RANGE</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="custom-control custom-radio">
+                                            <input type="radio" class="custom-control-input sort-radio" id="sortByAvgRating"
+                                                checked={{not checkedKey }} onclick={{action 'changeSortKey' false 'avgRating'}}>
+                                            <label class="custom-control-label order-label" for="sortByAvgRating">AVG
+                                                RATING</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="cousine-filter-list">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="price-label-filter">
+                                                ORDER BY
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row radio-button-row">
+                                        <div class="col-md-6">
+                                            <div class="custom-control custom-radio">
+                                                <input type="radio" class="custom-control-input sort-radio" id="desc"
+                                                    checked={{not sortAsc}} onclick={{action (mut sortAsc) false}}>
+                                                <label class="custom-control-label order-label" for="desc">DESC</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="custom-control custom-radio">
+                                                <input type="radio" class="custom-control-input sort-radio" id="asc"
+                                                    checked={{sortAsc}} onclick={{action (mut sortAsc) true}}>
+                                                <label class="custom-control-label order-label" for="asc">ASC</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {{/click-outside}}
+                        {{#click-outside action=(action "hideDropDown" 'myDropDown')}}
+                        <div class="filter-dropdown">
+                            <button class="form-control filter-button" {{action 'showDropDown' 'myDropDown'}}>Filter
+                                by</button>
+                            <div id="myDropDown" class="dropdown-content">
+                                <div class="row">
+                                    <div class="col-md-6" style="padding-left: 18px;">
+                                        <div class="price-label-filter">
+                                            PRICE
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="price-label-filter">
+                                            RATING
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row rated-row">
+                                    <div class="col-md-6">
+                                        <!-- Using star-rating for price range filtering-->
+                                        {{star-rating range numStars=4 readOnly=false
+                                        baseColor="#E5E5E5"
+                                        fillColor="#fd6f60" width=15
+                                        height=15
+                                        onClick=(action 'setRange')
+                                        svgPath="m10.317475,12.256545c-1.05118,-0.63288 -2.168751,-1.115074
+                                        -3.275256,-1.61535c-0.641773,-0.289316 -1.255884,-0.626852
+                                        -1.798071,-1.096992c-1.067778,-0.928224 -0.863074,-2.43508
+                                        0.387277,-3.031795c0.354082,-0.168768 0.724761,-0.223015
+                                        1.100973,-0.247124c1.449522,-0.084384 2.827121,0.204932
+                                        4.13833,0.892059c0.652838,0.343563 0.868607,0.23507
+                                        1.089908,-0.506304c0.232366,-0.783565 0.426005,-1.579186
+                                        0.641773,-2.368779c0.143846,-0.530414 -0.033195,-0.880004
+                                        -0.492395,-1.103019c-0.840944,-0.403838 -1.704018,-0.693154
+                                        -2.611353,-0.849867c-1.183961,-0.198905 -1.183961,-0.204932
+                                        -1.189493,-1.500829c-0.005533,-1.82631 -0.005533,-1.82631
+                                        -1.687421,-1.82631c-0.243431,0 -0.486862,-0.006027
+                                        -0.730294,0c-0.785619,0.02411 -0.9184,0.174795
+                                        -0.94053,1.036717c-0.011065,0.385755 0,0.771511
+                                        -0.005533,1.163293c-0.005533,1.145211 -0.011065,1.127129
+                                        -1.017985,1.524939c-2.434312,0.964388 -3.939159,2.772616
+                                        -4.099603,5.665781c-0.143846,2.561656 1.084375,4.291528
+                                        3.015227,5.55126c1.189493,0.777538 2.506235,1.235622
+                                        3.767651,1.844392c0.492395,0.23507 0.96266,0.506304
+                                        1.372067,0.880004c1.211623,1.090964 0.990322,2.90522
+                                        -0.448135,3.592346c-0.769021,0.367673 -1.582303,0.458084
+                                        -2.417714,0.343563c-1.289079,-0.174795 -2.522832,-0.542468
+                                        -3.684663,-1.199458c-0.680501,-0.385755 -0.879672,-0.283289
+                                        -1.112038,0.518359c-0.199171,0.693154 -0.376212,1.392335
+                                        -0.553253,2.091517c-0.237899,0.940279 -0.149378,1.163293
+                                        0.674968,1.603295c1.05118,0.554523 2.174283,0.837812
+                                        3.319516,1.036717c0.896269,0.156713 0.923932,0.198905
+                                        0.934997,1.211513c0.005533,0.458084 0.005533,0.922196
+                                        0.011065,1.380281c0.005533,0.578633 0.260029,0.916169
+                                        0.807749,0.928224c0.619643,0.012055 1.244819,0.012055
+                                        1.864462,-0.006027c0.508993,-0.012055 0.769021,-0.313426
+                                        0.769021,-0.873977c0,-0.626852 0.027663,-1.259732
+                                        0.005533,-1.886584c-0.027663,-0.638907 0.226834,-0.964388
+                                        0.791151,-1.133156c1.300144,-0.385755 2.406649,-1.145211
+                                        3.258659,-2.278367c2.367922,-3.134262 1.46612,-7.721133
+                                        -1.886592,-9.740321z"
+                                        useHalfStars=false
+
+                                        }}
+                                    </div>
+                                    <div class="col-md-6">
+                                        {{star-rating rating numStars=5 readOnly=false
+                                        baseColor="#E5E5E5"
+                                        fillColor="#fd6f60" width=15
+                                        onClick=(action 'setRating')
+                                        height=15 }}
+                                    </div>
+                                </div>
+                                <div class="cousine-filter-list">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="price-label-filter">
+                                                COUSINE
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {{#each (chunk 2 model.cousines) as |cousineRow|}}
+                                    <div class="row">
+                                        {{#each cousineRow as |cousine|}}
+                                        <div class="col-md-6">
+                                            {{#if cousine.activeStatus}}
+                                            <div class="cousine-filter-name" {{action 'changeCousineStatus' cousine}}
+                                                style="color:#FD6F60;">
+                                                {{cousine.name}}
+                                            </div>
+                                            {{else}}
+                                            <div class="cousine-filter-name" {{action 'changeCousineStatus' cousine}}
+                                                style="color:#131D24;">
+                                                {{cousine.name}}
+                                            </div>
+                                            {{/if}}
+                                        </div>
+                                        {{/each}}
+                                    </div>
+                                    {{/each}}
+                                </div>
+                                <div class="reset-filter">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <button type="submit" class="form-control reset-button btn"
+                                                {{action 'resetFilter'}}>Reset filter</button>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {{/click-outside}}
+                        <button type="submit" class="form-control table-button btn" {{action 'search'}}>Search</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{restaurant-cards rowLength = 3 restaurants = model.restaurants buttonClass = 'form-control reserve-button--list btn'}}
+        <div class="row">
+            <div class="col-md-12 page-number-col" style="{{css-properties margin-left=pageMargin}}">
+                <div class="previous-label" {{action 'nextPage' -1}}>PREVIOUS</div>
+                {{#each numOfPages as |page index|}}
+                <!-- Page number 1 will always be displayed-->
+                {{#if (eq index 0)}}
+                {{#if (eq page.number activePage.number)}}
+                <button type="submit" class="form-control page-list-button--active btn">{{page.number}}</button>
+                {{else}}
+                <button type="submit" class="form-control page-list-button btn" {{action "setActivePage" page}}>{{page.number}}</button>
+                {{/if}}
+                {{else if (lt (abs (diff activePage.number page.number)) 3)}}
+                <!-- List page numbers for 2 left and right adjacent numbers of the active page -->
+                <!-- add three dots if  the first element and the closest adjacent number are not a themselves adjacent -->
+                {{#if (and (eq (diff activePage.number page.number) 2) (gt page.number 2))}}
+                <p class="p-page-list">...</p>
+                {{/if}}
+                {{#if (eq page.number activePage.number)}}
+                <button type="submit" class="form-control page-list-button--active btn">{{page.number}}</button>
+                {{else}}
+                <button type="submit" class="form-control page-list-button btn" {{action "setActivePage" page}}>{{page.number}}</button>
+                {{/if}}
+                <!-- analogous for the last element and the closest adjacent number -->
+                {{#if (and (eq (diff page.number activePage.number) 2) (gt (diff numOfPages.lastObject.number
+                page.number) 1))}}
+                <p class="p-page-list">...</p>
+                {{/if}}
+                <!-- Last page number will always be displayed-->
+                {{else if (eq page.number numOfPages.lastObject.number)}}
+                {{#if (eq page.number activePage.number)}}
+                <button type="submit" class="form-control page-list-button--active btn">{{page.number}}</button>
+                {{else}}
+                <button type="submit" class="form-control page-list-button btn" {{action "setActivePage" page}}>{{page.number}}</button>
+                {{/if}}
+                {{/if}}
+                {{/each}}
+                <div class="next-label" {{action 'nextPage' 1}}>NEXT</div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="popular-locations">
+    <div class="container">
+        <div class="row" style="padding-bottom:50px;">
+            <div class="col-md-12">
+                <div class="popular-locations-label">Popular locations</div>
+            </div>
+        </div>
+        {{top-locations locations=model.topLocations}}
+    </div>
+</div>
+{{outlet}}

@@ -1,7 +1,7 @@
-import Route from "@ember/routing/route";
+import BaseRoute from "./base-route";
 import { inject as service } from "@ember/service";
 
-export default Route.extend({
+export default BaseRoute.extend({
   session: service(),
 
   beforeModel() {

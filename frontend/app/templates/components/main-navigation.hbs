@@ -1,15 +1,28 @@
-<nav class="navbar navbar-light">
-  <div class="container" id="navContainer">
-    <span class="navbar-brand mb-0 h1">Restaurants app</span>
-    <div class="col-md-10 navList">
-      {{#link-to 'home' class='navButton'}} Home {{/link-to}} 
-      {{#link-to 'home' class='navButton'}} Restaurants {{/link-to}} 
-      {{#if session.isAuthenticated}} 
-        {{#link-to 'home' class="navButton"}} {{ session.data.authenticated.user.firstName}} {{/link-to}}
-        <a class='navButton2' href="#" {{action 'logout'}}>Log out</a>
-      {{else}} 
-        {{#link-to 'login' class='navButton2'}} Login {{/link-to}} 
+<div class="container" id="navigation-container">
+  <div class="row navigation-bar">
+    <div class="col-md-6">
+      {{#link-to 'home' class='app-name'}} ABH Restaurants {{/link-to}}
+    </div>
+    <div class="col-md-6 menu" id="nav-menu">
+      {{#link-to 'home' class='navigation-link'}} Home {{/link-to}}
+      {{#link-to 'restaurant-list' class='navigation-link'}} Restaurants {{/link-to}}
+      {{#if session.isAuthenticated}}
+      {{#link-to 'home' class='navigation-link' id='logout-link'}} {{fa-icon 'user'}} {{ session.data.authenticated.user.firstName }} {{/link-to}}
+      <a href="#" class='navigation-link' {{action "logout"}}>Log out</a>
+      {{else}}
+      {{#link-to 'login' class='navigation-link' id='login-link'}} Login {{/link-to}}
       {{/if}}
     </div>
+        <div class="col-md-6 menu" >
+    <select id="hidden-menu" onchange="location = this.value;">
+      <option value="/" selected="selected">Home</option>
+      <option value="/restaurant-list">Restaurants</option>
+      {{#if session.isAuthenticated}}
+      <option value="/" {{action "logout"}}>Log out</option>
+      {{else}}
+      <option value="/login">Log in</option>
+      {{/if}}
+    </select>
+    </div>
   </div>
-</nav>
+</div>

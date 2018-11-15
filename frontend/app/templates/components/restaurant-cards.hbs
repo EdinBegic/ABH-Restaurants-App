@@ -1,0 +1,40 @@
+{{#each (chunk rowLength restaurants) as |restaurantRow|}}
+<div class="row restaurant-row">
+    {{#each restaurantRow as |restaurant|}}
+    <div class="col-md-4">
+        <div class="row ">
+            <div class="col-md-12">
+                <img src={{restaurant.logoPath}} class="restaurant-picture">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="restaurant-name-label">{{restaurant.name}}</div>
+            </div>
+        </div>
+        <div class="row stats-row">
+            <div class="star-rating" style="padding-left: 15px">
+                {{star-rating restaurant.avgRating numStars=5 readOnly=true baseColor="#E5E5E5"
+                fillColor="#fd6f60" width=20
+                height=15 }}
+            </div>
+            <div class="restaurant-review-label">({{restaurant.numOfReviews}})</div>
+            {{price-range restaurant.priceRange}}
+        </div>
+        <div class="row">
+            <!-- Not sure what to put here -->
+            <div class="col-md-12">
+                <div class="restaurant-type-label">{{restaurant.cousine.name}} |
+                    {{restaurant.category.name}}</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <button type="submit" class={{ buttonClass }} {{action "reserveNow" restaurant.id}}>Reserve
+                    now</button>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+</div>
+{{/each}}
