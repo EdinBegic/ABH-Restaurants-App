@@ -10,16 +10,16 @@ export default BaseRoute.extend({
   _menuItemService: service("menu-item-service"),
   _reservationService: service("reservation-service"),
   session: service(),
-  startDate: moment().tz("Europe/Berlin").format('YYYY-MM-DD'),
+  startDate: moment().utc(true).format('YYYY-MM-DD'),
   startTime: "00:00:00",
   finishTime: "23:59:00",
 
   resetController(controller, isExiting, transition) {
     if(isExiting && transition.targetName !== 'error') {    
-      controller.set('slectedDay', moment().format('YYYY-MM-DD'));
-      controller.set('presentedDay', moment().format('MMMM DD, YYYY'));
-      controller.set('selectedTime', moment().format('HH:mm:ss'));
-      controller.set('presentedTime', moment().format('HH:mm'));
+      controller.set('slectedDay', moment().utc(true).format('YYYY-MM-DD'));
+      controller.set('presentedDay', moment().utc(true).format('MMMM DD, YYYY'));
+      controller.set('selectedTime', moment().utc(true).format('HH:mm:ss'));
+      controller.set('presentedTime', moment().utc(true).format('HH:mm'));
       controller.set('suggestedReservations', null);
       controller.set('availableTables', null);
       controller.set('suggestedDates', null);

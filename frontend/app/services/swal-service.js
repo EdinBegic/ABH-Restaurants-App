@@ -18,6 +18,14 @@ export default Service.extend({
       type: "success"
     }).then(callback);
   },
+  info(title, callback) {
+    sweetAlert({
+      title: title,
+      confirmButtonText: "OK",
+      confirmButtonColor: "#DC5154",
+      type: "info"
+    }).then(callback);
+  },
   question(title, callback) {
     sweetAlert({
       title: title,

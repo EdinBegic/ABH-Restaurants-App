@@ -22,7 +22,7 @@
                             {{input class="search-field" id="search" placeholder='Location, Restaurant or Cousine'
                             value=query}}
                         </div>
-                        <select class="list-field form-control ">
+                        <select class="list-field form-control " onchange={{action "changeSittingPlaces" value="target.value" }}>
                             {{#each tableSizes as |tableSize|}}
                                 <option value={{tableSize}}>{{tableSize}} people</option>
                             {{/each}}
@@ -30,12 +30,16 @@
                             {{pikaday-input
                             format="MMMM DD, YYYY"
                             class="calendar-picker"
+                            onSelection=(action 'changeDay')
+                            value=presentedDay
                             }}
                             {{time-picker
+                            selectedTime=presentedTime
+                            onchange=(action 'changeTime')
                             military=true
                             increment=5
                             }}
-                        <button type="submit" class="form-control table-button btn">Find a table</button>
+                        <button type="submit" class="form-control table-button btn" {{action 'findTable'}}>Find a table</button>
                     </div>
                     <div class="row">
                         <div class="col-md-4">

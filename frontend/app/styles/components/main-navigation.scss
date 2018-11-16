@@ -57,8 +57,12 @@
 }
 .history-button:hover{
   color: #c0392a;
-  text-decoration: none;
+  text-decoration: none !important;
 }
 .reservation-button:active{
   background-color: #fd6f60;
+}
+.dropdown-item:hover{
+  background-color: #fd6f60;
+  color: #ffffff;
 }

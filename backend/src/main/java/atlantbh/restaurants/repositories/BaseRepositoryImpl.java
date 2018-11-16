@@ -40,6 +40,7 @@ public class BaseRepositoryImpl<T extends BaseModel<T>, S extends Enum<S>, F ext
         }
     }
 
+    @Transactional
     public void delete(T model) throws RepositoryException {
         try {
             getSession().delete(model);

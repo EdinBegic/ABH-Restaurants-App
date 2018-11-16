@@ -92,9 +92,9 @@
                     </div>
                     <div class="row" style="inline-block">
                         <div class="input-group mb-3" id="reserveTable">
-                            <select class="form-control select-table" style="height:56px;">
+                            <select class="form-control select-table" style="height:56px;" onchange={{action "changeSittingPlaces" value="target.value" }}>
                                 {{#each tableSizes as |tableSize|}}
-                                <option value={{tableSize}} {{action 'changeSittingPlaces' value}}>{{tableSize}} people</option>
+                                <option value={{tableSize}}>{{tableSize}} people</option>
                                 {{/each}}
                             </select>
                             {{pikaday-input

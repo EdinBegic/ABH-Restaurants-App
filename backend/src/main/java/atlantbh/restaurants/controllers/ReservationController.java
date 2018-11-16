@@ -101,5 +101,11 @@ public class ReservationController extends BaseController<Reservation, Reservati
         return super.update(id, model);
     }
 
+    @DeleteMapping("/{id}")
+    @Override
+    public ResponseEntity delete(@PathVariable("id") Long id) {
+        return super.delete(id);
+    }
+
 
 }

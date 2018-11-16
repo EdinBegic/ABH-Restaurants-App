@@ -51,7 +51,8 @@ public class ReservationService extends BaseService<Reservation, ReservationSort
                 user = userService.get(reservationDTO.getUserId());
             }
             Date startTime = formatDate(reservationDTO.getStartDate(), reservationDTO.getStartTime());
-            if (startTime.before(new Date())) {
+            Date currentDate = new Date();
+            if (startTime.before(currentDate)) {
                 throw new ServiceException("Requested reservation time already passed");
             }
             Date stayingPeriod = new Date(startTime.getTime() + STAYING_TIME_MINUTES * ONE_MINUTE_IN_MILLIS);
@@ -69,7 +70,7 @@ public class ReservationService extends BaseService<Reservation, ReservationSort
                 }
             }
             if (counter == 0) {
-                throw new RepositoryException("All tables in that time slot are already reserved. Please select another time");
+                throw new RepositoryException("All tables in that time slot are already reserved.");
             }
             return repository.save(r);
         } catch (ServiceException | ParseException | RepositoryException e) {
@@ -118,8 +119,9 @@ public class ReservationService extends BaseService<Reservation, ReservationSort
                 }
                 Date suggestedStartingTime = new Date(startTime.getTime() + shiftedTime * ONE_MINUTE_IN_MILLIS);
                 Date suggestedStayingPeriod = new Date(stayingPeriod.getTime() + shiftedTime * ONE_MINUTE_IN_MILLIS);
-                if (repository.isAvailable(rt.getId(), suggestedStartingTime, suggestedStayingPeriod)) {
-                    //TODO timezone formatting
+                Date currentDate = new Date();
+                if (repository.isAvailable(rt.getId(), suggestedStartingTime, suggestedStayingPeriod)
+                        && suggestedStartingTime.after(currentDate)) {
                     if (!suggestedDates.contains(suggestedStartingTime)  // two different tables can have free spot in same time slot
                             && suggestedDates.size() < numOfDates) {
                         suggestedDates.add(suggestedStartingTime);

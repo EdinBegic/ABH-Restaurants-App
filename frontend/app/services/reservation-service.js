@@ -32,5 +32,8 @@ export default BaseHttpService.extend({
     },
     update(id,reservation) {
         return this.ajax("PUT", `/reservations/${id}`, reservation);
+    },
+    delete(id) {
+        return this.ajax("DELETE", `/reservations/${id}`);
     }
 });

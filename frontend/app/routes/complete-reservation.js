@@ -32,7 +32,8 @@ export default BaseRoute.extend({
         "reservationTime",
         moment(reservationTime).format("HH:mm")
       );
-      this.controller.set("startDate", moment().add(5, "minutes"));
+      let creationDate = this.controller.get("model.reservation.createdAt");
+      this.controller.set("startDate", moment(creationDate).add(10, "seconds"));
 
       let val = this.controller.get("model.locations");
       this.controller.set("model.user.locationId", val[0].id);
@@ -41,6 +42,7 @@ export default BaseRoute.extend({
         .then(response => {
           // only the cities from the default country location is displayed
           this.controller.set("model.cities", response);
+          this.controller.set("confirmDelete", false);
         });
     }
   }
