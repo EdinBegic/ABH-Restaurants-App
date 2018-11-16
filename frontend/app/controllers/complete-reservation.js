@@ -37,9 +37,9 @@ export default Controller.extend({
       this.set("loginForm", val);
     },
 
-    completeReservation(userId) {
+    completeReservation() {
       let reservation = this.get("model.reservation");
-      reservation.userId = userId;
+      reservation.user = this.get('session.data.authenticated.user');
       reservation.confirmed = true;
       this.get("_reservationService")
         .update(reservation.id, reservation)

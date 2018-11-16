@@ -8,6 +8,8 @@ import atlantbh.restaurants.repositories.BaseRepositoryImpl;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.transaction.Transactional;
+
 public class BaseService<M extends BaseModel<M>, S extends Enum<S>, F extends BaseFilterBuilder<S, F>, R extends BaseRepositoryImpl<M, S, F>> {
 
     @Autowired
@@ -40,6 +42,7 @@ public class BaseService<M extends BaseModel<M>, S extends Enum<S>, F extends Ba
         }
     }
 
+    @Transactional
     public M update(Long id, M data) throws ServiceException {
         try {
             M model = get(id);
@@ -47,7 +50,7 @@ public class BaseService<M extends BaseModel<M>, S extends Enum<S>, F extends Ba
             repository.update(model);
             return model;
         } catch (RepositoryException e) {
-            throw new ServiceException("Requested model couldn't be updated");
+            throw new ServiceException("Requested model couldn't be updated", e);
         }
     }
 

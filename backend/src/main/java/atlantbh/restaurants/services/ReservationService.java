@@ -15,6 +15,7 @@ import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -36,6 +37,7 @@ public class ReservationService extends BaseService<Reservation, ReservationSort
         return dateFormat.parse(startDate + "-" + startTime);
     }
 
+    @Transactional
     @Override
     public Reservation update(Long id, Reservation data) throws ServiceException {
         if (!repository.isAvailable(data.getRestaurantTable().getId(), data.getStartTime(), data.getStayingPeriod())) {
