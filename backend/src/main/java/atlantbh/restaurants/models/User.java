@@ -72,7 +72,7 @@ public class User extends BaseModel<User> {
 
     @NotBlank(message = "Phone number cannot be null or whitespace")
     @Size(max = 20, message = "Phone number cannot be longer than 20 characters")
-    @Pattern(regexp = "^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\\s\\./0-9]*$", message = "Phone number format is not valid")
+    @Pattern(regexp = "^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\\s\\./0-9]*$", message = "{validation.PHONE_NUMBER}")
     public String getPhoneNumber() {
         return phoneNumber;
     }

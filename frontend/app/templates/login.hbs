@@ -1,6 +1,7 @@
 {{main-navigation}}
 <div class="login-background">
-  <div class="row login">
+  <div class="login-container container">
+      <div class="row login">
   <div class="col-md-4">
     <div class="login-label">Login</div>
   </div>
@@ -8,7 +9,7 @@
     <div class="registration-label">{{#link-to 'sign-up' id="registration-link"}}Create account{{/link-to}}</div>
   </div>
 </div>
-  <div class="login-container container">
+
     {{login-form shouldTransition=true}}
   </div>
 </div>
