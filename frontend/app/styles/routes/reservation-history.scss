@@ -1,3 +1,13 @@
 tr:nth-child(even) {
     background-color: #f2f2f2
 }
+.reservation-history{
+    background:#F9F9F9;
+    padding-bottom: 100px;
+}
+.dropdown-item.active{
+    background-color: #fd6f60;
+}
+.dropdown-menu{
+    margin-left: -100px;
+}

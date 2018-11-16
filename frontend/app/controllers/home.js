@@ -74,9 +74,8 @@ export default BaseController.extend({
       })
       .catch(error => {
         let suggestion = {};
-        suggestion.name=error.responseText;
+        suggestion.name="Currently reservation is not possible.";
         this.set("suggestions", [suggestion]);
-        console.log(this.get("suggestions"));
         this.set("showAutoComplete", true);
       })
 

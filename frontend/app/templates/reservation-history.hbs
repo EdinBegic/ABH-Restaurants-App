@@ -1,5 +1,5 @@
 {{main-navigation}}
-<div class="reservation-history" style="background:#F9F9F9">
+<div class="reservation-history" >
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -7,7 +7,7 @@
             </div>
         </div>
     </div>
-    <div class="container find-table-container">
+    <div class="container find-table-container" id="reservation-history-container">
         <table class="table">
             <thead>
                 <tr>
@@ -22,7 +22,7 @@
                 <th scope="col">{{index}}</th>
                 <th scope="col">{{reservation.startTime}}</th>
                 <th scope="col">{{reservation.restaurantTable.sittingPlaces}}</th>
-                <th scope="col">{{reservation.restaurantTable.restaurant.name}}</th>
+                <th scope="col">{{reservation.restaurantTable.restaurant.name}} , {{reservation.restaurantTable.restaurant.location.city}}</th>
             </tbody>
             {{/each}}
         </table>

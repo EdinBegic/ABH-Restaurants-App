@@ -33,7 +33,7 @@ export default BaseRoute.extend({
         moment(reservationTime).format("HH:mm")
       );
       let creationDate = this.controller.get("model.reservation.createdAt");
-      this.controller.set("startDate", moment(creationDate).add(10, "seconds"));
+      this.controller.set("startDate", moment(creationDate).add(5, "minutes"));
 
       let val = this.controller.get("model.locations");
       this.controller.set("model.user.locationId", val[0].id);

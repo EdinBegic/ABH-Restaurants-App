@@ -1,4 +1,3 @@
-import Ember from "ember";
 import { inject as service } from "@ember/service";
 import { isArray } from "@ember/array";
 import CONSTANTS from "../constants";
@@ -52,19 +51,16 @@ export default BaseController.extend({
     },
     changeCousineStatus(cousine) {
       let cousineFilters = this.get("cousineFilters");
+      console.log(cousine);
       if (cousine.activeStatus) {
         set(cousine, "activeStatus", false);
-        let indexOfElement = cousineFilters.find(filter => filter === cousine.name);
-
-
-        if (indexOfElement > -1) {
-          cousineFilters.splice(indexOfElement, 1);
-        }
+        cousineFilters = cousineFilters.filter(x => x !== cousine.name);
       } else {
         set(cousine, "activeStatus", true);
         cousineFilters.push(cousine.name);
       }
       this.set("cousineFilters", cousineFilters);
+      console.log(cousineFilters);
     },
 
     setRange(range) {

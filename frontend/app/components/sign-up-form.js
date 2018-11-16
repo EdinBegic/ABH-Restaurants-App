@@ -46,8 +46,7 @@ export default Component.extend({
           );
         })
         .catch(errorResponse => {
-          let jsonError = JSON.parse(errorResponse.responseText);
-          this.get("_swalService").error(jsonError.error.message);
+          this.get("_swalService").error(errorResponse.responseText, confirm => {});
         });
     }
   }
