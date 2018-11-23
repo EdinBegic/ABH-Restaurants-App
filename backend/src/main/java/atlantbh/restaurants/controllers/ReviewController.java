@@ -1,6 +1,7 @@
 package atlantbh.restaurants.controllers;
 
 import atlantbh.restaurants.models.Review;
+import atlantbh.restaurants.models.filters.ReviewFilterBuilder;
 import atlantbh.restaurants.services.ReviewService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -36,6 +37,15 @@ public class ReviewController extends BaseController<Review, ReviewService> {
     @Override
     public ResponseEntity get(@PathVariable("id") Long id) {
         return super.get(id);
+    }
+
+    @GetMapping("/restaurant/{id}")
+    public ResponseEntity hasReviewedRestaurant(@PathVariable("id") Long id, @PathVariable("userId") Long userId) {
+        ReviewFilterBuilder rfb = new ReviewFilterBuilder()
+                .setId(id)
+                .setUserId(userId);
+        return ResponseEntity.ok(service.hasReviewed(rfb));
+
     }
 
 }

@@ -6,5 +6,4 @@ import { set } from "@ember/object";
 export default Controller.extend({
   session: service(),
   _reservationService: service("reservation-service"),
-
 });

@@ -22,5 +22,8 @@ export default BaseHttpService.extend({
   },
   avgRatingForRestaurant(id) {
     return this.ajax("GET", `/reviews/restaurant/${id}/rating`);
-  }
+  },
+  hasReviewed(id, userId) {
+    return this.ajax("GET", `/reviews/${id}/user/${userId}`);
+  },
 });

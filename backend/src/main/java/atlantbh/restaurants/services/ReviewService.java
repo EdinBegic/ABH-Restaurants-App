@@ -41,4 +41,12 @@ public class ReviewService extends BaseService<Review, ReviewSortKeys, ReviewFil
         restaurantService.update(restaurant.getId(), restaurant);
         return createdReview;
     }
+
+    public Boolean hasReviewed(ReviewFilterBuilder rfb) {
+        try {
+            return repository.count(rfb) > 0;
+        } catch (Exception e) {
+            throw new ServiceException(e.getMessage(), e);
+        }
+    }
 }
