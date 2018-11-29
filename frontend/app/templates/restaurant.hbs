@@ -61,8 +61,10 @@
                         {{model.restaurant.category.name}}</div>
                     <div class="col-md-3">
                         {{#if session.isAuthenticated}}
+                          {{#unless hasReviewed}}
                         <button class="form-control rate-button btn" onclick={{action (mut rateModal) true}}>{{fa-icon
                             "star"}} Rate this place</button>
+                          {{/unless}}
                         {{/if}}
                     </div>
                 </div>

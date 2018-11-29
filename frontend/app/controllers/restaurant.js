@@ -23,6 +23,7 @@ export default BaseController.extend({
   suggestedDates: null,
   suggestions: null,
   showSuggestions: false,
+  hasReviewed: false,
   actions: {
     review(user, restId) {
       this.set("model.review.user", user);
@@ -39,6 +40,7 @@ export default BaseController.extend({
             .then(response => {
               this.set("model.avgRating", response);
             });
+          this.set("hasReviewed", true);
           this.get("_swalService").success("Successfuly created review");
         })
         .catch(error => {
@@ -141,6 +143,6 @@ export default BaseController.extend({
       this.set("selectedDay", moment(suggestedTime).format("YYYY-MM-DD"));
       this.set("selectedTime", moment(suggestedTime).format("HH:mm:ss"));
       this.send("reserve");
-    }
+    },
   }
 });

@@ -9,8 +9,8 @@ public class ReviewFilterBuilder extends BaseFilterBuilder<ReviewSortKeys, Revie
     Long userId;
     @Override
     protected Criteria addConditions(Criteria rootCriteria, boolean isCountCriteria) {
-        rootCriteria.add(Restrictions.eq("id", id));
-        rootCriteria.add(Restrictions.eq("userId", userId));
+        rootCriteria.add(Restrictions.eq("restaurant.id", id));
+        rootCriteria.add(Restrictions.eq("user.id", userId));
         return rootCriteria;
     }
 

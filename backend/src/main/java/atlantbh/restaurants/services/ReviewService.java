@@ -44,7 +44,7 @@ public class ReviewService extends BaseService<Review, ReviewSortKeys, ReviewFil
 
     public Boolean hasReviewed(ReviewFilterBuilder rfb) {
         try {
-            return repository.count(rfb) > 0;
+            return repository.find(rfb).getData().size() > 0;
         } catch (Exception e) {
             throw new ServiceException(e.getMessage(), e);
         }

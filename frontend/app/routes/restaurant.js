@@ -1,6 +1,10 @@
 import BaseRoute from "./base-route";
-import { inject as service } from "@ember/service";
-import { hash } from "rsvp";
+import {
+  inject as service
+} from "@ember/service";
+import {
+  hash
+} from "rsvp";
 import moment from 'moment';
 
 export default BaseRoute.extend({
@@ -15,7 +19,7 @@ export default BaseRoute.extend({
   finishTime: "23:59:00",
 
   resetController(controller, isExiting, transition) {
-    if(isExiting && transition.targetName !== 'error') {    
+    if (isExiting && transition.targetName !== 'error') {
       controller.set('slectedDay', moment().utc(true).format('YYYY-MM-DD'));
       controller.set('presentedDay', moment().utc(true).format('MMMM DD, YYYY'));
       controller.set('selectedTime', moment().utc(true).format('HH:mm:ss'));
@@ -38,18 +42,25 @@ export default BaseRoute.extend({
       menus: this.get("_menuService").getMenusByRestaurant(params.id, 0, 1),
       menuItems: null,
       bookedCounter: this.get("_reservationService").
-          getNumOfReservationsForPeriod(this.startDate, this.startTime, this.startDate, this.finishTime, params.id),
+      getNumOfReservationsForPeriod(this.startDate, this.startTime, this.startDate, this.finishTime, params.id),
       reservation: this.get("_reservationService").createReservation(params.id),
     });
   },
   actions: {
     didTransition() {
       let menus = this.controller.get("model.menus");
+      let restaurantId = this.controller.get("model.restaurant.id");
+      let userId = this.get('session.data.authenticated.user.id');
       let items = this.get("_menuItemService")
-        .getItemsByMenu(menus[0].id,1,0)
+        .getItemsByMenu(menus[0].id, 1, 0)
         .then(response => {
           this.controller.set("model.menuItems", response);
         });
+      if(this.get('session.isAuthenticated')) {
+        this.get('_reviewService').hasReviewed(restaurantId, userId).then(response => {
+          this.controller.set("hasReviewed", response);
+        })
+      }
     }
   }
 });
