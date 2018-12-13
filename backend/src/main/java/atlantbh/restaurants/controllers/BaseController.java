@@ -1,5 +1,6 @@
 package atlantbh.restaurants.controllers;
 
+import atlantbh.restaurants.exceptions.RepositoryException;
 import atlantbh.restaurants.models.BaseModel;
 import atlantbh.restaurants.services.BaseService;
 import org.hibernate.service.spi.ServiceException;

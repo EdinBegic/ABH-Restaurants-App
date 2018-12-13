@@ -9,9 +9,8 @@ public class ReservationResponseDTO {
 
     private List<Date> suggestedDates;
     private Integer availableTables;
-    private List<RestaurantTable> restaurantTables;
-
-    public ReservationResponseDTO(List<Date> suggestedDates, Integer availableTables, List<RestaurantTable> restaurantTables) {
+    private List<List<RestaurantTable>> restaurantTables;
+    public ReservationResponseDTO(List<Date> suggestedDates, Integer availableTables, List<List<RestaurantTable>> restaurantTables) {
         this.suggestedDates = suggestedDates;
         this.availableTables = availableTables;
         this.restaurantTables = restaurantTables;
@@ -33,11 +32,11 @@ public class ReservationResponseDTO {
         this.availableTables = availableTables;
     }
 
-    public List<RestaurantTable> getRestaurantTables() {
+    public List<List<RestaurantTable>> getRestaurantTables() {
         return restaurantTables;
     }
 
-    public void setRestaurantTables(List<RestaurantTable> restaurantTables) {
+    public void setRestaurantTables(List<List<RestaurantTable>> restaurantTables) {
         this.restaurantTables = restaurantTables;
     }
 }

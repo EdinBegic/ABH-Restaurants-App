@@ -7,45 +7,33 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.TimeZone;
-import java.util.List;
+import java.util.*;
 
 @Component
 public class DbLoader implements CommandLineRunner {
+    private static final int NUM_OF_TABLES = 1;
     @Autowired
     LocationService locationService;
-
     @Autowired
     UserService userService;
-
     @Autowired
     RestaurantService restaurantService;
-
     @Autowired
     CategoryService categoryService;
-
     @Autowired
     CousineService cousineService;
-
     @Autowired
     MenuService menuService;
-
     @Autowired
     MenuItemService menuItemService;
-
     @Autowired
     RestaurantTableService restaurantTableService;
-
     @Autowired
     ReservationService reservationService;
 
-    private static final int NUM_OF_TABLES = 1;
     @Override
     public void run(String... args) throws Exception {
         addLocations();
@@ -54,8 +42,7 @@ public class DbLoader implements CommandLineRunner {
         addCousines();
         addRestaurants();
         addMenusAndItems();
-        addTables();
-        addReservations();
+        addTablesAndReservations();
     }
 
     private void addUsers() {
@@ -66,8 +53,8 @@ public class DbLoader implements CommandLineRunner {
     }
 
     private void addLocations() {
-        locationService.create(new Location("Bosnia", "Sarajevo"));
-        locationService.create(new Location("Bosnia", "Tuzla"));
+        locationService.create(new Location("Bosnia and Herzegovina", "Sarajevo"));
+        locationService.create(new Location("Bosnia and Herzegovina", "Tuzla"));
         locationService.create(new Location("Serbia", "Belgrade"));
         locationService.create(new Location("Croatia", "Zagreb"));
         locationService.create(new Location("Germany", "Berlin"));
@@ -159,35 +146,76 @@ public class DbLoader implements CommandLineRunner {
         restaurantService.create(new Restaurant("Pizza Hut", description, "/assets/images/rest4.jpg", coverLogoPath, 4, location, category, cousine));
 
     }
-    private void addTables() {
+
+    private void addTablesAndReservations() throws ParseException {
         RestaurantFilterBuilder rfb = new RestaurantFilterBuilder()
                 .setPageSize(0);
-
-        for(Restaurant r: restaurantService.filter(rfb).getData()) {
-            for(int i = 0; i < NUM_OF_TABLES; i++) {
-                restaurantTableService.create(new RestaurantTable(2, r));
-                restaurantTableService.create(new RestaurantTable(3, r));
-                restaurantTableService.create(new RestaurantTable(4, r));
-                restaurantTableService.create(new RestaurantTable(6, r));
-                restaurantTableService.create(new RestaurantTable(8, r));
-                restaurantTableService.create(new RestaurantTable(10, r));
-            }
-        }
-    }
-    private void addReservations() throws ParseException {
+        // Admin adds initial resevations needed for reservation logic
         User user = userService.findById(12L);
-        RestaurantTable restaurantTable = restaurantTableService.findById(227L);
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-HH:mm:ss");
         dateFormat.setTimeZone(TimeZone.getTimeZone("CET"));
         Date createdAt = Calendar.getInstance().getTime();
-        reservationService.create(new Reservation(dateFormat.parse("2018-11-12-12:00:00"), dateFormat.parse("2018-11-12-12:45:00"), user, restaurantTable, createdAt, true));
-        reservationService.create(new Reservation(dateFormat.parse("2018-11-12-14:05:00"), dateFormat.parse("2018-11-12-15:05:00"), user, restaurantTable, createdAt, true));
 
+        for (Restaurant r : restaurantService.filter(rfb).getData()) {
+            for (int i = 0; i < NUM_OF_TABLES; i++) {
+                ArrayList<Integer> tableSizes = new ArrayList<Integer>() {
+                    {
+                        add(2);
+                        add(3);
+                        add(4);
+                        add(6);
+                        add(8);
+                        add(10);
+                    }
+                };
+                for (Integer ts : tableSizes) {
+                    RestaurantTable table = restaurantTableService.create(new RestaurantTable(ts, r));
+                    Random rand = new Random();
+                    long oneMinuteInMilis = 60000;
+                    Integer year = 2018;
+                    Integer day = 1;
+                    Integer baseStayingPeriodMinutes = 30;
+                    Calendar cal = Calendar.getInstance();
+                    List<Integer> offset = new ArrayList<>();
+                    for (int hour = 8; hour <= 23; hour++) {
+                        if (hour < 12) {
+                            offset.add(0);
+                            offset.add(15);
+                        } else if (hour < 15) {
+                            offset.add(15);
+                            offset.add(30);
+                        } else if (hour < 18) {
+                            offset.add(30);
+                            offset.add(45);
+                        } else if (hour < 23) {
+                            offset.add(45);
+                            offset.add(60);
+                        }
+                        for (int minutes = 0; minutes < 60; minutes += 15) {
+                            for (int month = 0; month < 10; month++) {
+                                cal.clear();
+                                cal.set(year, month, day, hour, minutes, 0);
+                                Random randomizer = new Random();
+                                Integer randomOffset = offset.get(randomizer.nextInt(offset.size()));
+                                Date startTime = cal.getTime();
+                                Date endTime = new Date(startTime.getTime() + (baseStayingPeriodMinutes + randomOffset) * oneMinuteInMilis);
+                                reservationService.create(new Reservation(startTime, endTime, user, table, createdAt, true));
+                            }
+                            day++;
+                        }
+                        year--;
+                        day = 1;
+                    }
+                }
+
+            }
+        }
     }
+
     private void addMenusAndItems() {
         RestaurantFilterBuilder rfb = new RestaurantFilterBuilder();
         List<Restaurant> restaurantList = restaurantService.filter(rfb).getData();
-        for(Restaurant restaurant: restaurantList) {
+        for (Restaurant restaurant : restaurantList) {
             Menu menu = menuService.create(new Menu("Breakfast", restaurant));
             menuItemService.create(new MenuItem("Brocoli Rabe", "With grilled sausage, olive oil and garlic", new BigDecimal(8.95), menu));
             menuItemService.create(new MenuItem("Fried Mozzarella", null, new BigDecimal(3.42), menu));
