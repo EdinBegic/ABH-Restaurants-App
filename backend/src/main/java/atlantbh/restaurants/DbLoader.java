@@ -154,7 +154,6 @@ public class DbLoader implements CommandLineRunner {
         User user = userService.findById(12L);
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-HH:mm:ss");
         dateFormat.setTimeZone(TimeZone.getTimeZone("CET"));
-        Date createdAt = Calendar.getInstance().getTime();
 
         for (Restaurant r : restaurantService.filter(rfb).getData()) {
             for (int i = 0; i < NUM_OF_TABLES; i++) {
@@ -177,7 +176,7 @@ public class DbLoader implements CommandLineRunner {
                     Integer baseStayingPeriodMinutes = 30;
                     Calendar cal = Calendar.getInstance();
                     List<Integer> offset = new ArrayList<>();
-                    for (int hour = 8; hour <= 23; hour++) {
+                    for (int hour = 6; hour <= 23; hour++) {
                         if (hour < 12) {
                             offset.add(0);
                             offset.add(15);
@@ -198,6 +197,7 @@ public class DbLoader implements CommandLineRunner {
                                 Random randomizer = new Random();
                                 Integer randomOffset = offset.get(randomizer.nextInt(offset.size()));
                                 Date startTime = cal.getTime();
+                                Date createdAt = startTime;
                                 Date endTime = new Date(startTime.getTime() + (baseStayingPeriodMinutes + randomOffset) * oneMinuteInMilis);
                                 reservationService.create(new Reservation(startTime, endTime, user, table, createdAt, true));
                             }

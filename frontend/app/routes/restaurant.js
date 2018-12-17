@@ -22,9 +22,16 @@ export default BaseRoute.extend({
     if (isExiting && transition.targetName !== 'error') {
       controller.set('slectedDay', moment().utc(true).format('YYYY-MM-DD'));
       controller.set('presentedDay', moment().utc(true).format('MMMM DD, YYYY'));
-      controller.set('selectedTime', moment().utc(true).format('HH:mm:ss'));
-      controller.set('presentedTime', moment().utc(true).format('HH:mm'));
+      // round up current time to 15 minutes
+      let currentTime = moment().utc(true);
+      let reminder = 15 - (currentTime.minute() % 15);
+      let finalTime = moment(currentTime).add(reminder, "minutes");
+      let selectedTime = moment(finalTime).format('HH:mm:ss');
+      let presentedTime = moment(finalTime).format('HH:mm');
+      controller.set('selectedTime', selectedTime);
+      controller.set('presentedTime', presentedTime);
       controller.set('suggestedReservations', null);
+      controller.set('sittingPlaces', 2);
       controller.set('availableTables', null);
       controller.set('suggestedDates', null);
       controller.set('suggestions', null);
@@ -61,6 +68,14 @@ export default BaseRoute.extend({
           this.controller.set("hasReviewed", response);
         })
       }
+      // round up current time to 15 minutes
+      let currentTime = moment().utc(true);
+      let reminder = 15 - (currentTime.minute() % 15);
+      let finalTime = moment(currentTime).add(reminder, "minutes");
+      let selectedTime = moment(finalTime).format('HH:mm:ss');
+      let presentedTime = moment(finalTime).format('HH:mm');
+      this.controller.set("selectedTime", selectedTime);
+      this.controller.set("presentedTime", presentedTime);
     }
   }
 });

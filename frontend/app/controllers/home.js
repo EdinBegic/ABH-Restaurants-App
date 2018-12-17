@@ -14,8 +14,8 @@ export default BaseController.extend({
   tableSizes: [2,3,4,6,8,10],
   selectedDay: moment().format("YYYY-MM-DD"),
   presentedDay: moment().format("MMMM DD, YYYY"),
-  selectedTime: moment().format("HH:mm:ss"),
-  presentedTime: moment().format("HH:mm"),
+  selectedTime: null,
+  presentedTime: null,
 
   search() {
     let q = this.get("query");
@@ -70,7 +70,7 @@ export default BaseController.extend({
       reservation.startTime = this.get("selectedTime");
       this.get("_reservationService").create(reservation)
       .then(response => {
-        this.get("router").transitionTo("complete-reservation", [response.id]);
+        this.get("router").transitionTo("complete-reservation", [response[0], response[1]]);
       })
       .catch(error => {
         let suggestion = {};
@@ -83,5 +83,5 @@ export default BaseController.extend({
 
   }
 
-  
+
 });

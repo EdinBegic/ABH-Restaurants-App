@@ -6,29 +6,24 @@ export default Component.extend({
   router: service(),
   session: service(),
   _swalService: service("swal-service"),
+  notifications: service("toast"),
 
   init() {
     this._super(...arguments);
     this.loginData = {};
   },
-  
+
   actions: {
     login(shouldTransition) {
+      let notifications = this.get('notifications');
       this.get("session")
         .authenticate("authenticator:application", this.loginData, data => {
           set(this, "loginData", {});
-          this.get("_swalService").success("Successful login", confirm => {
-            if(shouldTransition) {
-              this.get('router').transitionTo("home");
-            }
-          });
-          if(shouldTransition) {
-            this.get('router').transitionTo("home");
-
-          }
+          notifications.success("Successful login", "", {positionClass:"toast-top-center"});
+          this.get('router').transitionTo("home");
         })
         .catch(reason => {
-          this.get("_swalService").error(reason.responseJSON.errorMessage);
+          notifications.error(reason.responseText, "", {positionClass:"toast-top-center"});
         });
     }
   }});

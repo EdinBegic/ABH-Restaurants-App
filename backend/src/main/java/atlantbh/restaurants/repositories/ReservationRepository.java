@@ -14,8 +14,6 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 @Repository
 public class ReservationRepository extends BaseRepositoryImpl<Reservation, ReservationSortKeys, ReservationFilterBuilder> {
@@ -25,7 +23,7 @@ public class ReservationRepository extends BaseRepositoryImpl<Reservation, Reser
     RestaurantTableRepository restaurantTableRepository;
 
     public List<Reservation> availableReservations(Long restaurantId, Integer sittingPlaces, Date startTime,
-                                                   User user, Date createdAt, Boolean confirmed, Integer maxCapacity) throws RepositoryException{
+                                                   User user, Date createdAt, Boolean confirmed, Integer maxCapacity) throws RepositoryException {
         // calculate staying period
         String query = ""
                 + "WITH predicted_end_time as ( "
@@ -54,8 +52,6 @@ public class ReservationRepository extends BaseRepositoryImpl<Reservation, Reser
         q.setParameter(3, sittingPlaces);
         Double d = (Double) q.getSingleResult();
         Integer stayingPeriod = d.intValue();
-        Logger logger = Logger.getLogger(ReservationRepository.class.getName());
-        logger.log(Level.INFO, stayingPeriod.toString());
         // Check if any tables are free in that time slot
         query = ""
                 + "With table_cap as (SELECT ?1 max_capacity) "
@@ -70,10 +66,10 @@ public class ReservationRepository extends BaseRepositoryImpl<Reservation, Reser
                 + "                      (SELECT COUNT(r.*) "
                 + "                        FROM reservation r "
                 + "                        WHERE r.restaurant_table_id = rt.id AND "
-                + "                            ((?4)::::timestamp >= r.start_time AND (?4)::::timestamp <= r.staying_period) "
+                + "                            (((?4)::::timestamp >= r.start_time AND (?4)::::timestamp <= r.staying_period) "
                 + "                            OR((?4)::::timestamp + (?5 * interval '1 minute') >= r.start_time "
                 + "                                  AND (?4)::::timestamp + (?5 * interval '1 minute') <= r.staying_period) "
-                + "                                  and r.confirmed=true "
+                + "                            )     AND r.confirmed=true "
                 + "                        ) > 0 "
                 + "     ORDER BY rt.sitting_places ASC "
                 + " ; ";
@@ -86,8 +82,8 @@ public class ReservationRepository extends BaseRepositoryImpl<Reservation, Reser
         List<Object[]> at = q.getResultList();
         List<RestaurantTable> availableTables = new ArrayList<>();
         for (int i = 0; i < at.size(); i++) {
-                BigInteger idInDb = (BigInteger) at.get(i)[0];
-                availableTables.add(restaurantTableRepository.get(idInDb.longValue()));
+            BigInteger idInDb = (BigInteger) at.get(i)[0];
+            availableTables.add(restaurantTableRepository.get(idInDb.longValue()));
         }
         if (availableTables.isEmpty()) {
             return new ArrayList<>();
@@ -111,8 +107,8 @@ public class ReservationRepository extends BaseRepositoryImpl<Reservation, Reser
             }
             index++;
         }
+        List<Reservation> list = new ArrayList<>();
         if (maxMinId != -1) {
-            List<Reservation> list = new ArrayList<>();
             list.add(new Reservation(startTime, endTime, user, availableTables.get(maxMinId), createdAt, confirmed));
             return list;
         }
@@ -131,9 +127,8 @@ public class ReservationRepository extends BaseRepositoryImpl<Reservation, Reser
                 }
             }
         }
-        List<Reservation> multipleSmallerReservations = new ArrayList<>();
-        multipleSmallerReservations.add(new Reservation(startTime, endTime, user, availableTables.get(firstTableIndex), createdAt, confirmed));
-        multipleSmallerReservations.add(new Reservation(startTime, endTime, user, availableTables.get(secondTableIndex), createdAt, confirmed));
-        return multipleSmallerReservations;
+        list.add(new Reservation(startTime, endTime, user, availableTables.get(firstTableIndex), createdAt, confirmed));
+        list.add(new Reservation(startTime, endTime, user, availableTables.get(secondTableIndex), createdAt, confirmed));
+        return list;
     }
 }

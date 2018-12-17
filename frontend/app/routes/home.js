@@ -8,7 +8,19 @@ export default BaseRoute.extend({
   _locationService: service("location-service"),
   _reviewService: service("review-service"),
   session: service(),
-
+  resetController(controller, isExiting, transition) {
+    controller.set('slectedDay', moment().utc(true).format('YYYY-MM-DD'));
+    controller.set('presentedDay', moment().utc(true).format('MMMM DD, YYYY'));
+    // round up current time to 15 minutes
+    let currentTime = moment().utc(true);
+    let reminder = 15 - (currentTime.minute() % 15);
+    let finalTime = moment(currentTime).add(reminder, "minutes");
+    let selectedTime = moment(finalTime).format('HH:mm:ss');
+    let presentedTime = moment(finalTime).format('HH:mm');
+    controller.set('selectedTime', selectedTime);
+    controller.set('presentedTime', presentedTime);
+    controller.set('sittingPlaces', 2);
+  },
   model() {
     return hash({
       restaurants: this.get("_restaurantService").getPopularRestaurants(
@@ -42,6 +54,13 @@ export default BaseRoute.extend({
             set(restaurant, "numOfReviews", response);
           });
       }
+      let currentTime = moment().utc(true);
+      let reminder = 15 - (currentTime.minute() % 15);
+      let finalTime = moment(currentTime).add(reminder, "minutes");
+      let selectedTime = moment(finalTime).format('HH:mm:ss');
+      let presentedTime = moment(finalTime).format('HH:mm');
+      this.controller.set('selectedTime', selectedTime);
+      this.controller.set('presentedTime', presentedTime);
     }
   }
 });

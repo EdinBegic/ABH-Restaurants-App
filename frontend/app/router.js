@@ -12,7 +12,7 @@ Router.map(function() {
   this.route('home');
   this.route('restaurant', {path: '/:id/restaurant'});
   this.route('restaurant-list');
-  this.route('complete-reservation', {path: '/:id/complete-reservation'});
+  this.route('complete-reservation', {path: '/:id1/:id2/complete-reservation'});
   this.route('reservation-history');
 });
 

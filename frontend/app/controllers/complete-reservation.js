@@ -12,18 +12,23 @@ export default Controller.extend({
   _swalService: service("swal-service"),
   _reservationService: service("reservation-service"),
   router: service("-routing"),
-
+  finalSittingPlaces: null,
+  notifications: service("toast"),
+  flashMessages: service(),
   deleteReservation:function() {
     let reservation = this.get('model.reservation');
+    let extendedReservation = this.get('model.extendedReservation');
     let restaurantId = this.get('model.reservation.restaurantTable.restaurant.id');
     let currentTime = moment().utc(true).format("YYYY-MM-DD-HH:mm:ss");
     let startDate = moment(this.get('startDate')).utc(true).format("YYYY-MM-DD-HH:mm:ss");
+    let notifications = this.get('notifications');
     if(currentTime > startDate && !this.get('model.reservation.confirmed') && !this.get("confirmDelete")) {
       this.get('_reservationService').delete(reservation.id).then(response =>{
         this.set("confirmDelete", true);
-        this.get("_swalService").info("Time for completing reservation ran out", confirm => {
-          this.get("router").transitionTo("restaurant", [restaurantId]);
-        });
+        if(reservation.id != extendedReservation.id) { // merged tables
+          this.get('_reservationService').delete(extendedReservation.id);
+        }
+        notifications.info("Time for completing reservation ran out", "", {positionClass : "toast-bottom-right"});
         this.get("router").transitionTo("restaurant", [restaurantId]);
       })
     }
@@ -39,28 +44,36 @@ export default Controller.extend({
 
     completeReservation() {
       let reservation = this.get("model.reservation");
+      let extendedReservation = this.get("model.extendedReservation");
       reservation.user = this.get('session.data.authenticated.user');
+      extendedReservation.user = this.get('session.data.authenticated.user');
+      extendedReservation.confirmed = true;
       reservation.confirmed = true;
+      let notifications = this.get('notifications');
       this.get("_reservationService")
         .update(reservation.id, reservation)
-        .then(response => {
-          this.get("_swalService").success("Reservation complete", confirm => {
-            this.get("router").transitionTo("restaurant", [
-              reservation.restaurantTable.restaurant.id
-            ]);
-          });
-        })
         .catch(errorResponse => {
           //  let jsonError = JSON.parse(errorResponse.responseText);
-          this.get("_swalService").error(
-            errorResponse.responseText,
-            confirm => {
-              this.get("router").transitionTo("restaurant", [
-                reservation.restaurantTable.restaurant.id
-              ]);
-            }
-          );
+          notifications.error(errorResponse.responseText, "", {positionClass: "toast-top-center"});
+          this.get("router").transitionTo("restaurant", [
+            reservation.restaurantTable.restaurant.id
+          ]);
         });
+        if(extendedReservation.id != reservation.id) {
+          this.get("_reservationService")
+            .update(extendedReservation.id, extendedReservation)
+            .catch(errorResponse => {
+              //  let jsonError = JSON.parse(errorResponse.responseText);
+              notifications.error(errorResponse.responseText, "", {positionClass: "toast-top-center"});
+              this.get("router").transitionTo("restaurant", [
+                extendedReservation.restaurantTable.restaurant.id
+              ]);
+            });
+        }
+        notifications.success("Reservation complete", "", {positionClass: "toast-top-center"});
+        this.get("router").transitionTo("restaurant", [
+          reservation.restaurantTable.restaurant.id
+        ]);
     }
   }
 });

@@ -16,16 +16,18 @@ export default BaseController.extend({
   sittingPlaces: 2,
   selectedDay: moment().format("YYYY-MM-DD"),
   presentedDay: moment().format("MMMM DD, YYYY"),
-  selectedTime: moment().format("HH:mm:ss"),
-  presentedTime: moment().format("HH:mm"),
+  selectedTime: null,
+  presentedTime: null,
   suggestedReservations: null,
   availableTables: null,
   suggestedDates: null,
   suggestions: null,
   showSuggestions: false,
   hasReviewed: false,
+  notifications: service('toast'),
   actions: {
     review(user, restId) {
+      let notifications = this.get('notifications');
       this.set("model.review.user", user);
       this.set("model.review.restaurant", this.get("model.restaurant"));
       this.get("_reviewService")
@@ -41,12 +43,14 @@ export default BaseController.extend({
               this.set("model.avgRating", response);
             });
           this.set("hasReviewed", true);
-          this.get("_swalService").success("Successfuly created review");
+          //this.get("_swalService").success("Successfuly created review");
+          notifications.success("Successfuly created review","", {positionClass: 'toast-top-center'});
         })
         .catch(error => {
-          this.get("_swalService").error(
-            "An error ocured when saving your review. Please try again."
-          );
+        //  this.get("_swalService").error(
+        //    "An error ocured when saving your review. Please try again."
+        //  );
+        notifications.error("An error ocured when saving your review. Please try again.", "", {positionClass: 'toast-top-center'});
         });
     },
     saveRating(rating) {
@@ -96,20 +100,18 @@ export default BaseController.extend({
       reservation.startDate = this.get("selectedDay");
       reservation.startTime = this.get("selectedTime");
       this.set("model.reservation", reservation);
+      let notifications = this.get('notifications');
       this.get("_reservationService")
         .create(reservation)
         .then(response => {
           this.get("router").transitionTo("complete-reservation", [
-            response.id
+            response[0], response[1]
           ]);
         })
         .catch(errorResponse => {
           //TODO find a better way of handling exceptions
           if(errorResponse.responseText == "Requested reservation time already passed") {
-            this.get("_swalService").error(
-              errorResponse.responseText,
-              confirm => {}
-            );
+            notifications.error(errorResponse.responseText, "",  {positionClass: 'toast-top-center'});
           }
           else {
             this.suggestedReservations = this.get("_reservationService")
@@ -123,16 +125,13 @@ export default BaseController.extend({
               });
               this.set("suggestions", suggestions);
               this.set("suggestedDates", response.suggestedDates);
-              document
-                .getElementById("suggested-info")
+              document.getElementById("suggested-info")
                 .classList.add("show-info");
               this.set("showSuggestions", true);
             })
             .catch(error => {
-              this.get("_swalService").error(
-                "All tables are already reserved in that time slot",
-                confirm => {}
-              );
+              notifications.error("All tables are already reserved in that time slot", "",
+                {positionClass: 'toast-top-center'});
             });
           }
 

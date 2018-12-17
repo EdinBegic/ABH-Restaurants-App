@@ -45,7 +45,7 @@ public class ReservationService extends BaseService<Reservation, ReservationSort
                     data.getRestaurantTable().getRestaurant().getId(), data.getRestaurantTable().getSittingPlaces(),
                     data.getStartTime(), data.getUser(), data.getCreatedAt(), data.getConfirmed(), MAX_TABLES);
         } catch (RepositoryException e) {
-            throw  new ServiceException("Error while executing SQL query.", e);
+            throw new ServiceException("Error while executing SQL query.", e);
         }
         if (reservations.isEmpty()) {
             throw new ServiceException("Reservation not completed in time. Somebody already reserved in that time slot.");
@@ -53,7 +53,7 @@ public class ReservationService extends BaseService<Reservation, ReservationSort
         return super.update(id, data);
     }
 
-    public List<Reservation> create(ReservationDTO reservationDTO) {
+    public List<Long> create(ReservationDTO reservationDTO) {
         try {
             User user = null;
             if (reservationDTO.getUserId() != null) {
@@ -72,10 +72,15 @@ public class ReservationService extends BaseService<Reservation, ReservationSort
             if (reservations.isEmpty()) {
                 throw new RepositoryException("All tables in that time slot are already reserved.");
             }
+            List<Long> reservationIds = new ArrayList<>();
             for (Reservation r : reservations) {
                 repository.save(r);
+                reservationIds.add(r.getId());
             }
-            return reservations;
+            // Workaround while resolving problem on frontend
+            if (reservationIds.size() < 2)
+                reservationIds.add(reservationIds.get(0));
+            return reservationIds;
         } catch (ServiceException | ParseException | RepositoryException e) {
             throw new ServiceException(e.getMessage(), e);
         }
