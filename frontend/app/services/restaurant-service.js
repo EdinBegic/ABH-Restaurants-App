@@ -18,5 +18,14 @@ export default BaseHttpService.extend({
       "GET",
       `/restaurants/filter/?${params}pageSize=${pageSize}&pageNumber=${pageNumber}`
     );
+  },
+  getNearestRestaurants(latitude, longitude) {
+    return this.ajax(
+      "GET",
+      `/restaurants/nearest/?latitude=${latitude}&longitude=${longitude}`
+    );
+  },
+  getCoordinates(id) {
+    return this.ajax("GET", `/restaurants/${id}/coordinates`);
   }
 });

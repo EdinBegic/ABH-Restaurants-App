@@ -1,12 +1,19 @@
 import BaseRoute from "./base-route";
-import { inject as service } from "@ember/service";
-import { hash } from "rsvp";
+import {
+  inject as service
+} from "@ember/service";
+import {
+  hash
+} from "rsvp";
 import CONSTANTS from "../constants";
-import { set } from "@ember/object";
+import {
+  set
+} from "@ember/object";
 export default BaseRoute.extend({
   _restaurantService: service("restaurant-service"),
   _locationService: service("location-service"),
   _reviewService: service("review-service"),
+  _geolocationService: service("geolocation"),
   session: service(),
   resetController(controller, isExiting, transition) {
     controller.set('slectedDay', moment().utc(true).format('YYYY-MM-DD'));
@@ -28,7 +35,7 @@ export default BaseRoute.extend({
       ),
       topLocations: this.get("_locationService").getTopLocations(
         CONSTANTS.TOP_LOCATIONS_SIZE
-      )
+      ),
     });
   },
   deactivate: function() {
@@ -61,6 +68,15 @@ export default BaseRoute.extend({
       let presentedTime = moment(finalTime).format('HH:mm');
       this.controller.set('selectedTime', selectedTime);
       this.controller.set('presentedTime', presentedTime);
+      this.get('_geolocationService').getLocation().then(response => {
+        let latitude = response.coords.latitude;
+        let longitude = response.coords.longitude;
+        this.get("_restaurantService")
+          .getNearestRestaurants(latitude, longitude).then(nearestRestaurantsCount => {
+            this.controller.set('nearestRestaurantsCount', nearestRestaurantsCount);
+          })
+      });
+
     }
   }
 });

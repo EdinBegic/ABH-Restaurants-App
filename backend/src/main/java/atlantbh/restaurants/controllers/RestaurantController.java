@@ -26,7 +26,9 @@ public class RestaurantController extends BaseController<Restaurant, RestaurantS
                                  @RequestParam(value = "name", required = false) String name,
                                  @RequestParam(value = "categories", required = false) String category,
                                  @RequestParam(value = "cousines", required = false) List<String> cousines,
-                                 @RequestParam(value = "location", required = false) String location) {
+                                 @RequestParam(value = "location", required = false) String location,
+                                 @RequestParam(value = "latitude", required = false) Double latitude,
+                                 @RequestParam(value = "longitude", required = false) Double longitude) {
         try {
             RestaurantFilterBuilder rfb = new RestaurantFilterBuilder()
                     .setPriceRange(priceRange)
@@ -36,6 +38,8 @@ public class RestaurantController extends BaseController<Restaurant, RestaurantS
                     .setCategory(category)
                     .setCousines(cousines)
                     .setLocation(location)
+                    .setLatitude(latitude)
+                    .setLongitude(longitude)
                     .setPageSize(pageSize)
                     .setPageNumber(pageNumber)
                     .setSortAsc(sortAsc)
@@ -63,4 +67,24 @@ public class RestaurantController extends BaseController<Restaurant, RestaurantS
     public ResponseEntity create(@RequestBody Restaurant model) {
         return super.create(model);
     }
+
+    @GetMapping("/nearest")
+    public ResponseEntity getNearestRestaurants(@RequestParam Double latitude,
+                                                @RequestParam Double longitude) {
+        try {
+            return ResponseEntity.ok(service.getNearestRestaurants(latitude, longitude));
+        } catch (ServiceException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @GetMapping("{id}/coordinates")
+    public ResponseEntity getCoordinates(@PathVariable("id") Long id) {
+        try {
+            return ResponseEntity.ok(service.getCoordinates(id));
+        } catch (ServiceException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
 }

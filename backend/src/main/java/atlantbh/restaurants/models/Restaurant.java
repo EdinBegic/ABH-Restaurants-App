@@ -1,12 +1,10 @@
 package atlantbh.restaurants.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.vividsolutions.jts.geom.Point;
+import org.hibernate.annotations.Type;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
@@ -26,10 +24,11 @@ public class Restaurant extends BaseModel<Restaurant> {
     private Cousine cousine;
     private Long reviewSize;
     private Double avgRating;
+    private Point coordinates;
     private Collection<Review> reviews;
     private Collection<RestaurantTable> restaurantTables;
 
-    public Restaurant(String name, String description, String logoPath, String coverPhotoPath, Integer priceRange, Location location, Category category, Cousine cousine) {
+    public Restaurant(String name, String description, String logoPath, String coverPhotoPath, Integer priceRange, Location location, Category category, Cousine cousine, Point coordinates) {
         this.name = name;
         this.description = description;
         this.logoPath = logoPath;
@@ -38,6 +37,7 @@ public class Restaurant extends BaseModel<Restaurant> {
         this.location = location;
         this.category = category;
         this.cousine = cousine;
+        this.coordinates = coordinates;
         this.avgRating = 0D;
         this.reviewSize = 0L;
     }
@@ -165,6 +165,18 @@ public class Restaurant extends BaseModel<Restaurant> {
     public void setRestaurantTables(Collection<RestaurantTable> restaurantTables) {
         this.restaurantTables = restaurantTables;
     }
+
+
+    @Type(type = "jts_geometry")
+    @JsonIgnore
+    public Point getCoordinates() {
+        return coordinates;
+    }
+
+    public void setCoordinates(Point coordinates) {
+        this.coordinates = coordinates;
+    }
+
     @Override
     public Restaurant duplicate(Restaurant model) {
         Restaurant restaurant = new Restaurant();
@@ -179,6 +191,7 @@ public class Restaurant extends BaseModel<Restaurant> {
         restaurant.setAvgRating(model.getAvgRating());
         restaurant.setReviewSize(model.getReviewSize());
         restaurant.setRestaurantTables(model.getRestaurantTables());
+        restaurant.setCoordinates(model.getCoordinates());
         return restaurant;
     }
 
@@ -195,6 +208,49 @@ public class Restaurant extends BaseModel<Restaurant> {
         setAvgRating(data.getAvgRating());
         setReviewSize(data.getReviewSize());
         setRestaurantTables(data.getRestaurantTables());
+        setCoordinates(data.getCoordinates());
+    }
+
+    public static class RestaurantCoordinatesDto {
+        private String name;
+        private Double lat;
+        private Double lng;
+        private Integer id;
+
+        public RestaurantCoordinatesDto() {
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public Double getLat() {
+            return lat;
+        }
+
+        public void setLat(Double lat) {
+            this.lat = lat;
+        }
+
+        public Double getLng() {
+            return lng;
+        }
+
+        public void setLng(Double lng) {
+            this.lng = lng;
+        }
+
+        public Integer getId() {
+            return id;
+        }
+
+        public void setId(Integer id) {
+            this.id = id;
+        }
     }
 
 }

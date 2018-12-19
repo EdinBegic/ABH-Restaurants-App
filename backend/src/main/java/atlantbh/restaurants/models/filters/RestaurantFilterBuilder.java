@@ -1,10 +1,16 @@
 package atlantbh.restaurants.models.filters;
 
+import atlantbh.restaurants.models.OrderBySqlFormula;
 import atlantbh.restaurants.models.sortkeys.RestaurantSortKeys;
+import com.vividsolutions.jts.geom.Coordinate;
+import com.vividsolutions.jts.geom.GeometryFactory;
+import com.vividsolutions.jts.geom.Point;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Criteria;
+import org.hibernate.NullPrecedence;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.util.CollectionUtils;
 
@@ -19,6 +25,8 @@ public class RestaurantFilterBuilder extends BaseFilterBuilder<RestaurantSortKey
     private String category;
     private List<String> cousines;
     private Double avgRating;
+    private Double latitude;
+    private Double longitude;
 
     public RestaurantFilterBuilder() {
         query = null;
@@ -68,6 +76,39 @@ public class RestaurantFilterBuilder extends BaseFilterBuilder<RestaurantSortKey
         return rootCriteria;
     }
 
+    @Override
+    public void addOrderBy(Criteria rootCriteria) {
+        if (this.getSortKey() != null && this.getSortAsc() != null) {
+            GeometryFactory gf;
+            Point point = null;
+            String customOrder = null;
+            if (this.getSortKey().toString() == "nearest") {
+                gf = new GeometryFactory();
+                point = gf.createPoint(new Coordinate(latitude, longitude, 0.0));
+                customOrder = "ST_Distance(coordinates, ST_Geomfromtext('POINT(" + latitude + " " + longitude + ")')) ";
+            }
+            if (this.getSortAsc()) {
+                if (this.getSortKey().toString() == "nearest") {
+                    customOrder += "ASC";
+                    rootCriteria.addOrder(OrderBySqlFormula.sqlFormula(customOrder));
+                } else {
+                    rootCriteria.addOrder(Order.asc(this.getSortKey().toString()));
+                }
+            } else {
+                if (this.getSortKey().toString() == "nearest") {
+                    customOrder += "DESC";
+                    rootCriteria.addOrder(OrderBySqlFormula.sqlFormula(customOrder));
+                } else {
+                    rootCriteria.addOrder(Order.desc(this.getSortKey().toString()).nulls(NullPrecedence.LAST));
+                }
+            }
+        }
+        if (this.isUseDefaultSort()) {
+            rootCriteria.addOrder(Order.desc("id"));
+        }
+
+    }
+
     public RestaurantFilterBuilder setQuery(String query) {
         this.query = query;
         return this;
@@ -100,6 +141,16 @@ public class RestaurantFilterBuilder extends BaseFilterBuilder<RestaurantSortKey
 
     public RestaurantFilterBuilder setAvgRating(Double avgRating) {
         this.avgRating = avgRating;
+        return this;
+    }
+
+    public RestaurantFilterBuilder setLatitude(Double latitude) {
+        this.latitude = latitude;
+        return this;
+    }
+
+    public RestaurantFilterBuilder setLongitude(Double longitude) {
+        this.longitude = longitude;
         return this;
     }
 }

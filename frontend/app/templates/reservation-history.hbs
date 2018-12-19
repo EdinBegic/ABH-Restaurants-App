@@ -1,30 +1,30 @@
 {{main-navigation}}
-<div class="reservation-history" >
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="reservation-header-label">Reservation history</div>
-            </div>
-        </div>
+<div class="reservation-history">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="reservation-header-label">Reservation history</div>
+      </div>
     </div>
-    <div class="container find-table-container" id="reservation-history-container">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Reservation time</th>
-                    <th scope="col">Sitting places</th>
-                    <th scope="col">Restaurant</th>
-                </tr>
-            </thead>
-            {{#each model.data as |reservation index|}}
-            <tbody>
-                <th scope="col">{{index}}</th>
-                <th scope="col">{{reservation.startTime}}</th>
-                <th scope="col">{{reservation.restaurantTable.sittingPlaces}}</th>
-                <th scope="col">{{reservation.restaurantTable.restaurant.name}} , {{reservation.restaurantTable.restaurant.location.city}}</th>
-            </tbody>
-            {{/each}}
-        </table>
-    </div>
+  </div>
+  <div class="container find-table-container" id="reservation-history-container">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Reservation time</th>
+          <th scope="col">Sitting places</th>
+          <th scope="col">Restaurant</th>
+        </tr>
+      </thead>
+      {{#each model.data as |reservation index|}}
+        <tbody>
+          <th scope="col">{{index}}</th>
+          <th scope="col">{{reservation.startTime}}</th>
+          <th scope="col">{{reservation.restaurantTable.sittingPlaces}}</th>
+          <th scope="col">{{reservation.restaurantTable.restaurant.name}} , {{reservation.restaurantTable.restaurant.location.city}}</th>
+        </tbody>
+      {{/each}}
+    </table>
+  </div>
 </div>

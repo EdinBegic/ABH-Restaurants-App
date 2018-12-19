@@ -1,15 +1,21 @@
 import BaseRoute from "./base-route";
-import { inject as service } from "@ember/service";
-import { hash } from "rsvp";
+import {
+  inject as service
+} from "@ember/service";
+import {
+  hash
+} from "rsvp";
 import CONSTANTS from "../constants";
-import { set } from "@ember/object";
+import {
+  set
+} from "@ember/object";
 export default BaseRoute.extend({
   _restaurantService: service("restaurant-service"),
   _locationService: service("location-service"),
   _reviewService: service("review-service"),
   _cousineService: service("cousine-service"),
+  _geolocationService: service("geolocation"),
   session: service(),
-
   model() {
     return hash({
       restaurants: this.get("_restaurantService")
@@ -20,7 +26,7 @@ export default BaseRoute.extend({
       topLocations: this.get("_locationService").getTopLocations(
         CONSTANTS.TOP_LOCATIONS_SIZE
       ),
-      cousines: this.get("_cousineService").findAll(1,0)
+      cousines: this.get("_cousineService").findAll(1, 0)
     });
   },
   createPageArray(num, pageNumber) {
@@ -38,7 +44,6 @@ export default BaseRoute.extend({
     }
     return pageArray;
   },
-
   actions: {
     formatPageNumbering(response, pageNumber) {
       let numOfPages = Math.ceil(
@@ -52,7 +57,6 @@ export default BaseRoute.extend({
       margin = margin + "px";
       this.controller.set("pageMargin", margin);
     },
-
     populateRatingAndSize() {
       let restaurants = this.controller.get("model.restaurants");
       for (let i = 0; i < restaurants.length; i++) {
@@ -69,7 +73,6 @@ export default BaseRoute.extend({
           });
       }
     },
-
     didTransition() {
       this.send("populateRatingAndSize");
       this.get("_restaurantService")
@@ -77,6 +80,10 @@ export default BaseRoute.extend({
         .then(response => {
           this.send("formatPageNumbering", response, 1);
         });
+      this.get('_geolocationService').getLocation().then(response => {
+        this.controller.set('latitude', response.coords.latitude);
+        this.controller.set('longitude', response.coords.longitude);
+      });
     }
   }
 });

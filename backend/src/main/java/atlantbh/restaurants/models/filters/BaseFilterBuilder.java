@@ -7,12 +7,11 @@ import org.hibernate.criterion.Projections;
 import org.hibernate.internal.CriteriaImpl;
 
 public abstract class BaseFilterBuilder<S extends Enum<S>, T extends BaseFilterBuilder<S, T>> {
+    protected boolean useDefaultSort = true;
     private int pageNumber;
     private int pageSize;
     private S sortKey;
     private Boolean sortAsc;
-
-    private boolean useDefaultSort = true;
 
     protected abstract Criteria addConditions(Criteria rootCriteria, boolean isCountCriteria);
 
@@ -92,8 +91,13 @@ public abstract class BaseFilterBuilder<S extends Enum<S>, T extends BaseFilterB
         return (T) this;
     }
 
+    public boolean isUseDefaultSort() {
+        return useDefaultSort;
+    }
+
     public T setUseDefaultSort(boolean useDefaultSort) {
         this.useDefaultSort = useDefaultSort;
         return (T) this;
     }
+
 }

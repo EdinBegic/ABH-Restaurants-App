@@ -1,7 +1,13 @@
-import { inject as service } from "@ember/service";
-import { isArray } from "@ember/array";
+import {
+  inject as service
+} from "@ember/service";
+import {
+  isArray
+} from "@ember/array";
 import CONSTANTS from "../constants";
-import { set } from "@ember/object";
+import {
+  set
+} from "@ember/object";
 import EmberObject from "@ember/object";
 import BaseController from "./base-controller";
 
@@ -22,6 +28,8 @@ export default BaseController.extend({
   pageNumber: 1,
   numOfPages: [],
   pageMargin: "",
+  latitude: null,
+  longitude: null,
   activePage: EmberObject.create({
     number: 1,
     activeStatus: true
@@ -51,7 +59,6 @@ export default BaseController.extend({
     },
     changeCousineStatus(cousine) {
       let cousineFilters = this.get("cousineFilters");
-      console.log(cousine);
       if (cousine.activeStatus) {
         set(cousine, "activeStatus", false);
         cousineFilters = cousineFilters.filter(x => x !== cousine.name);
@@ -60,7 +67,6 @@ export default BaseController.extend({
         cousineFilters.push(cousine.name);
       }
       this.set("cousineFilters", cousineFilters);
-      console.log(cousineFilters);
     },
 
     setRange(range) {
@@ -69,10 +75,8 @@ export default BaseController.extend({
     setRating(rating) {
       this.set("rating", rating);
     },
-    changeSortKey(checkedValue, sortKeyValue) {
-      if (checkedValue != this.get("checkedKey")) {
-        this.set("checkedKey", !this.get("checkedKey"));
-      }
+    changeSortKey(sortKeyValue) {
+      console.log(sortKeyValue);
       this.set("sortKey", sortKeyValue);
     },
     resetFilter() {
@@ -89,7 +93,6 @@ export default BaseController.extend({
       this.send("search", page.number);
       window.scrollTo(0, 0);
     },
-
     nextPage(value) {
       let activePage = this.get("activePage");
       let numOfPages = this.get("numOfPages");
@@ -107,6 +110,8 @@ export default BaseController.extend({
       this.addParameter("name", this.get("name"));
       this.addParameter("priceRange", this.get("range"));
       this.addParameter("avgRating", this.get("rating"));
+      this.addParameter("latitude", this.get("latitude"));
+      this.addParameter("longitude", this.get("longitude"));
       this.addParameter("sortAsc", this.get("sortAsc"));
       this.addParameter("sortKey", this.get("sortKey"));
       let searchParams = this.get("searchParameters");

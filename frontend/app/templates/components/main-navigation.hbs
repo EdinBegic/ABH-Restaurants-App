@@ -7,53 +7,52 @@
       {{#link-to 'home' class='navigation-link'}} Home {{/link-to}}
       {{#link-to 'restaurant-list' class='navigation-link'}} Restaurants {{/link-to}}
       {{#if session.isAuthenticated}}
-      {{#bs-dropdown as |dd| }}
-      {{#dd.toggle class="history-button"}}{{fa-icon 'user'}} {{ session.data.authenticated.user.firstName }} <span
-        class="caret"></span>{{/dd.toggle}}
-      {{#dd.menu as |ddm|}}
-      {{#ddm.item}}
-      {{#ddm.link-to "reservation-history" class="reservation-button"}}Reservation history{{/ddm.link-to}}
-      {{/ddm.item}}
-      {{/dd.menu}}
-      {{/bs-dropdown}}
-      <a href="#" class='navigation-link' {{action "logout"}}>Log out</a>
+        {{#bs-dropdown as |dd| }}
+          {{#dd.toggle class="history-button"}}{{fa-icon 'user'}} {{ session.data.authenticated.user.firstName }} <span class="caret"></span>{{/dd.toggle}}
+          {{#dd.menu as |ddm|}}
+            {{#ddm.item}}
+              {{#ddm.link-to "reservation-history" class="reservation-button"}}Reservation history{{/ddm.link-to}}
+            {{/ddm.item}}
+          {{/dd.menu}}
+        {{/bs-dropdown}}
+        <a href="#" class='navigation-link' {{action "logout"}}>Log out</a>
       {{else}}
-      {{#link-to 'login' class='navigation-link' id='login-link'}} Login {{/link-to}}
+        {{#link-to 'login' class='navigation-link' id='login-link'}} Login {{/link-to}}
       {{/if}}
     </div>
     <div class="col-md-6 menu">
-      <div id="hidden-menu" >
+      <div id="hidden-menu">
         {{#bs-dropdown as |dd|}}
-        {{#dd.toggle }} Menu <span class="caret"></span>{{/dd.toggle}}
-        <div id="dropdown-shifted">
-        {{#dd.menu as |ddm| }}
-        {{#ddm.item}}
-        {{#ddm.link-to "home" class="reservation-button"}}Home{{/ddm.link-to}}
-        {{/ddm.item}}
-        {{#ddm.item}}
-        {{#ddm.link-to "restaurant-list" class="reservation-button"}}Restaurants{{/ddm.link-to}}
-        {{/ddm.item}}
+          {{#dd.toggle }} Menu <span class="caret"></span>{{/dd.toggle}}
+          <div id="dropdown-shifted">
+            {{#dd.menu as |ddm| }}
+              {{#ddm.item}}
+                {{#ddm.link-to "home" class="reservation-button"}}Home{{/ddm.link-to}}
+              {{/ddm.item}}
+              {{#ddm.item}}
+                {{#ddm.link-to "restaurant-list" class="reservation-button"}}Restaurants{{/ddm.link-to}}
+              {{/ddm.item}}
 
-        {{#if session.isAuthenticated}}
-        {{#ddm.item}}
+              {{#if session.isAuthenticated}}
+                {{#ddm.item}}
 
-        {{#ddm.link-to "reservation-history" class="reservation-button"}}Reservation history{{/ddm.link-to}}
-        {{/ddm.item}}
-        {{#ddm.item}}
+                  {{#ddm.link-to "reservation-history" class="reservation-button"}}Reservation history{{/ddm.link-to}}
+                {{/ddm.item}}
+                {{#ddm.item}}
 
-        {{#ddm.link-to "index" class="reservation-button" action='logout'}}Log out{{/ddm.link-to}}
-        {{/ddm.item}}
+                  {{#ddm.link-to "index" class="reservation-button" action='logout'}}Log out{{/ddm.link-to}}
+                {{/ddm.item}}
 
-        {{else}}
-        {{#ddm.item}}
+              {{else}}
+                {{#ddm.item}}
 
-        {{#ddm.link-to "login" class="reservation-button" }}Login{{/ddm.link-to}}
-        {{/ddm.item}}
+                  {{#ddm.link-to "login" class="reservation-button" }}Login{{/ddm.link-to}}
+                {{/ddm.item}}
 
-        {{/if}}
-        {{/dd.menu}}
+              {{/if}}
+            {{/dd.menu}}
 
-        </div>
+          </div>
         {{/bs-dropdown}}
       </div>
     </div>

@@ -1,73 +1,73 @@
 {{main-navigation}}
 <div class="complete-reservation" style="background: #F9F9F9;">
-    <div class="container">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="reservation-header-label">Complete your reservation</div>
+      </div>
+    </div>
+  </div>
+  <div class="container find-table-container">
+    <div class="row row-info">
+      <div class="col-md-6">
+        <div class="reservation-details-label">Reservation details</div>
+      </div>
+      <div class="col-md-3"></div>
+      <div class="col-md-3">
+        <div class="countdown-field">
+          {{fa-icon 'clock'}}
+          {{countdown-string startDate=startDate}}
+        </div>
+      </div>
+    </div>
+    <div class="row row-info">
+      <div class="col-md-2">
+        <img src={{model.reservation.restaurantTable.restaurant.logoPath}} class="restaurant-card-image">
+      </div>
+      <div class="col-md-9">
         <div class="row">
-            <div class="col-md-12">
-                <div class="reservation-header-label">Complete your reservation</div>
-            </div>
+          <div class="col-md-12">
+            <div class="restaurant-card-header">RESTAURANT</div>
+          </div>
         </div>
+        <div class="row" style="padding-bottom: 20px;">
+          <div class="col-md-12">
+            <div class="restaurant-card-name">{{model.reservation.restaurantTable.restaurant.name}}</div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <div class="restaurant-card-reservation-info">GUESTS</div>
+          </div>
+          <div class="col-md-4">
+            <div class="restaurant-card-reservation-info">DATE</div>
+          </div>
+          <div class="col-md-2">
+            <div class="restaurant-card-reservation-info">TIME</div>
+          </div>
+        </div>
+        <div class="row" style="padding-bottom:10px;">
+          <div class="col-md-2">
+            <div class="restaurant-card-reservation-details">{{finalSittingPlaces}}</div>
+          </div>
+          <div class="col-md-4">
+            <div class="restaurant-card-reservation-details">{{reservationDate}}</div>
+          </div>
+          <div class="col-md-2">
+            <div class="restaurant-card-reservation-details">{{reservationTime}}</div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="container find-table-container">
-        <div class="row row-info">
-            <div class="col-md-6">
-                <div class="reservation-details-label">Reservation details</div>
-            </div>
-            <div class="col-md-3"></div>
-            <div class="col-md-3">
-                <div class="countdown-field">
-                    {{fa-icon 'clock'}}
-                    {{countdown-string startDate=startDate}}
-                </div>
-            </div>
-        </div>
-        <div class="row row-info">
-            <div class="col-md-2">
-                <img src={{model.reservation.restaurantTable.restaurant.logoPath}} class="restaurant-card-image">
-            </div>
-            <div class="col-md-9">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="restaurant-card-header">RESTAURANT</div>
-                    </div>
-                </div>
-                <div class="row" style="padding-bottom: 20px;">
-                    <div class="col-md-12">
-                        <div class="restaurant-card-name">{{model.reservation.restaurantTable.restaurant.name}}</div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-2">
-                        <div class="restaurant-card-reservation-info">GUESTS</div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="restaurant-card-reservation-info">DATE</div>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="restaurant-card-reservation-info">TIME</div>
-                    </div>
-                </div>
-                <div class="row" style="padding-bottom:10px;">
-                    <div class="col-md-2">
-                        <div class="restaurant-card-reservation-details">{{finalSittingPlaces}}</div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="restaurant-card-reservation-details">{{reservationDate}}</div>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="restaurant-card-reservation-details">{{reservationTime}}</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    {{#if (not session.isAuthenticated)}}
+  </div>
+  {{#if (not session.isAuthenticated)}}
     <div class="login-container--reservation container">
-        {{#if (not loginForm)}}
+      {{#if (not loginForm)}}
         <div class="row ">
-            <div class="col-md-6  sign-in-col">
-                <div class="sign-in-reservation-label--question">Already a member?&nbsp;</div>
-                <div class="sign-in-reservation-label" {{action 'showLoginForm' true}}>Sign in</div>
-            </div>
+          <div class="col-md-6  sign-in-col">
+            <div class="sign-in-reservation-label--question">Already a member?&nbsp;</div>
+            <div class="sign-in-reservation-label" {{action 'showLoginForm' true}}>Sign in</div>
+          </div>
         </div>
         {{sign-up-form
         cities=model.cities
@@ -77,33 +77,33 @@
         shouldTransition=false
         functionName='showLoginForm'
         }}
-        {{else}}
+      {{else}}
         <div class="row login">
-            <div class="col-md-4">
-                <div class="sign-in-reservation-label--question">Login</div>
-            </div>
-            <div class="col-md-8">
-                <div class="sign-in-reservation-label" style="text-align:right;" {{action 'showLoginForm' false}}>Create
-                    account</div>
-            </div>
+          <div class="col-md-4">
+            <div class="sign-in-reservation-label--question">Login</div>
+          </div>
+          <div class="col-md-8">
+            <div class="sign-in-reservation-label" style="text-align:right;" {{action 'showLoginForm' false}}>Create
+              account</div>
+          </div>
         </div>
         {{login-form shouldTransition=false}}
-        {{/if}}
+      {{/if}}
     </div>
-    {{else}}
+  {{else}}
     <div class="row login">
-        <div class="col-md-12">
-            <button type="submit" class="form-control login-button--reservation btn" {{action 'completeReservation'}}>Complete reservation</button>
-        </div>
+      <div class="col-md-12">
+        <button type="submit" class="form-control login-button--reservation btn" {{action 'completeReservation'}}>Complete reservation</button>
+      </div>
     </div>
     <div class="row privacy-text-row">
-        <div class="col-md-12 " >
-            <div class="terms-of-use-label"> By clicking “Complete Reservation” you agree to the</div>
-            <div class="terms-of-use-label--privacy">ABH Restaurants</div>
-            <div class="terms-of-use-label">and</div>
-            <div class="terms-of-use-label--privacy">Privacy Policy.</div>
-        </div>
+      <div class="col-md-12 ">
+        <div class="terms-of-use-label"> By clicking “Complete Reservation” you agree to the</div>
+        <div class="terms-of-use-label--privacy">ABH Restaurants</div>
+        <div class="terms-of-use-label">and</div>
+        <div class="terms-of-use-label--privacy">Privacy Policy.</div>
+      </div>
     </div>
 
-    {{/if}}
+  {{/if}}
 </div>

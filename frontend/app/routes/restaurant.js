@@ -6,7 +6,6 @@ import {
   hash
 } from "rsvp";
 import moment from 'moment';
-
 export default BaseRoute.extend({
   _restaurantService: service("restaurant-service"),
   _reviewService: service("review-service"),
@@ -17,7 +16,6 @@ export default BaseRoute.extend({
   startDate: moment().utc(true).format('YYYY-MM-DD'),
   startTime: "00:00:00",
   finishTime: "23:59:00",
-
   resetController(controller, isExiting, transition) {
     if (isExiting && transition.targetName !== 'error') {
       controller.set('slectedDay', moment().utc(true).format('YYYY-MM-DD'));
@@ -35,7 +33,6 @@ export default BaseRoute.extend({
       controller.set('availableTables', null);
       controller.set('suggestedDates', null);
       controller.set('suggestions', null);
-
     }
   },
   model(params) {
@@ -51,6 +48,7 @@ export default BaseRoute.extend({
       bookedCounter: this.get("_reservationService").
       getNumOfReservationsForPeriod(this.startDate, this.startTime, this.startDate, this.finishTime, params.id),
       reservation: this.get("_reservationService").createReservation(params.id),
+      coordinates: this.get("_restaurantService").getCoordinates(params.id)
     });
   },
   actions: {
@@ -63,7 +61,7 @@ export default BaseRoute.extend({
         .then(response => {
           this.controller.set("model.menuItems", response);
         });
-      if(this.get('session.isAuthenticated')) {
+      if (this.get('session.isAuthenticated')) {
         this.get('_reviewService').hasReviewed(restaurantId, userId).then(response => {
           this.controller.set("hasReviewed", response);
         })

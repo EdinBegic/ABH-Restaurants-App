@@ -1,6 +1,7 @@
 package atlantbh.restaurants.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.vividsolutions.jts.geom.Polygon;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -17,7 +18,8 @@ import java.util.Collection;
                         @FieldResult(name = "country", column = "country"),
                         @FieldResult(name = "city", column = "city"),
                         @FieldResult(name = "longitude", column = "longitude"),
-                        @FieldResult(name = "latitude", column = "latitude")}),
+                        @FieldResult(name = "latitude", column = "latitude"),
+                        @FieldResult(name = "borderRadius", column = "border_radius")}),
         columns = @ColumnResult(name = "numOfRestaurants", type = Long.class))
 
 @Entity
@@ -29,6 +31,7 @@ public class Location extends BaseModel<Location> {
     private BigDecimal latitude;
     private Collection<User> users;
     private Collection<Restaurant> restaurants;
+    private Polygon borderRadius;
 
     public Location(String country, String city, BigDecimal longitude, BigDecimal latitude) {
         this.country = country;
@@ -40,6 +43,12 @@ public class Location extends BaseModel<Location> {
     public Location(String country, String city) {
         this.country = country;
         this.city = city;
+    }
+
+    public Location(String country, String city, Polygon borderRadius) {
+        this.country = country;
+        this.city = city;
+        this.borderRadius = borderRadius;
     }
 
     protected Location() {
@@ -105,6 +114,15 @@ public class Location extends BaseModel<Location> {
         this.restaurants = restaurants;
     }
 
+    @Column(name = "border_radius", columnDefinition = "geometry(Polygon, 4326)")
+    public Polygon getBorderRadius() {
+        return borderRadius;
+    }
+
+    public void setBorderRadius(Polygon borderRadius) {
+        this.borderRadius = borderRadius;
+    }
+
     @Override
     public Location duplicate(Location model) {
         Location location = new Location();
@@ -112,6 +130,7 @@ public class Location extends BaseModel<Location> {
         location.setCountry(model.getCountry());
         location.setLatitude(model.getLatitude());
         location.setLongitude(model.getLongitude());
+        location.setBorderRadius(model.getBorderRadius());
         location.setRestaurants(model.getRestaurants());
         location.setUsers(model.getUsers());
         return location;
@@ -124,6 +143,7 @@ public class Location extends BaseModel<Location> {
         setCountry(data.getCountry());
         setLatitude(data.getLatitude());
         setLongitude(data.getLongitude());
+        setBorderRadius(data.getBorderRadius());
         setUsers(data.getUsers());
     }
 }

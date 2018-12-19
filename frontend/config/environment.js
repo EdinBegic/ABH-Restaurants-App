@@ -27,6 +27,9 @@ module.exports = function(environment) {
     }
   };
 
+  ENV['g-map'] = {
+    key: 'AIzaSyCQyMdwJnHKWVYXruvlUGM_dLI3erO4inU'
+  };
   ENV['ember-simple-auth'] = {
     authorizer: 'authorizer:token',
     baseURL: ''

@@ -1,213 +1,216 @@
-<!-- Button trigger modal -->
-
-<!-- Modal -->
 {{#bs-modal open=rateModal onHidden=(action 'resetModal' rateModal) as |modal|}}
-{{#modal.body}}
-<div class="container modal-container">
-    <div class="row">
+  {{#modal.body}}
+    <div class="container modal-container">
+      <div class="row">
         <div class="col-md-12">
-            <div class="modal-rate-label">Rate this place</div>
+          <div class="modal-rate-label">Rate this place</div>
         </div>
-    </div>
-    <form>
+      </div>
+      <form>
         <div class="row">
-            <div class="col-md-12">
-                <div class="stars-row">
-                    {{star-rating currentRating onClick=(action 'saveRating') numStars=5 readOnly=false
+          <div class="col-md-12">
+            <div class="stars-row">
+              {{star-rating currentRating onClick=(action 'saveRating') numStars=5 readOnly=false
                     baseColor="#858585" fillColor="#fd6f60" width=55 height=36 id="star-rating" }}
-                </div>
             </div>
+          </div>
         </div>
         <div class="row">
-            <div class="col-md-12" style="padding-bottom: 30px;">
-                {{textarea class="form-control modal-textarea" placeholder="Write a review"
+          <div class="col-md-12" style="padding-bottom: 30px;">
+            {{textarea class="form-control modal-textarea" placeholder="Write a review"
                 value=model.review.comment}}
-            </div>
+          </div>
         </div>
         <div class="row">
-            <div class="col-md-12">
-                <button type="submit" class="form-control modal-button btn"
-                    {{action 'review' session.data.authenticated.user model.restaurant.id}}>Save</button>
-            </div>
+          <div class="col-md-12">
+            <button type="submit" class="form-control modal-button btn" {{action 'review' session.data.authenticated.user model.restaurant.id}}>Save</button>
+          </div>
         </div>
-    </form>
-</div>
-{{/modal.body}}
+      </form>
+    </div>
+  {{/modal.body}}
 {{/bs-modal}}
 <div class="restaurant-profile">
-    {{main-navigation}}
-    <div class="container">
-        <div class="row restaurant-details">
-            <div class="col-md-3">
-                <img src={{model.restaurant.logoPath}} class="logo-centered">
+  {{main-navigation}}
+  <div class="container">
+    <div class="row restaurant-details">
+      <div class="col-md-3">
+        <img src={{model.restaurant.logoPath}} class="logo-centered">
+      </div>
+      <div class="col-md-9">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="restaurant-name-label">
+              {{model.restaurant.name}}
             </div>
-            <div class="col-md-9">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="restaurant-name-label">
-                            {{model.restaurant.name}}
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="star-rating" style="padding-left: 15px">
-                        {{star-rating model.avgRating numStars=5 readOnly=true baseColor="#858585" fillColor="#fd6f60"
+          </div>
+        </div>
+        <div class="row">
+          <div class="star-rating" style="padding-left: 15px">
+            {{star-rating model.avgRating numStars=5 readOnly=true baseColor="#858585" fillColor="#fd6f60"
                         width=20
                         height=15 }}
-                    </div>
-                    <div class="restaurant-review-label">({{model.numOfReviews}})</div>
-                    {{price-range model.restaurant.priceRange}}
-                    <div class="restaurant-type-label">{{model.restaurant.cousine.name}} |
-                        {{model.restaurant.category.name}}</div>
-                    <div class="col-md-3">
-                        {{#if session.isAuthenticated}}
-                          {{#unless hasReviewed}}
-                        <button class="form-control rate-button btn" onclick={{action (mut rateModal) true}}>{{fa-icon
+          </div>
+          <div class="restaurant-review-label">({{model.numOfReviews}})</div>
+          {{price-range model.restaurant.priceRange}}
+          <div class="restaurant-type-label">{{model.restaurant.cousine.name}} |
+            {{model.restaurant.category.name}}</div>
+          <div class="col-md-3">
+            {{#if session.isAuthenticated}}
+              {{#unless hasReviewed}}
+                <button class="form-control rate-button btn" onclick={{action (mut rateModal) true}}>{{fa-icon
                             "star"}} Rate this place</button>
-                          {{/unless}}
-                        {{/if}}
-                    </div>
-                </div>
-            </div>
+              {{/unless}}
+            {{/if}}
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>
 <div class="restaurant-info">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-3 col-sm-3 col-xs-12">
-                <ul class="sidebar">
-                    <li>{{scroll-to href='#section-reservation' label='Reservation'}}</li>
-                    <li>{{scroll-to href='#section-description' label='About'}}</li>
-                    <li>{{scroll-to href='#section-menu' label='Menu'}}</li>
-                </ul>
-            </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3 col-sm-3 col-xs-12">
+        <ul class="sidebar">
+          <li>{{scroll-to href='#section-reservation' label='Reservation'}}</li>
+          <li>{{scroll-to href='#section-description' label='About'}}</li>
+          <li>{{scroll-to href='#section-menu' label='Menu'}}</li>
+        </ul>
+      </div>
+      <div class="col-md-9">
+        <div class="container find-table-container" id="section-reservation">
+          <div class="row row-info">
             <div class="col-md-9">
-                <div class="container find-table-container" id="section-reservation">
-                    <div class="row row-info">
-                        <div class="col-md-9">
-                            <div class="reservation-name-label">Make a free reservation</div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="booking-count-label">Booked {{model.bookedCounter}} times today</div>
-                        </div>
-                    </div>
-                    <div class="row" style="inline-block">
-                        <div class="input-group mb-3" id="reserveTable">
-                            <select class="form-control select-table" style="height:56px;" onchange={{action "changeSittingPlaces" value="target.value" }}>
-                                {{#each tableSizes as |tableSize|}}
-                                <option value={{tableSize}}>{{tableSize}} people</option>
-                                {{/each}}
-                            </select>
-                            {{pikaday-input
+              <div class="reservation-name-label">Make a free reservation</div>
+            </div>
+            <div class="col-md-3">
+              <div class="booking-count-label">Booked {{model.bookedCounter}} times today</div>
+            </div>
+          </div>
+          <div class="row" style="inline-block">
+            <div class="input-group mb-3" id="reserveTable">
+              <select class="form-control select-table" style="height:56px;" onchange={{action "changeSittingPlaces" value="target.value" }}>
+                {{#each tableSizes as |tableSize|}}
+                  <option value={{tableSize}}>{{tableSize}} people</option>
+                {{/each}}
+              </select>
+              {{pikaday-input
                             format="MMMM DD, YYYY"
                             class="calendar-picker"
                             onSelection=(action 'changeDay')
                             value=presentedDay
                             }}
-                            {{time-picker
+              {{time-picker
                             selectedTime=presentedTime
                             onchange=(action "changeTime")
                             military=true
+                            startTimeHour=8
+                            endTimeHour=23
                             increment=15
                             }}
-                            <button type="submit" class="form-control find-table-button btn" style="height:56px;"
-                                {{action 'reserve'}}>Find a table</button>
-                        </div>
-                    </div>
-                    <div id="suggested-info">
-                    <div class="row row-info">
-                        <div class="col-md-12">
-                            <div class="availability-label">Availability on {{presentedDay}} around {{presentedTime}}
-                                for {{sittingPlaces}} people:</div>
-                        </div>
-                    </div>
-                    <div class="row row-info">
-                        <div class="col-md-3">
-                            {{fa-icon 'info-circle'}}<div class="reservation-counters-label"> {{availableTables}}
-                                tables left</div>
-                        </div>
-                        <div class="col-md-3">
-                            {{fa-icon 'check-circle' class="reservations-completed-icon"}}<div class="reservation-counters-label">{{model.bookedCounter}}
-                                reservations today</div>
-                        </div>
-                    </div>
-                    <div class="row row-info">
-                        <div class="col-md-12">
-                            <div class="date-select-label">Select the best time that fits you:</div>
-                        </div>
-                    </div>
-                    <div class="row row-info">
-                        {{#each suggestions as |date index| }}
-                        <div class="col-md-2 suggested-reservation-col">
-                            <button type="button" class="form-control suggested-reservation-button btn" {{action 'selectSuggestedTime' index}}>
-                                {{date}}
-                            </button>
-                        </div>
-                        {{/each}}
-                    </div>
-
-                    </div>
-
-                </div>
-                <div class="container description-container" id="section-description">
-                    <div class="row row-info">
-                        <div class="col-md-12">
-                            <div class="reservation-name-label">
-                                About {{model.restaurant.name}}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row row-info">
-                        <div class="col-md-12">
-                            <img src={{model.restaurant.coverPhotoPath}} class="cover-image"><img>
-                        </div>
-                    </div>
-
-                    <div class="row row-info">
-                        <div class="col-md-12">
-                            <div class="description-label">
-                                Description:
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row row-info">
-                        <div class="col-md-12">
-                            <div class="description-text">
-                                {{model.restaurant.description}}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="container description-container" id="section-menu">
-                    <div class="row" id="menu-header">
-                        <div class="col-md-12">
-                            <div class="input-group">
-                                <div class="menu-label">Menu: </div>
-                                {{#each model.menus as |menu|}}
-                                <button type="submit" class="menu-button btn" {{action 'listItems' menu.id}}>{{menu.menuType}}</button>
-                                {{/each}}
-                            </div>
-                        </div>
-                    </div>
-                    {{#each model.menuItems as |item index|}}
-                    <div class="row" style="padding-top: 10px;padding-right:5px; padding-left:3px;">
-                        <div class="col-md-10">
-                            <div class="menu-item-label">{{item.name}}</div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="menu-item-price">${{item.price}}</div>
-                        </div>
-                    </div>
-                    <div class="row" style=" padding-left:3px;">
-                        <div class="col-md-10">
-                            <div class="menu-item-description">{{item.description}}&nbsp;</div>
-                        </div>
-                    </div>
-                    {{/each}}
-                </div>
-
+              <button type="submit" class="form-control find-table-button btn" style="height:56px;" {{action 'reserve'}}>Find a table</button>
             </div>
+          </div>
+          <div id="suggested-info">
+            <div class="row row-info">
+              <div class="col-md-12">
+                <div class="availability-label">Availability on {{presentedDay}} around {{presentedTime}}
+                  for {{sittingPlaces}} people:</div>
+              </div>
+            </div>
+            <div class="row row-info">
+              <div class="col-md-3">
+                {{fa-icon 'info-circle'}}
+                <div class="reservation-counters-label"> {{availableTables}}
+                  tables left</div>
+              </div>
+              <div class="col-md-3">
+                {{fa-icon 'check-circle' class="reservations-completed-icon"}}
+                <div class="reservation-counters-label">{{model.bookedCounter}}
+                  reservations today</div>
+              </div>
+            </div>
+            <div class="row row-info">
+              <div class="col-md-12">
+                <div class="date-select-label">Select the best time that fits you:</div>
+              </div>
+            </div>
+            <div class="row row-info">
+              {{#each suggestions as |date index| }}
+                <div class="col-md-2 suggested-reservation-col">
+                  <button type="button" class="form-control suggested-reservation-button btn" {{action 'selectSuggestedTime' index}}>
+                    {{date}}
+                  </button>
+                </div>
+              {{/each}}
+            </div>
+
+          </div>
+
         </div>
+        <div class="container description-container" id="section-description">
+          <div class="row row-info">
+            <div class="col-md-12">
+              <div class="reservation-name-label">
+                About {{model.restaurant.name}}
+              </div>
+            </div>
+          </div>
+          <div class="row row-info">
+            <div class="col-md-12">
+              <div id="map">
+                {{#g-map lat=model.coordinates.latitude lng=model.coordinates.longitude zoom=15 as |context|}}
+                  {{g-map-marker context lat=model.coordinates.latitude lng=model.coordinates.longitude}}
+                {{/g-map}}
+              </div>
+            </div>
+          </div>
+
+          <div class="row row-info">
+            <div class="col-md-12">
+              <div class="description-label">
+                Description:
+              </div>
+            </div>
+          </div>
+          <div class="row row-info">
+            <div class="col-md-12">
+              <div class="description-text">
+                {{model.restaurant.description}}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="container description-container" id="section-menu">
+          <div class="row" id="menu-header">
+            <div class="col-md-12">
+              <div class="input-group">
+                <div class="menu-label">Menu: </div>
+                {{#each model.menus as |menu|}}
+                  <button type="submit" class="menu-button btn" {{action 'listItems' menu.id}}>{{menu.menuType}}</button>
+                {{/each}}
+              </div>
+            </div>
+          </div>
+          {{#each model.menuItems as |item index|}}
+            <div class="row" style="padding-top: 10px;padding-right:5px; padding-left:3px;">
+              <div class="col-md-10">
+                <div class="menu-item-label">{{item.name}}</div>
+              </div>
+              <div class="col-md-2">
+                <div class="menu-item-price">${{item.price}}</div>
+              </div>
+            </div>
+            <div class="row" style=" padding-left:3px;">
+              <div class="col-md-10">
+                <div class="menu-item-description">{{item.description}}&nbsp;</div>
+              </div>
+            </div>
+          {{/each}}
+        </div>
+
+      </div>
     </div>
+  </div>
 </div>
