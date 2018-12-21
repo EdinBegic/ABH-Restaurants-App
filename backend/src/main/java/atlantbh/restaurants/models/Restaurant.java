@@ -166,7 +166,6 @@ public class Restaurant extends BaseModel<Restaurant> {
         this.restaurantTables = restaurantTables;
     }
 
-    @Type(type = "jts_geometry")
     @JsonIgnore
     public Point getCoordinates() {
         return coordinates;
