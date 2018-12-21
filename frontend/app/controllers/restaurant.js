@@ -44,13 +44,13 @@ export default BaseController.extend({
             });
           this.set("hasReviewed", true);
           //this.get("_swalService").success("Successfuly created review");
-          notifications.success("Successfuly created review","", {positionClass: 'toast-top-center'});
+          notifications.success("Successfuly created review");
         })
         .catch(error => {
         //  this.get("_swalService").error(
         //    "An error ocured when saving your review. Please try again."
         //  );
-        notifications.error("An error ocured when saving your review. Please try again.", "", {positionClass: 'toast-top-center'});
+        notifications.error("An error ocured when saving your review. Please try again.");
         });
     },
     saveRating(rating) {
@@ -111,7 +111,7 @@ export default BaseController.extend({
         .catch(errorResponse => {
           //TODO find a better way of handling exceptions
           if(errorResponse.responseText == "Requested reservation time already passed") {
-            notifications.error(errorResponse.responseText, "",  {positionClass: 'toast-top-center'});
+            notifications.error(errorResponse.responseText);
           }
           else {
             this.suggestedReservations = this.get("_reservationService")
@@ -130,8 +130,7 @@ export default BaseController.extend({
               this.set("showSuggestions", true);
             })
             .catch(error => {
-              notifications.error("All tables are already reserved in that time slot", "",
-                {positionClass: 'toast-top-center'});
+              notifications.error("All tables are already reserved in that time slot");
             });
           }
 

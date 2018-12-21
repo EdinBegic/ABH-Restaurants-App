@@ -37,7 +37,7 @@ export default BaseRoute.extend({
         moment(reservationTime).format("HH:mm")
       );
       let creationDate = this.controller.get("model.reservation.createdAt");
-      this.controller.set("startDate", moment(creationDate).add(30, "seconds"));
+      this.controller.set("startDate", moment(creationDate).add(5, "minutes"));
 
       let val = this.controller.get("model.locations");
       this.controller.set("model.user.locationId", val[0].id);
@@ -58,7 +58,6 @@ export default BaseRoute.extend({
               + "+" + this.controller.get("model.extendedReservation.restaurantTable.sittingPlaces");
             this.get('notifications').info("Reservation only possible by merging two tables");
         }
-        console.log(finalSittingPlaces);
       this.controller.set("finalSittingPlaces", finalSittingPlaces);
 
     }

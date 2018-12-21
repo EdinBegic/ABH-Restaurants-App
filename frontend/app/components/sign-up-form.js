@@ -64,7 +64,7 @@ export default Component.extend(Validations, {
   user: null,
   cities: null,
   divedForm: false,
-
+  flashMessages: service(),
   init() {
     this._super(...arguments);
     this.loginData = {};
@@ -111,8 +111,8 @@ export default Component.extend(Validations, {
             })
         })
         .catch(errorResponse => {
-          notifications.error(errorResponse.responseText, "",
-            {positionClass: 'toast-top-center'});
+          let flashMessages = this.get('flashMessages');
+          flashMessages.danger(errorResponse.responseText);
         });
     }
   }

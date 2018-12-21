@@ -210,7 +210,6 @@ public class DbLoader implements CommandLineRunner {
                     for (int hour = 6; hour <= 23; hour++) {
                         if (hour < 12) {
                             offset.add(0);
-                            offset.add(15);
                         } else if (hour < 15) {
                             offset.add(15);
                             offset.add(30);

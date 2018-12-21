@@ -54,7 +54,7 @@ export default Controller.extend({
         .update(reservation.id, reservation)
         .catch(errorResponse => {
           //  let jsonError = JSON.parse(errorResponse.responseText);
-          notifications.error(errorResponse.responseText, "", {positionClass: "toast-top-center"});
+          notifications.error(errorResponse.responseText);
           this.get("router").transitionTo("restaurant", [
             reservation.restaurantTable.restaurant.id
           ]);
@@ -64,13 +64,16 @@ export default Controller.extend({
             .update(extendedReservation.id, extendedReservation)
             .catch(errorResponse => {
               //  let jsonError = JSON.parse(errorResponse.responseText);
-              notifications.error(errorResponse.responseText, "", {positionClass: "toast-top-center"});
+              console.log(errorResponse.responseText);
+              if(!errorResponse.responseText.includes("model")) {
+                notifications.error(errorResponse.responseText);
+              }
               this.get("router").transitionTo("restaurant", [
                 extendedReservation.restaurantTable.restaurant.id
               ]);
             });
         }
-        notifications.success("Reservation complete", "", {positionClass: "toast-top-center"});
+        notifications.success("Reservation complete");
         this.get("router").transitionTo("restaurant", [
           reservation.restaurantTable.restaurant.id
         ]);

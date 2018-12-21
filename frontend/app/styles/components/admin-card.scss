@@ -44,6 +44,10 @@
     text-decoration: none;
   }
 }
+
+.normal-button:hover {
+  color: black;
+}
 .admin-link {
   @extend %admin-base-link;
   color: rgba(0, 0, 0, 0.4);
@@ -54,5 +58,5 @@
   color: white;
 }
 .admin-button-link:hover {
-  color: white;
+  color: black;
 }

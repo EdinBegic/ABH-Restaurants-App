@@ -19,11 +19,11 @@ export default Component.extend({
       this.get("session")
         .authenticate("authenticator:application", this.loginData, data => {
           set(this, "loginData", {});
-          notifications.success("Successful login", "", {positionClass:"toast-top-center"});
+          notifications.success("Successful login");
           this.get('router').transitionTo("home");
         })
         .catch(reason => {
-          notifications.error(reason.responseText, "", {positionClass:"toast-top-center"});
+          notifications.error(reason.responseText);
         });
     }
   }});
