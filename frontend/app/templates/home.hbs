@@ -1,0 +1,151 @@
+<div class="restaurant-background">
+  {{main-navigation}}
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="reservation-label">Make a free reservation</div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <!-- TODO display real number of restaurants -->
+        <div class="table-label">Choose your table from {{nearestRestaurantsCount}} restaurants near you</div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12" id="searchBar">
+        <div class="search-bar">
+          <div class="input-group mb-3">
+            <div class="row"></div>
+            <div class="input-group-prepend" id="search-group-home">
+              <span class="input-group-text search-field search-text">{{material-icon "search"}}</span>
+              {{input class="search-field" id="search" placeholder='Location, Restaurant or Cousine'
+                            value=query}}
+            </div>
+            <select class="list-field form-control " onchange={{action "changeSittingPlaces" value="target.value" }}>
+              {{#each tableSizes as |tableSize|}}
+                <option value={{tableSize}}>{{tableSize}} people</option>
+              {{/each}}
+            </select>
+            {{pikaday-input
+                            format="MMMM DD, YYYY"
+                            class="calendar-picker"
+                            onSelection=(action 'changeDay')
+                            value=presentedDay
+                            }}
+            {{time-picker
+                            selectedTime=presentedTime
+                            onchange=(action 'changeTime')
+                            military=true
+                            startTimeHour=8
+                            endTimeHour=23
+                            increment=15
+                            }}
+            <button type="submit" class="form-control table-button btn" {{action 'findTable'}}>Find a table</button>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <span class="twitter-typeahead tt-dropdown-menu" style="position: absolute;">
+                {{#each suggestions as |suggestion|}}
+                  <div class="tt-suggestion" {{action "setRestaurant" suggestion on="click"}}>{{suggestion.name}},
+                    {{suggestion.location.city}}</div>
+                {{/each}}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="top-restaurants">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="popular-today-label">Popular for lunch today</div>
+      </div>
+    </div>
+    {{restaurant-cards rowLength = 3 restaurants = model.restaurants buttonClass = 'form-control reserve-button btn'}}
+  </div>
+</div>
+
+<!-- Specials stays  hard-coded for now-->
+<div class="specials">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="specials-label">Specials</div>
+      </div>
+    </div>
+    <div class="row specials-row">
+      <div class="col-md-4">
+        <div class="row">
+          <div class="col-md-12" style="padding-bottom:20px;">
+            <img src="/assets/images/pizza.jpg" class="special-picture">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="special-name-label">Best Pizza of 2018</div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="loc-num-label">New York | 43 restaurants</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="row">
+          <div class="col-md-12" style="padding-bottom:20px;">
+            <img src="/assets/images/spicy.jpg" class="special-picture">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="special-name-label">Fresh &amp; Spicy</div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="loc-num-label">Philladelphia | 16 restaurants</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="row">
+          <div class="col-md-12" style="padding-bottom:20px;">
+            <img src="/assets/images/cupcakes.png" class="special-picture">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="special-name-label">Cupcakes Flavor</div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="loc-num-label">Chicago | 11 restaurants</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="more-specials-label">
+          <a href="#">See all specials</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="popular-locations">
+  <div class="container">
+    <div class="row" style="padding-bottom:50px;">
+      <div class="col-md-12">
+        <div class="popular-locations-label">Popular locations</div>
+      </div>
+    </div>
+    {{top-locations locations=model.topLocations}}
+  </div>
+</div>

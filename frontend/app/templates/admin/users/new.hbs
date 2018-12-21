@@ -1,0 +1,82 @@
+{{main-navigation}}
+<div class="login-background new-user-container">
+  <div class="container">
+    {{admin-tabs activeButton = 'users'}}
+  </div>
+  <div class="container description-container user-container">
+    <div class="form-group">
+      {{admin-field-label label = 'First Name'}}
+      <div class="row">
+        <div class="col-md-6">
+          {{input class="form-control login-input" placeholder='First Name' value=model.user.firstName}}
+        </div>
+      </div>
+      {{admin-field-label label = 'Last Name'}}
+      <div class="row">
+        <div class="col-md-6">
+          {{input class="form-control login-input" placeholder='Last Name' value=model.user.lastName}}
+        </div>
+      </div>
+      {{admin-field-label label = 'Email'}}
+      <div class="row">
+        <div class="col-md-6">
+          {{input class="form-control login-input" placeholder='Email' value=model.user.email}}
+        </div>
+      </div>
+      {{admin-field-label label = 'Phone number'}}
+      <div class="row">
+        <div class="col-md-6">
+          {{input class="form-control login-input" placeholder='Phone Number' value=model.user.phoneNumber}}
+        </div>
+      </div>
+      {{admin-field-label label = 'Country' label2 = 'City'}}
+      <div class="row">
+        <div class="col-md-3" id='select-right'>
+          <select class="form-control login-input" onchange={{action "listCitiesForCountry" value="target.value" }}>
+            {{#each model.locations as |location|}}
+              <option value="{{location.country}}">{{location.country}}</option>
+            {{/each}}
+          </select>
+        </div>
+        <div class="col-md-3" id='select-left'>
+          <select class="form-control login-input" onchange={{action "setLocationId" value="target.value" }}>
+            {{#each model.cities as |location|}}
+              <option value="{{location.id}}">{{location.city}}</option>
+            {{/each}}
+          </select>
+        </div>
+      </div>
+      {{admin-field-label label = 'Password'}}
+      <div class="row">
+        <div class="col-md-6">
+          {{input type="password" class="form-control login-input" placeholder='Password' value=model.user.password}}
+        </div>
+      </div>
+      {{admin-field-label label = 'Confirm Password'}}
+      <div class="row">
+        <div class="col-md-6">
+          {{input type="password" class="form-control login-input" placeholder='Confirm password' value=model.user.confirmedPassword}}
+        </div>
+          <div class="col-md-2">
+          </div>
+          <div class="col-md-2">
+            <button type="submit" class="form-control cancel-button btn">
+              {{#link-to 'admin.users' class='admin-button-label'}}
+                Cancel
+              {{/link-to}}
+            </button>
+          </div>
+          <div class="col-md-2">
+            <button type="submit" class="form-control admin-login-button btn" {{action 'createAccount'}}>
+              Add user
+            </button>
+          </div>
+      </div>
+      {{#each flashMessages.queue as |flash|}}
+      {{flash-message flash=flash class = 'flash-message-size'}}
+      {{/each}}
+
+    </div>
+  </div>
+
+</div>

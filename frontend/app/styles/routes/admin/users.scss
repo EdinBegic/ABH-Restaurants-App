@@ -1,0 +1,92 @@
+.admin-users-label {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
+                Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+                "Segoe UI Symbol", "Noto Color Emoji";
+font-size: 18px;
+color: #1E1E1E;
+letter-spacing: 0;
+font-weight: 600;
+padding-top: 15px;
+padding-bottom: 5px;
+}
+
+.admin-button-label {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
+                Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+                "Segoe UI Symbol", "Noto Color Emoji";
+  color: #000000;
+  font-weight: 500;
+}
+.admin-button-label:hover {
+  text-decoration: none;
+  color: #000000;
+}
+
+.col-border {
+  border-right: 1px solid #dee2e6;
+}
+
+.col-style {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
+                Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+                "Segoe UI Symbol", "Noto Color Emoji";
+  color: #000000;
+  font-weight: 500;
+  padding: 100px;
+}
+
+.user-container {
+  padding-bottom: 10px;
+}
+
+.row-pagination {
+  padding-top: 40px;
+}
+
+.user-table th{
+  padding: 10px 10px 10px 10px;
+}
+
+.user-delete-button {
+  cursor: pointer;
+}
+.user-input {
+  margin: 0px;
+}
+.input-width {
+  width: 47%;
+}
+.cancel-button {
+  background: #F9F9F9;
+  color: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
+                Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+                "Segoe UI Symbol", "Noto Color Emoji";
+  font-size: 18px;
+  border-radius: 3px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgba(-2147483648,-2147483648,-2147483648,0.40);
+  height: 53px;
+}
+
+.admin-login-button {
+  background: #fd6f60;
+  color: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
+                Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+                "Segoe UI Symbol", "Noto Color Emoji";
+  font-size: 18px;
+  border-radius: 3px;
+  height: 53px;
+  font-weight: 500;
+
+}
+
+.admin-login-button:hover {
+  color: black;
+}
+
+.new-user-container {
+  padding-bottom: 150px;
+}

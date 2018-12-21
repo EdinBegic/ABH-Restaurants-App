@@ -1,0 +1,78 @@
+{{main-navigation}}
+<div class="login-background new-user-container">
+  <div class="container">
+    {{admin-tabs activeButton = 'locations' buttonRoutePath = 'admin.locations.new' modelName = 'location'}}
+  </div>
+  <div class="container description-container">
+    <div class="row">
+      <table class="table user-table">
+        <thead>
+          <tr>
+            <th scope="col" class="col-border input-width">
+              {{input class="form-control login-input user-input" placeholder='Country' value=country}}
+            </th>
+            <th scope="col" class="col-border input-width">
+              {{input class="form-control login-input user-input" placeholder='City' value=city}}
+            </th>
+            <th scope="col">&nbsp;</th>
+          </tr>
+        </thead>
+        {{#each model.data as |location|}}
+          <tbody>
+            <th scope="col"  class="col-border col-style">{{location.country}}</th>
+            <th scope="col"  class="col-border col-style">{{location.city}}</th>
+            <th scope="col"  class="col-border col-style">
+              <div class="row">
+                <div class="col-md-1" {{action 'deleteLocation' location}}>
+                  {{fa-icon 'trash-alt' class = 'user-delete-button'}}
+                </div>
+                <div class="col-md-1" {{action 'updateLocation' location}}>
+                  {{fa-icon 'pencil-alt' class = 'user-delete-button'}}
+                </div>
+              </div>
+            </th>
+          </tbody>
+        {{/each}}
+      </table>
+    </div>
+  </div>
+  <div class="row row-pagination">
+    <div class="col-md-12 page-number-col" style="{{css-properties margin-left=pageMargin}}">
+      <div class="previous-label" {{action 'nextPage' -1}}>PREVIOUS</div>
+      {{#each numOfPages as |page index|}}
+        <!-- Page number 1 will always be displayed-->
+        {{#if (eq index 0)}}
+          {{#if (eq page.number activePage.number)}}
+            <button type="submit" class="form-control page-list-button--active btn">{{page.number}}</button>
+          {{else}}
+            <button type="submit" class="form-control page-list-button btn" {{action "setActivePage" page}}>{{page.number}}</button>
+          {{/if}}
+        {{else if (lt (abs (diff activePage.number page.number)) 3)}}
+          <!-- List page numbers for 2 left and right adjacent numbers of the active page -->
+          <!-- add three dots if  the first element and the closest adjacent number are not a themselves adjacent -->
+          {{#if (and (eq (diff activePage.number page.number) 2) (gt page.number 2))}}
+            <p class="p-page-list">...</p>
+          {{/if}}
+          {{#if (eq page.number activePage.number)}}
+            <button type="submit" class="form-control page-list-button--active btn">{{page.number}}</button>
+          {{else}}
+            <button type="submit" class="form-control page-list-button btn" {{action "setActivePage" page}}>{{page.number}}</button>
+          {{/if}}
+          <!-- analogous for the last element and the closest adjacent number -->
+          {{#if (and (eq (diff page.number activePage.number) 2) (gt (diff numOfPages.lastObject.number
+              page.number) 1))}}
+            <p class="p-page-list">...</p>
+          {{/if}}
+          <!-- Last page number will always be displayed-->
+        {{else if (eq page.number numOfPages.lastObject.number)}}
+          {{#if (eq page.number activePage.number)}}
+            <button type="submit" class="form-control page-list-button--active btn">{{page.number}}</button>
+          {{else}}
+            <button type="submit" class="form-control page-list-button btn" {{action "setActivePage" page}}>{{page.number}}</button>
+          {{/if}}
+        {{/if}}
+      {{/each}}
+      <div class="next-label" {{action 'nextPage' 1}}>NEXT</div>
+    </div>
+  </div>
+</div>

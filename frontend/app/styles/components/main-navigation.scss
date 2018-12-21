@@ -1,0 +1,69 @@
+.app-name {
+  font-size: 20px;
+  color: #131d24;
+}
+.app-name:hover {
+  color: #131d24;
+  text-decoration: none;
+}
+
+.menu {
+  font-size: 16px;
+  color: #131d24;
+  text-align: right;
+}
+
+.navigation-link {
+  padding: 10px;
+  color: #131d24;
+}
+.navigation-link:hover {
+  color: #131d24;
+  text-decoration: none;
+}
+
+.navigation-bar {
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+.navigation-container {
+  background: #ffffff;
+}
+
+#login-link {
+  color: #fd6f60;
+}
+#logout-link {
+  color: #fd6f60;
+}
+
+#hidden-menu {
+  display: none;
+  float: right;
+}
+
+@media (max-width: 960px) {
+  #nav-menu {
+    display: none;
+  }
+  #hidden-menu {
+    display: block;
+    margin-left: -15px;
+  }
+}
+
+.history-button{
+  color: #fd6f60;
+}
+.history-button:hover{
+  color: #c0392a;
+  text-decoration: none !important;
+}
+.reservation-button:active{
+  background-color: #fd6f60;
+}
+.dropdown-item:hover{
+  background-color: #fd6f60;
+  color: #ffffff;
+}

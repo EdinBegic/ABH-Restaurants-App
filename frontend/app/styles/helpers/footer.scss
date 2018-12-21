@@ -1,0 +1,37 @@
+%list {
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 16px;
+  color: #ffffff;
+  padding: 10px;
+}
+
+#right-column {
+  padding-bottom: 10px;
+  text-align: right;
+  a {
+    @extend %list;
+    opacity: 0.4;
+  }
+}
+
+#left-column {
+  padding-bottom: 10px;
+  a {
+    @extend %list;
+  }
+}
+
+footer {
+  width: 100%;
+  padding-top: 50px;
+  padding-bottom: 34px;
+  background: #131d24;
+}
+
+.legacy {
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 14px;
+  color: #ffffff;
+  letter-spacing: 0;
+  padding: 10px;
+}

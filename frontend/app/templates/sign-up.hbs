@@ -1,0 +1,19 @@
+{{main-navigation}}
+<div class="login-background">
+  <div class="login-container container">
+    <div class="row login">
+      <div class="col-md-6 " style="text-align:left">
+        <div class="login-label">Create account</div>
+      </div>
+      <div class="col-md-6">
+        <div class="registration-label">{{#link-to 'login' id="registration-link"}}Login{{/link-to}}</div>
+      </div>
+    </div>
+    {{sign-up-form
+      cities=model.cities
+      locations=model.locations
+      user=model.user
+      shouldTransition=true
+      }}
+  </div>
+</div>

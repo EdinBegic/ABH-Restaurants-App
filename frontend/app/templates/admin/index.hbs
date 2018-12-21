@@ -1,0 +1,23 @@
+{{main-navigation}}
+<div class="login-background">
+  <div class="container">
+    {{admin-tabs activeButton = 'dashboard'}}
+    <div class="row row-cards">
+      <div class="col-md-4">
+        {{admin-card counter = model.restaurants.available cardName = 'Restaurants'
+          buttonText = 'Add new restaurant' routePath = 'admin.restaurants.new'
+        }}
+      </div>
+      <div class="col-md-4">
+        {{admin-card counter = model.locations.available cardName = 'Locations'
+          buttonText = 'Add new location' routePath = 'admin.locations.new'
+        }}
+      </div>
+      <div class="col-md-4">
+        {{admin-card counter = model.users.available cardName = 'Users'
+          buttonText = 'Add new user' routePath = 'admin.users.new'
+        }}
+      </div>
+    </div>
+  </div>
+</div>

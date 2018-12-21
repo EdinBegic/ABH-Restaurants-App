@@ -1,0 +1,20 @@
+<div class="row">
+  {{#each locations as |location|}}
+    <div class="col-md-3">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="location-label">{{ location.[0].city }}, {{ location.[0].country }}</div>
+        </div>
+        <div class="col-md-12">
+          <div class="num-of-restaurants">{{ location.[1] }}
+            {{#if (eq location.[1] 1)}}
+              restaurant
+            {{else}}
+              restaurants
+            {{/if}}
+          </div>
+        </div>
+      </div>
+    </div>
+  {{/each}}
+</div>

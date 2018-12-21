@@ -1,0 +1,334 @@
+.reservation-label {
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 48px;
+  color: #ffffff;
+  text-align: center;
+  padding-top: 100px;
+}
+
+.table-label {
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 20px;
+  color: #ffffff;
+  text-align: center;
+}
+.restaurant-background {
+  background-image: url("/assets/images/background-restaurant.jpg");
+  background-size: cover;
+  .navButton {
+    color: #ffff;
+  }
+
+  .app-name {
+    color: #ffffff;
+  }
+  .app-name:hover {
+    color: #ffffff;
+  }
+
+  .navigation-link {
+    color: #ffffff;
+  }
+  .navigation-link:hover {
+    color: #ffffff;
+  }
+
+  #login-link {
+    color: #ffffff;
+  }
+  #logout-link {
+    color: #ffffff;
+  }
+}
+
+%box {
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 18px;
+  height: 56px;
+}
+%field-box {
+  @extend %box;
+  border: 0px;
+  color: #131d24;
+}
+.table-button {
+  @extend %box;
+  background: #fd6f60;
+  color: #ffffff;
+  border-radius: 0 3px 3px 0;
+}
+.table-button:active {
+  background: #d83f2e;
+  color: #ffffff;
+}
+.table-button:focus {
+  background: #d83f2e;
+  color: #ffffff;
+}
+
+.search-field {
+  @extend %field-box;
+  padding-left: 10px;
+  border-radius: 0px;
+  outline: none;
+}
+.list-field {
+  @extend %field-box;
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-right: 10px;
+}
+
+.search-text {
+  background: #ffffff;
+  color: #6d747a;
+  border-radius: 2px;
+}
+#search {
+  width: 375px;
+}
+.search-group-home{
+  margin-bottom: 0px !important;
+}
+.search-bar {
+  margin-top: 130px;
+  margin-bottom: 250px;
+}
+.popular-today-label {
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 30px;
+  color: #131d24;
+  padding-top: 70px;
+  padding-bottom: 35px;
+  text-align: center;
+}
+.restaurant-picture {
+  width: 100%;
+  height: auto;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.reserve-button {
+  background: #f9f9f9;
+  border: 1px solid #e5e5e5;
+  border-radius: 2px;
+  font-family: sans-serif;
+  font-size: 18px;
+  color: #131d24;
+  margin-bottom: 20px;
+}
+.reserve-button:active {
+  background: #a9adb1;
+  color: #ffff;
+}
+.restaurant-row {
+  padding-bottom: 50px;
+}
+
+.restaurant-name-label {
+  font-size: 24px;
+  padding-top: 5px;
+  color: #131d24;
+}
+.restaurant-review-label {
+  opacity: 0.4;
+  font-family: sans-serif;
+  font-size: 16px;
+  color: #131d24;
+  text-align: left;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.restaurant-type-label {
+  opacity: 0.4;
+  font-size: 16px;
+  color: #131d24;
+  border-top: 2px solid #e5e5e5;
+  padding-top: 5px;
+  padding-bottom: 10px;
+}
+.stats-row {
+  padding-bottom: 5px;
+  // stars in rating
+  svg {
+    vertical-align: unset;
+  }
+}
+.top-restaurants {
+  background: #ffffff;
+  padding-top: 50px;
+  padding-bottom: 100px;
+}
+.specials-label {
+  font-size: 30px;
+  color: #ffffff;
+  text-align: center;
+  padding: 30px;
+}
+.special-name-label {
+  font-size: 24px;
+  color: #ffffff;
+}
+.loc-num-label {
+  font-size: 18px;
+  color: #ffffff;
+  line-height: 28px;
+}
+.more-specials-label {
+  opacity: 0.4;
+  text-align: center;
+
+  a {
+    font-family: sans-serif;
+    font-size: 18px;
+    color: #ffffff;
+  }
+}
+.specials {
+  background-image: url("/assets/images/pasta.jpg");
+  background-size: cover;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+.specials-row {
+  padding-top: 30px;
+  padding-bottom: 60px;
+}
+.special-picture {
+  width: 100%;
+  height: auto;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.popular-locations-label {
+  font-size: 30px;
+  font-family: sans-serif;
+  color: #131d24;
+  text-align: center;
+  padding: 50px;
+}
+.location-label {
+  font-family: sans-serif;
+  font-size: 20px;
+  color: #131d24;
+}
+.num-of-restaurants {
+  opacity: 0.4;
+  font-family: sans-serif;
+  font-size: 18px;
+  color: #131d24;
+}
+.popular-locations {
+  background: #f9f9f9;
+  padding-top: 50px;
+  padding-bottom: 100px;
+}
+
+.active-sign {
+  font-family: sans-serif;
+  font-size: 16px;
+  color: #131d24;
+  letter-spacing: 2.25px;
+}
+.not-active-sign {
+  font-family: sans-serif;
+  font-size: 16px;
+  color: rgba(-2147483648, -2147483648, 18, 0.4);
+  letter-spacing: 2.25px;
+}
+.price-range-label {
+  padding-left: 10px;
+}
+
+.suggestion-item {
+  background-color: #f4f1f1;
+  border: 1px solid #000000;
+  border-radius: 3px;
+  cursor: pointer;
+  line-height: 45px;
+  position: relative;
+  padding: 0 0.75rem;
+}
+.mb-3 {
+  margin-bottom: 0px !important;
+}
+/*
+.tt-dropdown-menu {
+	min-width: 160px;
+	margin-top: 2px;
+	padding: 5px 0;
+	background-color: #ffffff;
+	border: 1px solid #cccccc;
+	border: 1px solid rgba(0, 0, 0, 0.15);
+	border-radius: 4px;
+	-webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+	      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+	background-clip: padding-box;
+
+}
+
+.tt-suggestion {
+	display: block;
+	padding: 3px 20px;
+}
+.tt-suggestion.tt-is-under-cursor {
+	color: #fff;
+	background-color: #428bca;
+}
+.tt-suggestion.tt-is-under-cursor a {
+	color: #fff;
+}
+.tt-suggestion p {
+	margin: 0;
+}
+*/
+
+span.twitter-typeahead .tt-menu,
+span.twitter-typeahead .tt-dropdown-menu {
+  cursor: pointer;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  display: none;
+  float: left;
+  min-width: 160px;
+  padding: 5px 0;
+  margin: 2px 0 0;
+  list-style: none;
+  font-size: 14px;
+  text-align: left;
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+  -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+  background-clip: padding-box;
+}
+span.twitter-typeahead .tt-suggestion {
+  display: block;
+  padding: 10px 20px;
+  clear: both;
+  font-weight: normal;
+  line-height: 1.42857143;
+  border: 1px solid #cccccc;
+  color: #333333;
+  background: white;
+  white-space: nowrap;
+  font-weight: 600;
+}
+span.twitter-typeahead .tt-suggestion.tt-cursor,
+span.twitter-typeahead .tt-suggestion:hover,
+span.twitter-typeahead .tt-suggestion:focus {
+  cursor: pointer;
+  color: #ffffff;
+  text-decoration: none;
+  outline: 0;
+  padding: 10px;
+  background-color: #337ab7;
+  border-radius: 3px;
+  border: 1px solid #337ab7;
+}
+span.twitter-typeahead {
+  width: 100%;
+}
