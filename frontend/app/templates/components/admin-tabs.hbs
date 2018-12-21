@@ -1,0 +1,76 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="filter-bar admin-filter">
+      <div class="admin-options">
+        <div class="input-group mb-3">
+          <div class="sort-dropdown">
+            {{#if (eq activeButton 'dashboard')}}
+              <button class="form-control filter-button admin-tab-active-label">Dashboard</button>
+            {{else}}
+              <button class="form-control filter-button admin-tab-inactive-label">
+                {{#link-to 'admin.index' class = 'admin-link'}}
+                Dashboard
+                {{/link-to}}
+              </button>
+            {{/if}}
+          </div>
+          <div class="sort-dropdown">
+            {{#if (eq activeButton 'restaurants')}}
+              <button class="form-control filter-button admin-tab-active-label">Restaurants</button>
+            {{else}}
+            <button class="form-control filter-button admin-tab-inactive-label">
+              {{#link-to 'admin.restaurants.index' class = 'admin-link'}}
+              Restaurants
+              {{/link-to}}
+            </button>
+            {{/if}}
+          </div>
+          <div class="sort-dropdown">
+            {{#if (eq activeButton 'locations')}}
+              <button class="form-control filter-button admin-tab-active-label">Locations</button>
+            {{else}}
+            <button class="form-control filter-button admin-tab-inactive-label">
+              {{#link-to 'admin.locations.index' class = 'admin-link'}}
+              Locations
+              {{/link-to}}
+            </button>
+            {{/if}}
+          </div>
+          <div class="sort-dropdown">
+            {{#if (eq activeButton 'users')}}
+                <button class="form-control filter-button admin-tab-active-label">
+                  Users
+                </button>
+            {{else}}
+                <button class="form-control filter-button admin-tab-inactive-label">
+                  {{#link-to 'admin.users.index' class = 'admin-link'}}
+                  Users
+                  {{/link-to}}
+                </button>
+            {{/if}}
+          </div>
+          {{#if (eq activeButton 'dashboard')}}
+          <div class="sort-dropdown">
+                <button class="form-control filter-button admin-tab-active-label" style="width: 710px;">
+                  &nbsp;
+                </button>
+          </div>
+          {{else}}
+          <div class="sort-dropdown">
+                <button class="form-control filter-button admin-tab-active-label" style="width: 500px;">
+                  &nbsp;
+                </button>
+          </div>
+          {{/if}}
+          {{#if buttonRoutePath}}
+          <button type="submit" class="form-control admin-login-button btn">
+            {{#link-to buttonRoutePath class = 'admin-button-link'}}
+            Add {{modelName}}
+            {{/link-to}}
+          </button>
+          {{/if}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

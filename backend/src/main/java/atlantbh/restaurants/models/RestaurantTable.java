@@ -42,7 +42,7 @@ public class RestaurantTable extends BaseModel<RestaurantTable> {
         this.restaurant = restaurant;
     }
 
-    @OneToMany(mappedBy = "restaurantTable")
+    @OneToMany(mappedBy = "restaurantTable", orphanRemoval = true)
     @JsonIgnore
     public Collection<Reservation> getReservations() {
         return reservations;

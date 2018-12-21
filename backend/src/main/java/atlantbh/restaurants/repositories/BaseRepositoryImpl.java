@@ -36,7 +36,7 @@ public class BaseRepositoryImpl<T extends BaseModel<T>, S extends Enum<S>, F ext
         try {
             getSession().delete(findById(id));
         } catch (Exception e) {
-            throw new RepositoryException("Entity with id " + id + "couldn't be deleted in repository");
+            throw new RepositoryException("Entity with id " + id + "couldn't be deleted in repository", e);
         }
     }
 
@@ -45,7 +45,7 @@ public class BaseRepositoryImpl<T extends BaseModel<T>, S extends Enum<S>, F ext
         try {
             getSession().delete(model);
         } catch (Exception e) {
-            throw new RepositoryException("Entity with id " + model.getId() + "couldn't be deleted in repository");
+            throw new RepositoryException("Entity with id " + model.getId() + "couldn't be deleted in repository", e);
         }
     }
 
@@ -58,7 +58,7 @@ public class BaseRepositoryImpl<T extends BaseModel<T>, S extends Enum<S>, F ext
         try {
             return entityManager.find(getParameterType(), id);
         } catch (Exception e) {
-            throw new RepositoryException("Entity with id " + id + "couldn't be found in repository");
+            throw new RepositoryException("Entity with id " + id + "couldn't be found in repository", e);
         }
     }
 
@@ -84,7 +84,7 @@ public class BaseRepositoryImpl<T extends BaseModel<T>, S extends Enum<S>, F ext
             entityManager.flush();
             return entity;
         } catch (Exception e) {
-            throw new RepositoryException("Entity couldn't be updated in repository");
+            throw new RepositoryException("Entity couldn't be updated in repository", e);
         }
     }
 

@@ -1,22 +1,35 @@
 package atlantbh.restaurants.services;
 
 import atlantbh.restaurants.exceptions.RepositoryException;
-import atlantbh.restaurants.models.Restaurant;
+import atlantbh.restaurants.models.*;
 import atlantbh.restaurants.models.dto.CoordinatesDTO;
-import atlantbh.restaurants.models.filters.RestaurantFilterBuilder;
+import atlantbh.restaurants.models.filters.*;
 import atlantbh.restaurants.models.sortkeys.RestaurantSortKeys;
 import atlantbh.restaurants.repositories.RestaurantRepository;
 import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.Point;
 import org.hibernate.service.spi.ServiceException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Service
 public class RestaurantService extends BaseService<Restaurant, RestaurantSortKeys, RestaurantFilterBuilder, RestaurantRepository> {
 
+    @Autowired
+    RestaurantTableService restaurantTableService;
+    @Autowired
+    ReservationService reservationService;
+    @Autowired
+    MenuService menuService;
+    @Autowired
+    MenuItemService menuItemService;
+    @Autowired
+    ReviewService reviewService;
     public Collection<Restaurant> getPopularRestaurants(Integer numOfRestaurants) {
         try {
             return repository.getPopularRestaurants(numOfRestaurants);

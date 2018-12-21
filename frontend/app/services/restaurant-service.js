@@ -27,5 +27,18 @@ export default BaseHttpService.extend({
   },
   getCoordinates(id) {
     return this.ajax("GET", `/restaurants/${id}/coordinates`);
-  }
+  },
+  deleteWithLocationId(locationId) {
+    return this.ajax("DELETE", `/restaurants/location/${locationId}`);
+  },
+  getRestaurant(id) {
+    return this.ajax("GET", `/restaurants/${id}`);
+  },
+  updateRestaurant(id, restaurant) {
+    return this.ajax("PUT", `/restaurants/${id}`, restaurant);
+  },
+  deleteRestaurant(id) {
+    return this.ajax("DELETE", `/restaurants/${id}`);
+  },
+
 });

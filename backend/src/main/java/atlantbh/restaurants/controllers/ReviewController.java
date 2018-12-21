@@ -42,7 +42,7 @@ public class ReviewController extends BaseController<Review, ReviewService> {
     @GetMapping("/restaurant/{id}/user/{userId}")
     public ResponseEntity hasReviewedRestaurant(@PathVariable("id") Long id, @PathVariable("userId") Long userId) {
         ReviewFilterBuilder rfb = new ReviewFilterBuilder()
-                .setId(id)
+                .setRestaurantId(id)
                 .setUserId(userId);
         return ResponseEntity.ok(service.hasReviewed(rfb));
     }

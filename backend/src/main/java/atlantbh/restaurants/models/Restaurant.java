@@ -27,7 +27,7 @@ public class Restaurant extends BaseModel<Restaurant> {
     private Point coordinates;
     private Collection<Review> reviews;
     private Collection<RestaurantTable> restaurantTables;
-
+    private Collection<Menu> menus;
     public Restaurant(String name, String description, String logoPath, String coverPhotoPath, Integer priceRange, Location location, Category category, Cousine cousine, Point coordinates) {
         this.name = name;
         this.description = description;
@@ -128,7 +128,7 @@ public class Restaurant extends BaseModel<Restaurant> {
         this.cousine = cousine;
     }
 
-    @OneToMany(mappedBy = "restaurant")
+    @OneToMany(mappedBy = "restaurant", orphanRemoval = true)
     @JsonIgnore
     public Collection<Review> getReviews() {
         return reviews;
@@ -156,7 +156,7 @@ public class Restaurant extends BaseModel<Restaurant> {
         this.avgRating = avgRating;
     }
 
-    @OneToMany(mappedBy = "restaurant")
+    @OneToMany(mappedBy = "restaurant", orphanRemoval = true)
     @JsonIgnore
     public Collection<RestaurantTable> getRestaurantTables() {
         return restaurantTables;
@@ -166,7 +166,6 @@ public class Restaurant extends BaseModel<Restaurant> {
         this.restaurantTables = restaurantTables;
     }
 
-
     @Type(type = "jts_geometry")
     @JsonIgnore
     public Point getCoordinates() {
@@ -175,6 +174,16 @@ public class Restaurant extends BaseModel<Restaurant> {
 
     public void setCoordinates(Point coordinates) {
         this.coordinates = coordinates;
+    }
+
+    @OneToMany(mappedBy = "restaurant", orphanRemoval = true)
+    @JsonIgnore
+    public Collection<Menu> getMenus() {
+        return menus;
+    }
+
+    public void setMenus(Collection<Menu> menus) {
+        this.menus = menus;
     }
 
     @Override
@@ -191,6 +200,7 @@ public class Restaurant extends BaseModel<Restaurant> {
         restaurant.setAvgRating(model.getAvgRating());
         restaurant.setReviewSize(model.getReviewSize());
         restaurant.setRestaurantTables(model.getRestaurantTables());
+        restaurant.setMenus(model.getMenus());
         restaurant.setCoordinates(model.getCoordinates());
         return restaurant;
     }
@@ -208,6 +218,7 @@ public class Restaurant extends BaseModel<Restaurant> {
         setAvgRating(data.getAvgRating());
         setReviewSize(data.getReviewSize());
         setRestaurantTables(data.getRestaurantTables());
+        setMenus(data.getMenus());
         setCoordinates(data.getCoordinates());
     }
 

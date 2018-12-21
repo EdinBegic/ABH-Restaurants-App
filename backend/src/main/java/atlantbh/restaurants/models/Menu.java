@@ -41,7 +41,7 @@ public class Menu extends BaseModel<Menu> {
     }
 
     @ManyToOne
-    @JoinColumn(name = "restaurant_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "restaurant_id", referencedColumnName = "id",  nullable = false)
     public Restaurant getRestaurant() {
         return restaurant;
     }
@@ -50,7 +50,7 @@ public class Menu extends BaseModel<Menu> {
         this.restaurant = restaurant;
     }
 
-    @OneToMany(mappedBy = "menu")
+    @OneToMany(mappedBy = "menu", orphanRemoval = true)
     @JsonIgnore
     public Collection<MenuItem> getMenuItems() {
         return menuItems;

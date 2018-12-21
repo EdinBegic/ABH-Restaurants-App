@@ -27,7 +27,7 @@ public class RestaurantFilterBuilder extends BaseFilterBuilder<RestaurantSortKey
     private Double avgRating;
     private Double latitude;
     private Double longitude;
-
+    private Long locationId;
     public RestaurantFilterBuilder() {
         query = null;
         name = null;
@@ -71,6 +71,9 @@ public class RestaurantFilterBuilder extends BaseFilterBuilder<RestaurantSortKey
         }
         if (avgRating != null && avgRating >= 0 && avgRating <= 5) {
             rootCriteria.add(Restrictions.eq("avgRating", avgRating));
+        }
+        if (locationId != null) {
+            rootCriteria.add(Restrictions.eq("loc.id", locationId));
         }
 
         return rootCriteria;
@@ -151,6 +154,11 @@ public class RestaurantFilterBuilder extends BaseFilterBuilder<RestaurantSortKey
 
     public RestaurantFilterBuilder setLongitude(Double longitude) {
         this.longitude = longitude;
+        return this;
+    }
+
+    public RestaurantFilterBuilder setLocationId(Long locationId) {
+        this.locationId = locationId;
         return this;
     }
 }

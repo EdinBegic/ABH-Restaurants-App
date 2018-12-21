@@ -15,6 +15,9 @@
             {{/ddm.item}}
           {{/dd.menu}}
         {{/bs-dropdown}}
+        {{#if (eq session.data.authenticated.user.roleName 'ADMIN')}}
+          {{#link-to 'admin' class='navigation-link'}} Administration {{/link-to}}
+        {{/if}}
         <a href="#" class='navigation-link' {{action "logout"}}>Log out</a>
       {{else}}
         {{#link-to 'login' class='navigation-link' id='login-link'}} Login {{/link-to}}

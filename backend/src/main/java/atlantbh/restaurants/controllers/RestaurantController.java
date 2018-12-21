@@ -87,4 +87,20 @@ public class RestaurantController extends BaseController<Restaurant, RestaurantS
         }
     }
 
+    @DeleteMapping("/{id}")
+    @Override
+    public ResponseEntity delete(@PathVariable("id") Long id) {
+        return super.delete(id);
+    }
+
+    @PutMapping("/{id}")
+    @Override
+    public ResponseEntity update(@PathVariable Long id, @RequestBody Restaurant model) {
+        try {
+            return ResponseEntity.ok(service.update(id,model));
+        } catch (ServiceException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
 }

@@ -1,7 +1,7 @@
 package atlantbh.restaurants;
 
 import atlantbh.restaurants.models.*;
-import atlantbh.restaurants.models.filters.RestaurantFilterBuilder;
+import atlantbh.restaurants.models.filters.*;
 import atlantbh.restaurants.services.*;
 import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.GeometryFactory;
@@ -53,6 +53,19 @@ public class DbLoader implements CommandLineRunner {
         userService.create(new User("Admin", "Admin", "admin@abh.com", "123-456-789", "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918", Role.ADMIN, loc));
         loc = locationService.findById((long) 3);
         userService.create(new User("Edin", "Begic", "edinbegic@abh.com", "061-225-883", "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918", Role.USER, loc));
+        userService.create(new User("Kelli", "Hicks", "KelliMHicks@teleworm.us", "061-225-883", "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918", Role.USER, loc));
+        userService.create(new User("Ray", "Jones", "rayjones@gmail.com", "061-225-883", "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918", Role.USER, loc));
+        userService.create(new User("John", "Miller", "jmiller@gmail.com", "061-225-883", "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918", Role.USER, loc));
+        userService.create(new User("Sandra", "Black", "sblack@yahoo.com", "061-225-883", "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918", Role.USER, loc));
+        userService.create(new User("Bill", "Jordan", "bjordan@msn.com", "061-225-883", "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918", Role.USER, loc));
+        userService.create(new User("Silvia", "Puck", "spuck@gmail.com", "061-225-883", "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918", Role.USER, loc));
+        userService.create(new User("James", "Harris", "jharis@gmail.com", "061-225-883", "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918", Role.USER, loc));
+        userService.create(new User("Karen", "Murray", "murray@gmail.com", "061-225-883", "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918", Role.USER, loc));
+        userService.create(new User("Derrick", "Fay", "dfay@yahoo.com", "061-225-883", "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918", Role.USER, loc));
+        userService.create(new User("Solomon", "Hill", "shill@gmail.com", "061-225-883", "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918", Role.USER, loc));
+        userService.create(new User("Marlene", "Selvik", "mar_selvik@msn.com", "061-225-883", "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918", Role.USER, loc));
+
+
     }
 
     private void addLocations() {
@@ -85,80 +98,80 @@ public class DbLoader implements CommandLineRunner {
     }
 
     private void addRestaurants() {
-        Location location = locationService.findById((long) 1);
-        Category category = categoryService.findById((long) 14);
-        Cousine cousine = cousineService.findById((long) 18);
+        LocationFilterBuilder lfb = new LocationFilterBuilder();
+        CategoryFilterBuilder cfb = new CategoryFilterBuilder();
+        CousineFilterBuilder cofb = new CousineFilterBuilder();
+        LocationFilterBuilder lfbNear = new LocationFilterBuilder().setCity("Sarajevo");
+        Location locNear = locationService.filter(lfbNear).getData().get(0);
+        Location location = locationService.filter(lfb).getData().get(0);
+        Category category = categoryService.filter(cfb).getData().get(0);
+        Cousine cousine = cousineService.filter(cofb).getData().get(0);
         String description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eu libero nec eros pharetra cursus. Sed consectetur vestibulum aliquam. Aliquam semper facilisis purus. Fusce vitae elementum justo, ac pulvinar enim. Morbi at nisi at neque convallis laoreet. Nunc tincidunt lacus vitae efficitur condimentum. Mauris gravida turpis sed ipsum mattis elementum. Duis tincidunt libero a nisl ultrices, quis hendrerit nulla convallis. Praesent scelerisque risus eget purus fermentum, id tincidunt magna vehicula. Phasellus tempus cursus blandit. Vestibulum velit sem, finibus et enim eget, bibendum tincidunt odio. Proin in dolor sed lorem mattis ornare in vel mauris. Integer ut finibus libero. Suspendisse tristique mollis odio nec tincidunt.";
         String coverLogoPath = "/assets/images/cover.jpg";
         GeometryFactory gf = new GeometryFactory();
         Coordinate coord = new Coordinate(43.88078048481765, 18.38896276559467, 0.0);
         Point coordinates = gf.createPoint(coord);
-        restaurantService.create(new Restaurant("U2", description, "/assets/images/rest1.jpg", coverLogoPath, 1, location, category, cousine, coordinates));
+        restaurantService.create(new Restaurant("U2", description, "/assets/images/rest1.jpg", coverLogoPath, 1, locNear, category, cousine, coordinates));
 
-        location = locationService.findById((long) 1);
-        category = categoryService.findById((long) 15);
-        cousine = cousineService.findById((long) 19);
+        location = locationService.filter(lfb).getData().get(0);
+        category = categoryService.filter(cfb).getData().get(1);
+        cousine = cousineService.filter(cofb).getData().get(1);
         coordinates = gf.createPoint(new Coordinate(43.870292553395295, 18.409144909300267, 0.0));
-        restaurantService.create(new Restaurant("Metropolis", description, "/assets/images/rest2.jpg", coverLogoPath, 2, location, category, cousine, coordinates));
+        restaurantService.create(new Restaurant("Metropolis", description, "/assets/images/rest2.jpg", coverLogoPath, 2, locNear, category, cousine, coordinates));
 
-        location = locationService.findById((long) 1);
-        category = categoryService.findById((long) 16);
-        cousine = cousineService.findById((long) 20);
+        category = categoryService.filter(cfb).getData().get(2);
+        cousine = cousineService.filter(cofb).getData().get(2);
         coordinates = gf.createPoint(new Coordinate(43.859278, 18.414896, 0.0));
-        restaurantService.create(new Restaurant("McDonalds", description, "/assets/images/rest3.jpg", coverLogoPath, 3, location, category, cousine, coordinates));
+        restaurantService.create(new Restaurant("McDonalds", description, "/assets/images/rest3.jpg", coverLogoPath, 3, locNear, category, cousine, coordinates));
 
-        location = locationService.findById((long) 1);
-        category = categoryService.findById((long) 17);
-        cousine = cousineService.findById((long) 21);
+        category = categoryService.filter(cfb).getData().get(3);
+        cousine = cousineService.filter(cofb).getData().get(3);
         coordinates = gf.createPoint(new Coordinate(43.861515, 18.437634, 0.0));
-        restaurantService.create(new Restaurant("Burger King", description, "/assets/images/rest4.jpg", coverLogoPath, 4, location, category, cousine, coordinates));
+        restaurantService.create(new Restaurant("Burger King", description, "/assets/images/rest4.jpg", coverLogoPath, 4, locNear, category, cousine, coordinates));
 
-        location = locationService.findById((long) 1);
-        category = categoryService.findById((long) 14);
-        cousine = cousineService.findById((long) 18);
+        category = categoryService.filter(cfb).getData().get(0);
+        cousine = cousineService.filter(cofb).getData().get(0);
         coordinates = gf.createPoint(new Coordinate(43.864733, 18.421926, 0.0));
-        restaurantService.create(new Restaurant("Montana", description, "/assets/images/rest1.jpg", coverLogoPath, 1, location, category, cousine, coordinates));
+        restaurantService.create(new Restaurant("Montana", description, "/assets/images/rest1.jpg", coverLogoPath, 1, locNear, category, cousine, coordinates));
 
-        location = locationService.findById((long) 1);
-        category = categoryService.findById((long) 15);
-        cousine = cousineService.findById((long) 19);
+        category = categoryService.filter(cfb).getData().get(0);
+        cousine = cousineService.filter(cofb).getData().get(0);
         coordinates = gf.createPoint(new Coordinate(43.848394, 43.848394, 0.0));
-        restaurantService.create(new Restaurant("In-N-Out", description, "/assets/images/rest2.jpg", coverLogoPath, 2, location, category, cousine, coordinates));
+        restaurantService.create(new Restaurant("In-N-Out", description, "/assets/images/rest2.jpg", coverLogoPath, 2, locNear, category, cousine, coordinates));
 
-        location = locationService.findById((long) 2);
-        category = categoryService.findById((long) 16);
-        cousine = cousineService.findById((long) 20);
+        category = categoryService.filter(cfb).getData().get(1);
+        cousine = cousineService.filter(cofb).getData().get(1);
         coordinates = gf.createPoint(new Coordinate(44.529801, 18.687916, 0.0));
-        restaurantService.create(new Restaurant("Starbucks", description, "/assets/images/rest3.jpg", coverLogoPath, 3, location, category, cousine, coordinates));
+        restaurantService.create(new Restaurant("Starbucks", description, "/assets/images/rest3.jpg", coverLogoPath, 3, locNear, category, cousine, coordinates));
 
-        location = locationService.findById((long) 3);
-        category = categoryService.findById((long) 17);
-        cousine = cousineService.findById((long) 21);
+        location = locationService.filter(lfb).getData().get(1);
+        category = categoryService.filter(cfb).getData().get(2);
+        cousine = cousineService.filter(cofb).getData().get(2);
         coordinates = gf.createPoint(new Coordinate(44.78597635332904, 20.466732944172577, 0.0));
         restaurantService.create(new Restaurant("Olive Garden", description, "/assets/images/rest4.jpg", coverLogoPath, 4, location, category, cousine, coordinates));
 
-        location = locationService.findById((long) 4);
-        category = categoryService.findById((long) 14);
-        cousine = cousineService.findById((long) 18);
+        location = locationService.filter(lfb).getData().get(2);
+        category = categoryService.filter(cfb).getData().get(3);
+        cousine = cousineService.filter(cofb).getData().get(3);
         coordinates = gf.createPoint(new Coordinate(45.80709138958274, 15.977979337780425, 0.0));
         restaurantService.create(new Restaurant("Taco Bell", description, "/assets/images/rest1.jpg", coverLogoPath, 1, location, category, cousine, coordinates));
 
-        location = locationService.findById((long) 4);
-        category = categoryService.findById((long) 15);
-        cousine = cousineService.findById((long) 19);
+        location = locationService.filter(lfb).getData().get(3);
+        category = categoryService.filter(cfb).getData().get(0);
+        cousine = cousineService.filter(cofb).getData().get(0);
         coordinates = gf.createPoint(new Coordinate(45.807091, 15.945364, 0.0));
         restaurantService.create(new Restaurant("Arby's", description, "/assets/images/rest2.jpg", coverLogoPath, 2, location, category, cousine, coordinates));
 
-        location = locationService.findById((long) 4);
-        category = categoryService.findById((long) 16);
-        cousine = cousineService.findById((long) 20);
+        location = locationService.filter(lfb).getData().get(3);
+        category = categoryService.filter(cfb).getData().get(1);
+        cousine = cousineService.filter(cofb).getData().get(1);
         coordinates = gf.createPoint(new Coordinate(45.805655, 15.915495, 0.0));
 
         restaurantService.create(new Restaurant("KFC", description, "/assets/images/rest3.jpg", coverLogoPath, 3, location, category, cousine, coordinates));
 
-        location = locationService.findById((long) 4);
-        category = categoryService.findById((long) 17);
-        cousine = cousineService.findById((long) 21);
+        location = locationService.filter(lfb).getData().get(3);
+        category = categoryService.filter(cfb).getData().get(2);
+        cousine = cousineService.filter(cofb).getData().get(2);
         coordinates = gf.createPoint(new Coordinate(45.812835, 15.990339, 0.0));
         restaurantService.create(new Restaurant("Pizza Hut", description, "/assets/images/rest4.jpg", coverLogoPath, 4, location, category, cousine, coordinates));
 
@@ -168,7 +181,8 @@ public class DbLoader implements CommandLineRunner {
         RestaurantFilterBuilder rfb = new RestaurantFilterBuilder()
                 .setPageSize(0);
         // Admin adds initial resevations needed for reservation logic
-        User user = userService.findById(12L);
+        UserFilterBuilder ufb = new UserFilterBuilder();
+        User user = userService.filter(ufb).getData().get(0);
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-HH:mm:ss");
         dateFormat.setTimeZone(TimeZone.getTimeZone("CET"));
 

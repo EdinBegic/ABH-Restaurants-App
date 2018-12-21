@@ -5,17 +5,21 @@ import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 
 public class ReviewFilterBuilder extends BaseFilterBuilder<ReviewSortKeys, ReviewFilterBuilder> {
-    Long id;
+    Long restaurantId;
     Long userId;
     @Override
     protected Criteria addConditions(Criteria rootCriteria, boolean isCountCriteria) {
-        rootCriteria.add(Restrictions.eq("restaurant.id", id));
-        rootCriteria.add(Restrictions.eq("user.id", userId));
+        if(restaurantId != null) {
+            rootCriteria.add(Restrictions.eq("restaurant.id", restaurantId));
+        }
+        if(userId != null) {
+            rootCriteria.add(Restrictions.eq("user.id", userId));
+        }
         return rootCriteria;
     }
 
-    public ReviewFilterBuilder setId(Long id) {
-        this.id = id;
+    public ReviewFilterBuilder setRestaurantId(Long restaurantId) {
+        this.restaurantId = restaurantId;
         return this;
     }
 
@@ -23,4 +27,5 @@ public class ReviewFilterBuilder extends BaseFilterBuilder<ReviewSortKeys, Revie
         this.userId = userId;
         return this;
     }
+
 }

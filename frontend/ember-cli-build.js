@@ -12,14 +12,14 @@ module.exports = function(defaults) {
     fontawesome: {
       icons: {
         'free-solid-svg-icons': [
-          'user','star','info-circle','check-circle','clock'
+          'user','star','info-circle','check-circle','clock','trash-alt','pencil-alt'
         ]
       }
     },
     fingerprint: {
       enabled: false
     }
-  
+
   });
 
   // Use `app.import` to add additional libraries to the generated

@@ -1,0 +1,58 @@
+.admin-card {
+  background: #FFFFFF;
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.10);
+  border-radius: 2px;
+  height: 220px;
+  width: 100%;
+}
+
+%admin-card-info {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  color: #131D24;
+  letter-spacing: 0;
+}
+
+.admin-card-counter {
+  @extend %admin-card-info;
+  font-size: 48px;
+  text-align: center;
+  padding-top: 10%;
+}
+
+.admin-card-label {
+  @extend %admin-card-info;
+  font-size: 16px;
+  text-align: center;
+}
+
+.admin-button {
+  position: absolute;
+  bottom: -20px;
+  margin-left: 23%;
+  height: 40px;
+  width: 45%;
+  background: #FD6F60;
+  border-radius: 2px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-size: 16px;
+  color: #FFFFFF;
+}
+%admin-base-link {
+  letter-spacing: 0;
+  &:hover {
+    color: #FD6F60;
+    text-decoration: none;
+  }
+}
+.admin-link {
+  @extend %admin-base-link;
+  color: rgba(0, 0, 0, 0.4);
+}
+
+.admin-button-link {
+  @extend %admin-base-link;
+  color: white;
+}
+.admin-button-link:hover {
+  color: white;
+}

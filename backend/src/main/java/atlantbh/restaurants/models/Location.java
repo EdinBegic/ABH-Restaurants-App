@@ -104,7 +104,7 @@ public class Location extends BaseModel<Location> {
         this.users = users;
     }
 
-    @OneToMany(mappedBy = "location")
+    @OneToMany(mappedBy = "location", orphanRemoval = true)
     @JsonIgnore
     public Collection<Restaurant> getRestaurants() {
         return restaurants;

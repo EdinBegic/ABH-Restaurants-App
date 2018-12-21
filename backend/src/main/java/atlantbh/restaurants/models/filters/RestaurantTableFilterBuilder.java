@@ -11,12 +11,11 @@ public class RestaurantTableFilterBuilder extends BaseFilterBuilder<RestaurantTa
 
     @Override
     protected Criteria addConditions(Criteria rootCriteria, boolean isCountCriteria) {
-        rootCriteria.createAlias("restaurant", "r");
         if (sittingPlaces != null && sittingPlaces > 0) {
             rootCriteria.add(Restrictions.eq("sittingPlaces", sittingPlaces));
         }
         if (restaurantId != null) {
-            rootCriteria.add(Restrictions.eq("r.id", restaurantId));
+            rootCriteria.add(Restrictions.eq("restaurant.id", restaurantId));
         }
         return rootCriteria;
     }

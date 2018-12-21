@@ -1,0 +1,74 @@
+%admin-box {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
+                Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+                "Segoe UI Symbol", "Noto Color Emoji";
+  font-size: 18px;
+  height: 56px;
+}
+
+%admin-field-box {
+  @extend %admin-box;
+  border: 0;
+  color: #131d24;
+}
+
+.admin-search-field {
+  @extend %admin-field-box;
+  padding-left: 10px;
+  border-radius: 0;
+  outline: none;
+}
+
+.admin-list-field {
+  @extend %admin-field-box;
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-right: 10px;
+}
+
+.admin-search-text {
+  background: #ffffff;
+  color: #6d747a;
+  border-radius: 2px;
+}
+
+.admin-filler {
+  width: 100%;
+}
+
+.admin-filter {
+  padding-top: 50px;
+  padding-bottom: 10px;
+}
+
+.sort-dropdown{
+  float: left
+}
+#admin-list-search {
+  width: 100%;
+}
+
+%admin-tab-label {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
+                Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+                "Segoe UI Symbol", "Noto Color Emoji";
+  font-size: 16px;
+  letter-spacing: -0.2px;
+  line-height: 18px;
+}
+.admin-tab-inactive-label {
+  @extend %admin-tab-label;
+  color: rgba(-2147483648,-2147483648,-2147483648,0.40);
+  border-radius: 0px;
+}
+.admin-tab-active-label {
+  @extend %admin-tab-label;
+  color:  #FD6F60;
+  border-radius: 0px;
+}
+.admin-tab-inactive-label:focus, .admin-tab-active-label:focus {
+  color: #FD6F60;
+}
+.row-cards {
+  padding-bottom: 500px;
+}

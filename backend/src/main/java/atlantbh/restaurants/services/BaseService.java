@@ -38,7 +38,7 @@ public class BaseService<M extends BaseModel<M>, S extends Enum<S>, F extends Ba
             repository.save(m);
             return m;
         } catch (RepositoryException e) {
-            throw new ServiceException(e.getMessage());
+            throw new ServiceException(e.getMessage(), e);
         }
     }
 
@@ -59,7 +59,7 @@ public class BaseService<M extends BaseModel<M>, S extends Enum<S>, F extends Ba
             M model = get(id);
             repository.delete(model);
         } catch (RepositoryException e) {
-            throw new ServiceException("Requested model couldn't be deleted");
+            throw new ServiceException("Requested model couldn't be deleted", e);
         }
     }
 }
