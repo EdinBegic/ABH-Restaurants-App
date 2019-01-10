@@ -128,7 +128,7 @@ public class DbLoader implements CommandLineRunner {
         cousine = cousineService.filter(cofb).getData().get(3);
         coordinates = gf.createPoint(new Coordinate(43.861515, 18.437634, 0.0));
         restaurantService.create(new Restaurant("Burger King", description, "/assets/images/rest4.jpg", coverLogoPath, 4, locNear, category, cousine, coordinates));
-
+/*
         category = categoryService.filter(cfb).getData().get(0);
         cousine = cousineService.filter(cofb).getData().get(0);
         coordinates = gf.createPoint(new Coordinate(43.864733, 18.421926, 0.0));
@@ -174,7 +174,7 @@ public class DbLoader implements CommandLineRunner {
         cousine = cousineService.filter(cofb).getData().get(2);
         coordinates = gf.createPoint(new Coordinate(45.812835, 15.990339, 0.0));
         restaurantService.create(new Restaurant("Pizza Hut", description, "/assets/images/rest4.jpg", coverLogoPath, 4, location, category, cousine, coordinates));
-
+*/
     }
 
     private void addTablesAndReservations() throws ParseException {
@@ -207,7 +207,7 @@ public class DbLoader implements CommandLineRunner {
                     Integer baseStayingPeriodMinutes = 30;
                     Calendar cal = Calendar.getInstance();
                     List<Integer> offset = new ArrayList<>();
-                    for (int hour = 6; hour <= 23; hour++) {
+                    for (int hour = 9; hour <= 22; hour++) {
                         if (hour < 12) {
                             offset.add(0);
                         } else if (hour < 15) {
@@ -220,8 +220,8 @@ public class DbLoader implements CommandLineRunner {
                             offset.add(45);
                             offset.add(60);
                         }
-                        for (int minutes = 0; minutes < 60; minutes += 15) {
-                            for (int month = 0; month < 10; month++) {
+                        for (int minutes = 0; minutes < 60; minutes += 30) {
+                            for (int month = 0; month < 2; month++) {
                                 cal.clear();
                                 cal.set(year, month, day, hour, minutes, 0);
                                 Random randomizer = new Random();
