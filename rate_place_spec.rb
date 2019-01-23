@@ -1,62 +1,77 @@
 require 'rspec'
-require 'selenium-webdriver'
 require 'watir'
-require 'require_all'
-require_all './libs'
+require 'selenium-webdriver'
 
+browser = Watir::Browser.new :chrome
 
-site = Site.new(Watir::Browser.new :chrome)
+RSpec.configure do |config|
+  config.color = true
+  config.formatter = :documentation
+  config.before(:each) { @browser = browser }
+  config.before(:all) {browser.window.maximize}
+  config.after(:suite) { browser.close unless browser.nil? }
+end
+
 
 describe 'ABH restaurants regression test' do
 
 	context 'When rating the place' do
 
 		it 'should open ABH restaurants page' do
-			site.home_page.open
+			@browser.goto('https://abh-restaurants.herokuapp.com')
 		end
 
 		it 'should go to login page' do
-			site.home_page.open_login
+			@browser.a(id: 'login-link').click
 		end
 
 		it 'should enter the email' do
-			site.login_page.enter_email 'admin@abh.com'
+			@browser.input(:placeholder => 'Email').send_keys 'janedoe@gmail.com'
 		end
 
 		it 'should enter the password' do
-			site.login_page.enter_password 'admin'
+			@browser.input(:placeholder => 'Password').send_keys 'sifrazaaplikaciju'
 		end
 
 		it 'should login to application' do
-			site.login_page.login
+			@browser.button(class: ["form-control", "login-button", "btn"]).click
+		end
+
+		it 'should close the confirmation window' do
+			@browser.button(class: ["swal2-confirm", "swal2-styled"]).click
 		end
 
 		it 'should go to the Restaurants section' do
-			site.home_page.go_to_restaurants
+			@browser.link(href: "/restaurant-list").wait_until_present
+			@browser.link(href: "/restaurant-list").click!
 		end
 
 
 		it 'should open the restaurants page' do
-			site.restaurants_list_page.open_restaurant
+			@browser.button(class: ["form-control", "reserve-button--list", "btn"]).click
 		end
 
 		it 'should open the rating form' do
-			site.restaurant_page.open_rating_form
+			@browser.button(class: ["form-control", "rate-button", "btn"]).click
 		end
 
 		it 'should write a review' do
-			site.restaurant_page.write_review 'Good.'
+			@browser.textarea(placeholder: 'Write a review').send_keys "Good, but not great."
 			sleep 2
 		end
 
 		it 'should rate the place' do
-			site.restaurant_page.rate_place
+			@browser.element(fill: 'url(#star-rating-star-2)').click
 			sleep 2
 		end
 
 		it 'should send the review' do
-			site.restaurant_page.send_review
+			@browser.button(class: ["form-control", "modal-button", "btn"]).click
 			sleep 2
+		end
+
+		it 'should close the confirmation window' do
+			@browser.button(class: ["swal2-confirm", "swal2-styled"]).click
 		end
 
 	end
